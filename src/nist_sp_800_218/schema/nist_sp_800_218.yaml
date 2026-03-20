@@ -124,7 +124,7 @@ slots:
     in_subset:
       - nist_sp_800_218_catalog
 
-  class:
+  _class:
     description: Classification of a catalog element
     in_subset:
       - nist_sp_800_218_catalog
@@ -439,9 +439,9 @@ classes:
     is_a: CatalogElement
     slots:
       - title
-      - class
+      - _class
     slot_usage:
-      class:
+      _class:
         range: CatalogElementClassValue
     in_subset:
       - nist_sp_800_218_catalog

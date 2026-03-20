@@ -1,0 +1,791 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix nist_sp_800_218: <https://w3id.org/lmodel/nist-sp-800-218/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/lmodel/nist-sp-800-218.owl.ttl> a owl:Ontology ;
+    rdfs:label "nist-sp-800-218" ;
+    dcterms:license "Apache-2.0" ;
+    dcterms:source <https://doi.org/10.6028/NIST.SP.800-218> ;
+    dcterms:title "nist-sp-800-218" ;
+    pav:version "1.1.0" ;
+    rdfs:seeAlso <https://lmodel.github.io/nist-sp-800-218> ;
+    skos:definition "'Electronic (LinkML) Version of Secure Software Development Framework (SSDF): Recommendations for Mitigating the Risk of Software Vulnerabilities'" .
+
+nist_sp_800_218:SSFDDocument a owl:Class ;
+    rdfs:label "SSFDDocument" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:catalog ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:catalog ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:CatalogBody ;
+            owl:onProperty nist_sp_800_218:catalog ] ;
+    skos:definition "Root wrapper for SSDF catalog content" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:CatalogElement a owl:Class ;
+    rdfs:label "CatalogElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Link ;
+            owl:onProperty nist_sp_800_218:links ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:parts ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Property ;
+            owl:onProperty nist_sp_800_218:props ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:links ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:props ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Part ;
+            owl:onProperty nist_sp_800_218:parts ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:id ] ;
+    skos:definition "Base class for identifiable catalog elements" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Task a owl:Class ;
+    rdfs:label "Task" ;
+    rdfs:subClassOf nist_sp_800_218:IdentifiedElement ;
+    skos:definition "An SSDF task within a practice" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Address a owl:Class ;
+    rdfs:label "Address" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:postal_code ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:city ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:postal_code ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:state ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:city ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:city ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:addr_lines ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:addr_lines ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:postal_code ] ;
+    skos:definition "Postal address" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:BackMatter a owl:Class ;
+    rdfs:label "BackMatter" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Resource ;
+            owl:onProperty nist_sp_800_218:resources ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:resources ] ;
+    skos:definition "OSCAL back-matter section" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:CatalogBody a owl:Class ;
+    rdfs:label "CatalogBody" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:metadata ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:back_matter ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:BackMatter ;
+            owl:onProperty nist_sp_800_218:back_matter ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:ControlGroup ;
+            owl:onProperty nist_sp_800_218:groups ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:metadata ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Metadata ;
+            owl:onProperty nist_sp_800_218:metadata ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:groups ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:back_matter ] ;
+    skos:definition "Main SSDF catalog object" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+<https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group> a owl:Class ;
+    rdfs:label "group" ;
+    rdfs:subClassOf nist_sp_800_218:CatalogElementClassValue ;
+    skos:definition "A top-level practice group" .
+
+<https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#practice> a owl:Class ;
+    rdfs:label "practice" ;
+    rdfs:subClassOf nist_sp_800_218:CatalogElementClassValue ;
+    skos:definition "An SSDF practice within a group" .
+
+<https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#task> a owl:Class ;
+    rdfs:label "task" ;
+    rdfs:subClassOf nist_sp_800_218:CatalogElementClassValue ;
+    skos:definition "A task within an SSDF practice" .
+
+nist_sp_800_218:Citation a owl:Class ;
+    rdfs:label "Citation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:text ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:text ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:text ] ;
+    skos:definition "Citation wrapper" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Control a owl:Class ;
+    rdfs:label "Control" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Task ;
+            owl:onProperty nist_sp_800_218:controls ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:controls ],
+        nist_sp_800_218:IdentifiedElement ;
+    skos:definition "An SSDF practice containing tasks" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:ControlGroup a owl:Class ;
+    rdfs:label "ControlGroup" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Control ;
+            owl:onProperty nist_sp_800_218:controls ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:controls ],
+        nist_sp_800_218:IdentifiedElement ;
+    skos:definition "An SSDF practice group (e.g. PO, PS, PW, RV)" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Metadata a owl:Class ;
+    rdfs:label "Metadata" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:parties ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:ResponsibleParty ;
+            owl:onProperty nist_sp_800_218:responsible_parties ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:oscal_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Party ;
+            owl:onProperty nist_sp_800_218:parties ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:last_modified ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Link ;
+            owl:onProperty nist_sp_800_218:links ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:published ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:published ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:roles ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:oscal_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:last_modified ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:published ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:oscal_version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:props ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Role ;
+            owl:onProperty nist_sp_800_218:roles ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:responsible_parties ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Property ;
+            owl:onProperty nist_sp_800_218:props ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:links ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:last_modified ] ;
+    skos:definition "OSCAL metadata section for the SSDF catalog" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Part a owl:Class ;
+    rdfs:label "Part" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:prose ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:prose ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:prose ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:name ],
+        nist_sp_800_218:IdentifiedElement ;
+    skos:definition "Structured narrative part containing prose content" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Party a owl:Class ;
+    rdfs:label "Party" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:short_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:addresses ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Address ;
+            owl:onProperty nist_sp_800_218:addresses ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:short_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:email_addresses ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:short_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:email_addresses ] ;
+    skos:definition "Party definition" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Resource a owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:citation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:rlinks ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:citation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:ResourceLink ;
+            owl:onProperty nist_sp_800_218:rlinks ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:Citation ;
+            owl:onProperty nist_sp_800_218:citation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:uuid ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:title ] ;
+    skos:definition "Referenced resource in back-matter" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:ResourceLink a owl:Class ;
+    rdfs:label "ResourceLink" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:href ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:href ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:href ] ;
+    skos:definition "Reference link for a resource" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:ResponsibleParty a owl:Class ;
+    rdfs:label "ResponsibleParty" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:party_uuids ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:party_uuids ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:role_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:role_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:role_id ] ;
+    skos:definition "Assignment of parties to a role" ;
+    skos:exactMatch linkml:Any ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Role a owl:Class ;
+    rdfs:label "Role" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:title ] ;
+    skos:definition "Role definition" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:addr_lines a owl:DatatypeProperty ;
+    rdfs:label "addr-lines" ;
+    skos:altLabel "addr_lines" ;
+    skos:definition "Address lines" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:addresses a owl:ObjectProperty ;
+    rdfs:label "addresses" ;
+    rdfs:range nist_sp_800_218:Address ;
+    skos:definition "Postal addresses" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:email_addresses a owl:DatatypeProperty ;
+    rdfs:label "email-addresses" ;
+    skos:altLabel "email_addresses" ;
+    skos:definition "Party email addresses" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:groups a owl:ObjectProperty ;
+    rdfs:label "groups" ;
+    rdfs:range nist_sp_800_218:ControlGroup ;
+    skos:definition "List of SSDF practice groups in the catalog" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:parties a owl:ObjectProperty ;
+    rdfs:label "parties" ;
+    rdfs:range nist_sp_800_218:Party ;
+    skos:definition "Parties used in metadata" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:parts a owl:ObjectProperty ;
+    rdfs:label "parts" ;
+    rdfs:range nist_sp_800_218:Part ;
+    skos:definition "Nested parts that provide prose and structure" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:party_uuids a owl:DatatypeProperty ;
+    rdfs:label "party-uuids" ;
+    skos:altLabel "party_uuids" ;
+    skos:definition "Referenced party UUIDs" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:resources a owl:ObjectProperty ;
+    rdfs:label "resources" ;
+    rdfs:range nist_sp_800_218:Resource ;
+    skos:definition "Back-matter resources" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:responsible_parties a owl:ObjectProperty ;
+    rdfs:label "responsible-parties" ;
+    rdfs:range nist_sp_800_218:ResponsibleParty ;
+    skos:altLabel "responsible_parties" ;
+    skos:definition "Responsible party assignments" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:rlinks a owl:ObjectProperty ;
+    rdfs:label "rlinks" ;
+    rdfs:range nist_sp_800_218:ResourceLink ;
+    skos:definition "Resource links" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:roles a owl:ObjectProperty ;
+    rdfs:label "roles" ;
+    rdfs:range nist_sp_800_218:Role ;
+    skos:definition "Roles used in metadata" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Link a owl:Class ;
+    rdfs:label "Link" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:text ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:rel ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:href ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:href ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:text ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:text ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:href ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:rel ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:rel ] ;
+    skos:definition "Relationship link with optional annotation text" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:Property a owl:Class ;
+    rdfs:label "Property" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:ns ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:ns ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:ns ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:name ] ;
+    skos:definition "A name-value property with optional namespace" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:_class a owl:DatatypeProperty ;
+    rdfs:label "_class" ;
+    skos:definition "Classification of a catalog element" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:back_matter a owl:ObjectProperty ;
+    rdfs:label "back-matter" ;
+    rdfs:range nist_sp_800_218:BackMatter ;
+    skos:altLabel "back_matter" ;
+    skos:definition "Back-matter references and resources" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:catalog a owl:ObjectProperty ;
+    rdfs:label "catalog" ;
+    rdfs:range nist_sp_800_218:CatalogBody ;
+    skos:definition "Root catalog payload" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:citation a owl:ObjectProperty ;
+    rdfs:label "citation" ;
+    rdfs:range nist_sp_800_218:Citation ;
+    skos:definition "Citation details for a resource" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:city a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    skos:definition "City name" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:last_modified a owl:DatatypeProperty ;
+    rdfs:label "last-modified" ;
+    skos:altLabel "last_modified" ;
+    skos:definition "Last modification timestamp" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:metadata a owl:ObjectProperty ;
+    rdfs:label "metadata" ;
+    rdfs:range nist_sp_800_218:Metadata ;
+    skos:definition "Catalog metadata" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:ns a owl:DatatypeProperty ;
+    rdfs:label "ns" ;
+    skos:definition "Namespace URI for a property" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:oscal_version a owl:DatatypeProperty ;
+    rdfs:label "oscal-version" ;
+    skos:altLabel "oscal_version" ;
+    skos:definition "OSCAL version identifier" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:postal_code a owl:DatatypeProperty ;
+    rdfs:label "postal-code" ;
+    skos:altLabel "postal_code" ;
+    skos:definition "Postal code" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:prose a owl:DatatypeProperty ;
+    rdfs:label "prose" ;
+    skos:definition "Free-text prose content" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:published a owl:DatatypeProperty ;
+    rdfs:label "published" ;
+    skos:definition "Publication timestamp" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:rel a owl:DatatypeProperty ;
+    rdfs:label "rel" ;
+    skos:definition "Relationship type for a link" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:role_id a owl:DatatypeProperty ;
+    rdfs:label "role-id" ;
+    skos:altLabel "role_id" ;
+    skos:definition "Assigned role identifier" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:short_name a owl:DatatypeProperty ;
+    rdfs:label "short-name" ;
+    skos:altLabel "short_name" ;
+    skos:definition "Short display name" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:state a owl:DatatypeProperty ;
+    rdfs:label "state" ;
+    skos:definition "State or region" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:type a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    skos:definition "Party type" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:value a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    skos:definition "Property value" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
+    skos:definition "Version identifier" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:CatalogElementClassValue a owl:Class ;
+    rdfs:label "CatalogElementClassValue" ;
+    owl:unionOf ( <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group> <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#practice> <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#task> ) ;
+    skos:definition "Allowed class values for SSDF catalog elements" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> ;
+    linkml:permissible_values <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group>,
+        <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#practice>,
+        <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#task> .
+
+nist_sp_800_218:IdentifiedElement a owl:Class ;
+    rdfs:label "IdentifiedElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:_class ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty nist_sp_800_218:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty nist_sp_800_218:_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom nist_sp_800_218:CatalogElementClassValue ;
+            owl:onProperty nist_sp_800_218:_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty nist_sp_800_218:title ],
+        nist_sp_800_218:CatalogElement ;
+    skos:definition "A catalog element with a title and class classification" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:controls a owl:ObjectProperty ;
+    rdfs:label "controls" ;
+    rdfs:range nist_sp_800_218:Control ;
+    skos:definition "List of practices or tasks" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:links a owl:ObjectProperty ;
+    rdfs:label "links" ;
+    rdfs:range nist_sp_800_218:Link ;
+    skos:definition "List of links and relationships" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:props a owl:ObjectProperty ;
+    rdfs:label "props" ;
+    rdfs:range nist_sp_800_218:Property ;
+    skos:definition "List of properties" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:href a owl:DatatypeProperty ;
+    rdfs:label "href" ;
+    skos:definition "Link or resource reference URI" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:id a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    skos:definition "Unique identifier for an element" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:text a owl:DatatypeProperty ;
+    rdfs:label "text" ;
+    skos:definition "Citation or link annotation text" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    skos:definition "Name of a property or part" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:uuid a owl:DatatypeProperty ;
+    rdfs:label "uuid" ;
+    skos:definition "UUID for catalog or resource element" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+nist_sp_800_218:title a owl:DatatypeProperty ;
+    rdfs:label "title" ;
+    skos:definition "Human-readable title" ;
+    skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
+
+
