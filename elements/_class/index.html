@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://lmodel.github.io/nist-sp-800-218/elements/text/">
+        <link rel="canonical" href="https://lmodel.github.io/nist-sp-800-218/elements/_class/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: text - nist-sp-800-218</title>
+        <title>Slot: _class - nist-sp-800-218</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-text" class="md-skip">
+        <a href="#slot-_class" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: text
+              Slot: _class
             
           </span>
         </div>
@@ -496,10 +496,10 @@
   
 
 
-<h1 id="slot-text">Slot: text</h1>
-<p><em>Citation or link annotation text</em></p>
-<p>URI: <a href="https://w3id.org/lmodel/nist-sp-800-218/text">nist_sp_800_218:text</a>
-Alias: text</p>
+<h1 id="slot-_class">Slot: _class</h1>
+<p><em>Classification of a catalog element</em></p>
+<p>URI: <a href="https://w3id.org/lmodel/nist-sp-800-218/_class">nist_sp_800_218:_class</a>
+Alias: _class</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -513,13 +513,28 @@ Alias: text</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Link/">Link</a></td>
-<td>Relationship link with optional annotation text</td>
+<td><a href="../Part/">Part</a></td>
+<td>Structured narrative part containing prose content</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Citation/">Citation</a></td>
-<td>Citation wrapper</td>
+<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
+<td>A catalog element with a title and class classification</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><a href="../Task/">Task</a></td>
+<td>An SSDF task within a practice</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ControlGroup/">ControlGroup</a></td>
+<td>An SSDF practice group (e</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Control/">Control</a></td>
+<td>An SSDF practice containing tasks</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -540,7 +555,7 @@ Alias: text</p>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../Citation/">Citation</a>, <a href="../Link/">Link</a></td>
+<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
 </tr>
 </tbody>
 </table>
@@ -579,26 +594,25 @@ Alias: text</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>nist_sp_800_218:text</td>
+<td>nist_sp_800_218:_class</td>
 </tr>
 <tr>
 <td>native</td>
-<td>nist_sp_800_218:text</td>
+<td>nist_sp_800_218:_class</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Citation or link annotation text</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_class</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Classification of a catalog element</span>
 <span class="nt">in_subset</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nist_sp_800_218_catalog</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/lmodel/nist-sp-800-218</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_class</span>
 <span class="nt">domain_of</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Citation</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentifiedElement</span>
 <span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </code></pre></div>
 </details>

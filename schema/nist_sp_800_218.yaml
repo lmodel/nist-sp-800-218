@@ -514,14 +514,14 @@ slots:
     domain_of:
     - Metadata
     range: string
-  class:
-    name: class
-    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/class
+  _class:
+    name: _class
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/_class
     description: Classification of a catalog element
     in_subset:
     - nist_sp_800_218_catalog
     from_schema: https://w3id.org/lmodel/nist-sp-800-218
-    slot_uri: nist_sp_800_218:class
+    slot_uri: nist_sp_800_218:_class
     owner: IdentifiedElement
     domain_of:
     - IdentifiedElement
@@ -859,22 +859,22 @@ slots:
     domain_of:
     - Link
     range: string
-  IdentifiedElement_class:
-    name: IdentifiedElement_class
-    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/class
+  IdentifiedElement__class:
+    name: IdentifiedElement__class
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/_class
     description: Classification of a catalog element
     in_subset:
     - nist_sp_800_218_catalog
     from_schema: https://w3id.org/lmodel/nist-sp-800-218
-    is_a: class
+    is_a: _class
     domain: IdentifiedElement
-    slot_uri: nist_sp_800_218:class
-    alias: class
+    slot_uri: nist_sp_800_218:_class
+    alias: _class
     owner: IdentifiedElement
     domain_of:
     - IdentifiedElement
     is_usage_slot: true
-    usage_slot_name: class
+    usage_slot_name: _class
     range: CatalogElementClassValue
   Control_controls:
     name: Control_controls
@@ -1081,10 +1081,10 @@ classes:
     - links
     - parts
     - title
-    - IdentifiedElement_class
+    - IdentifiedElement__class
     slot_usage:
-      class:
-        name: class
+      _class:
+        name: _class
         range: CatalogElementClassValue
     class_uri: nist_sp_800_218:IdentifiedElement
   ControlGroup:
@@ -1101,7 +1101,7 @@ classes:
     - links
     - parts
     - title
-    - IdentifiedElement_class
+    - IdentifiedElement__class
     - controls
     class_uri: nist_sp_800_218:ControlGroup
   Control:
@@ -1118,7 +1118,7 @@ classes:
     - links
     - parts
     - title
-    - IdentifiedElement_class
+    - IdentifiedElement__class
     - Control_controls
     slot_usage:
       controls:
@@ -1139,7 +1139,7 @@ classes:
     - links
     - parts
     - title
-    - IdentifiedElement_class
+    - IdentifiedElement__class
     class_uri: nist_sp_800_218:Task
   Property:
     name: Property
@@ -1179,13 +1179,13 @@ classes:
     - links
     - parts
     - title
-    - IdentifiedElement_class
+    - IdentifiedElement__class
     - name
     - prose
     class_uri: nist_sp_800_218:Part
 metamodel_version: 1.7.0
 source_file: nist_sp_800_218.yaml
-source_file_date: '2026-03-20T14:37:34'
-source_file_size: 10289
-generation_date: '2026-03-20T14:37:45'
+source_file_date: '2026-03-20T15:43:00'
+source_file_size: 10292
+generation_date: '2026-03-20T15:43:11'
 
