@@ -514,37 +514,47 @@ Alias: props</p>
 <tbody>
 <tr>
 <td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
-<td>A catalog element with a title and class classification</td>
+<td>A catalog element with title, optional class/label, and inherited id/props/li...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ControlGroup/">ControlGroup</a></td>
+<td>A top-level control or requirement family group</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../SSFDPractice/">SSFDPractice</a></td>
+<td>An SSDF practice containing tasks</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Control/">Control</a></td>
+<td>A control, requirement, or practice</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Parameter/">Parameter</a></td>
+<td>A configurable or organization-defined parameter</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Metadata/">Metadata</a></td>
+<td>OSCAL metadata section</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Part/">Part</a></td>
+<td>Structured narrative part containing prose and optional nested parts</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../CatalogElement/">CatalogElement</a></td>
+<td>Abstract base class for identifiable catalog elements</td>
 <td>no</td>
 </tr>
 <tr>
 <td><a href="../Task/">Task</a></td>
 <td>An SSDF task within a practice</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Control/">Control</a></td>
-<td>An SSDF practice containing tasks</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Part/">Part</a></td>
-<td>Structured narrative part containing prose content</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../CatalogElement/">CatalogElement</a></td>
-<td>Base class for identifiable catalog elements</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Metadata/">Metadata</a></td>
-<td>OSCAL metadata section for the SSDF catalog</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ControlGroup/">ControlGroup</a></td>
-<td>An SSDF practice group (e</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -586,7 +596,7 @@ Alias: props</p>
 </table>
 <h2 id="in-subsets">In Subsets</h2>
 <ul>
-<li><a href="../NistSp800218Catalog/">NistSp800218Catalog</a></li>
+<li><a href="../OscalCatalogCommon/">OscalCatalogCommon</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -617,7 +627,7 @@ Alias: props</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">props</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">List of properties</span>
 <span class="nt">in_subset</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nist_sp_800_218_catalog</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oscal_catalog_common</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/lmodel/nist-sp-800-218</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">props</span>

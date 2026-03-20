@@ -77,6 +77,10 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/Guideline/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/IdentifiedElement/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
@@ -117,6 +121,14 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/OscalCatalogCommon/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/Parameter/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/Part/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
@@ -146,6 +158,10 @@
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/SSFDDocument/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/SSFDPractice/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -205,11 +221,19 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/description/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/email_addresses/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/groups/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/guidelines/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -221,11 +245,19 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/label/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/last_modified/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/links/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/media_type/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -246,6 +278,10 @@
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/oscal_version/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/params/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -278,6 +314,10 @@
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/rel/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/remarks/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -318,6 +358,10 @@
     </url>
     <url>
          <loc>https://lmodel.github.io/nist-sp-800-218/elements/type/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/nist-sp-800-218/elements/usage/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
