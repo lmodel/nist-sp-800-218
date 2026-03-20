@@ -513,18 +513,23 @@ Alias: title</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Resource/">Resource</a></td>
-<td>Referenced resource in back-matter</td>
+<td><a href="../Role/">Role</a></td>
+<td>Role definition</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Part/">Part</a></td>
-<td>Structured narrative part containing prose and optional nested parts</td>
+<td><a href="../ControlGroup/">ControlGroup</a></td>
+<td>An SSDF practice group (e</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Parameter/">Parameter</a></td>
-<td>A configurable or organization-defined parameter</td>
+<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
+<td>A catalog element with a title and class classification</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Control/">Control</a></td>
+<td>An SSDF practice containing tasks</td>
 <td>no</td>
 </tr>
 <tr>
@@ -533,33 +538,18 @@ Alias: title</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Role/">Role</a></td>
-<td>Role definition</td>
+<td><a href="../Resource/">Resource</a></td>
+<td>Referenced resource in back-matter</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
-<td>A catalog element with title, optional class/label, and inherited id/props/li...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../SSFDPractice/">SSFDPractice</a></td>
-<td>An SSDF practice containing tasks</td>
+<td><a href="../Part/">Part</a></td>
+<td>Structured narrative part containing prose content</td>
 <td>no</td>
 </tr>
 <tr>
 <td><a href="../Metadata/">Metadata</a></td>
-<td>OSCAL metadata section</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Control/">Control</a></td>
-<td>A control, requirement, or practice</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ControlGroup/">ControlGroup</a></td>
-<td>A top-level control or requirement family group</td>
+<td>OSCAL metadata section for the SSDF catalog</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -580,7 +570,7 @@ Alias: title</p>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../Metadata/">Metadata</a>, <a href="../Role/">Role</a>, <a href="../Resource/">Resource</a>, <a href="../IdentifiedElement/">IdentifiedElement</a>, <a href="../Part/">Part</a></td>
+<td><a href="../Metadata/">Metadata</a>, <a href="../Role/">Role</a>, <a href="../Resource/">Resource</a>, <a href="../IdentifiedElement/">IdentifiedElement</a></td>
 </tr>
 </tbody>
 </table>
@@ -601,7 +591,7 @@ Alias: title</p>
 </table>
 <h2 id="in-subsets">In Subsets</h2>
 <ul>
-<li><a href="../OscalCatalogCommon/">OscalCatalogCommon</a></li>
+<li><a href="../NistSp800218Catalog/">NistSp800218Catalog</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -632,7 +622,7 @@ Alias: title</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Human-readable title</span>
 <span class="nt">in_subset</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oscal_catalog_common</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nist_sp_800_218_catalog</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/lmodel/nist-sp-800-218</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
@@ -641,7 +631,6 @@ Alias: title</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Resource</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentifiedElement</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Part</span>
 <span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </code></pre></div>
 </details>

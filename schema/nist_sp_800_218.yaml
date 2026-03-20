@@ -9,7 +9,6 @@ id: https://w3id.org/lmodel/nist-sp-800-218
 version: 1.1.0
 imports:
 - linkml:types
-- ./nist_catalog
 license: Apache-2.0
 prefixes:
   linkml:
@@ -18,9 +17,6 @@ prefixes:
   nist_sp_800_218:
     prefix_prefix: nist_sp_800_218
     prefix_reference: https://w3id.org/lmodel/nist-sp-800-218/
-  schema_catalog:
-    prefix_prefix: schema_catalog
-    prefix_reference: https://w3id.org/lmodel/nist-catalog/schema/
 default_prefix: nist_sp_800_218
 default_range: string
 subsets:
@@ -30,11 +26,6 @@ subsets:
     description: NIST SP 800-218 SSDF Catalog subset for practice groups, practices,
       and tasks
     from_schema: https://w3id.org/lmodel/nist-sp-800-218
-  oscal_catalog_common:
-    name: oscal_catalog_common
-    definition_uri: https://w3id.org/lmodel/nist-catalog/OscalCatalogCommon
-    description: Shared OSCAL-derived elements common across all NIST catalog schemas
-    from_schema: https://w3id.org/lmodel/nist-catalog
 types:
   string:
     name: string
@@ -325,12 +316,12 @@ enums:
 slots:
   catalog:
     name: catalog
-    definition_uri: https://w3id.org/lmodel/nist-catalog/catalog
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/catalog
     description: Root catalog payload
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:catalog
     owner: SSFDDocument
     domain_of:
     - SSFDDocument
@@ -339,12 +330,12 @@ slots:
     inlined_as_list: true
   metadata:
     name: metadata
-    definition_uri: https://w3id.org/lmodel/nist-catalog/metadata
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/metadata
     description: Catalog metadata
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:metadata
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:metadata
     owner: CatalogBody
     domain_of:
     - CatalogBody
@@ -353,12 +344,12 @@ slots:
     inlined_as_list: true
   groups:
     name: groups
-    definition_uri: https://w3id.org/lmodel/nist-catalog/groups
-    description: List of top-level groupings in the catalog
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/groups
+    description: List of SSDF practice groups in the catalog
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:groups
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:groups
     owner: CatalogBody
     domain_of:
     - CatalogBody
@@ -368,43 +359,28 @@ slots:
     inlined_as_list: true
   controls:
     name: controls
-    definition_uri: https://w3id.org/lmodel/nist-catalog/controls
-    description: List of controls, requirements, or practices in a group
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/controls
+    description: List of practices or tasks
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:controls
-    owner: ControlGroup
-    domain_of:
-    - SSFDPractice
-    - ControlGroup
-    range: Control
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  params:
-    name: params
-    definition_uri: https://w3id.org/lmodel/nist-catalog/params
-    description: List of parameters for a control or requirement
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:params
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:controls
     owner: Control
     domain_of:
+    - ControlGroup
     - Control
-    range: Parameter
+    range: Control
     multivalued: true
     inlined: true
     inlined_as_list: true
   props:
     name: props
-    definition_uri: https://w3id.org/lmodel/nist-catalog/props
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/props
     description: List of properties
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:props
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:props
     owner: CatalogElement
     domain_of:
     - Metadata
@@ -413,29 +389,14 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  guidelines:
-    name: guidelines
-    definition_uri: https://w3id.org/lmodel/nist-catalog/guidelines
-    description: List of guidelines for a parameter
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:guidelines
-    owner: Parameter
-    domain_of:
-    - Parameter
-    range: Guideline
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
   links:
     name: links
-    definition_uri: https://w3id.org/lmodel/nist-catalog/links
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/links
     description: List of links and relationships
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:links
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:links
     owner: CatalogElement
     domain_of:
     - Metadata
@@ -446,12 +407,12 @@ slots:
     inlined_as_list: true
   parts:
     name: parts
-    definition_uri: https://w3id.org/lmodel/nist-catalog/parts
-    description: Nested parts providing prose and structure
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/parts
+    description: Nested parts that provide prose and structure
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:parts
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:parts
     owner: CatalogElement
     domain_of:
     - CatalogElement
@@ -459,14 +420,170 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  id:
+    name: id
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/id
+    description: Unique identifier for an element
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:id
+    owner: CatalogElement
+    domain_of:
+    - Role
+    - CatalogElement
+    range: string
+  uuid:
+    name: uuid
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/uuid
+    description: UUID for catalog or resource element
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:uuid
+    owner: Resource
+    domain_of:
+    - CatalogBody
+    - Party
+    - Resource
+    range: string
+  title:
+    name: title
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/title
+    description: Human-readable title
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:title
+    owner: IdentifiedElement
+    domain_of:
+    - Metadata
+    - Role
+    - Resource
+    - IdentifiedElement
+    range: string
+  version:
+    name: version
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/version
+    description: Version identifier
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:version
+    owner: Metadata
+    domain_of:
+    - Metadata
+    range: string
+  published:
+    name: published
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/published
+    description: Publication timestamp
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:published
+    owner: Metadata
+    domain_of:
+    - Metadata
+    range: string
+  last-modified:
+    name: last-modified
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/last_modified
+    description: Last modification timestamp
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - last_modified
+    slot_uri: nist_sp_800_218:last_modified
+    owner: Metadata
+    domain_of:
+    - Metadata
+    range: string
+  oscal-version:
+    name: oscal-version
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/oscal_version
+    description: OSCAL version identifier
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - oscal_version
+    slot_uri: nist_sp_800_218:oscal_version
+    owner: Metadata
+    domain_of:
+    - Metadata
+    range: string
+  _class:
+    name: _class
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/_class
+    description: Classification of a catalog element
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:_class
+    owner: IdentifiedElement
+    domain_of:
+    - IdentifiedElement
+    range: string
+  name:
+    name: name
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/name
+    description: Name of a property or part
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:name
+    owner: Part
+    domain_of:
+    - Party
+    - Property
+    - Part
+    range: string
+  value:
+    name: value
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/value
+    description: Property value
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:value
+    owner: Property
+    domain_of:
+    - Property
+    range: string
+  ns:
+    name: ns
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/ns
+    description: Namespace URI for a property
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:ns
+    owner: Property
+    domain_of:
+    - Property
+    range: string
+  prose:
+    name: prose
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/prose
+    description: Free-text prose content
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:prose
+    owner: Part
+    domain_of:
+    - Part
+    range: string
   roles:
     name: roles
-    definition_uri: https://w3id.org/lmodel/nist-catalog/roles
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/roles
     description: Roles used in metadata
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:roles
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:roles
     owner: Metadata
     domain_of:
     - Metadata
@@ -476,12 +593,12 @@ slots:
     inlined_as_list: true
   parties:
     name: parties
-    definition_uri: https://w3id.org/lmodel/nist-catalog/parties
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/parties
     description: Parties used in metadata
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:parties
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:parties
     owner: Metadata
     domain_of:
     - Metadata
@@ -491,14 +608,14 @@ slots:
     inlined_as_list: true
   responsible-parties:
     name: responsible-parties
-    definition_uri: https://w3id.org/lmodel/nist-catalog/responsible_parties
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/responsible_parties
     description: Responsible party assignments
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     aliases:
     - responsible_parties
-    slot_uri: nist_catalog:responsible_parties
+    slot_uri: nist_sp_800_218:responsible_parties
     owner: Metadata
     domain_of:
     - Metadata
@@ -506,14 +623,84 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  role-id:
+    name: role-id
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/role_id
+    description: Assigned role identifier
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - role_id
+    slot_uri: nist_sp_800_218:role_id
+    owner: ResponsibleParty
+    domain_of:
+    - ResponsibleParty
+    range: string
+  party-uuids:
+    name: party-uuids
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/party_uuids
+    description: Referenced party UUIDs
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - party_uuids
+    slot_uri: nist_sp_800_218:party_uuids
+    owner: ResponsibleParty
+    domain_of:
+    - ResponsibleParty
+    range: string
+    multivalued: true
+  type:
+    name: type
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/type
+    description: Party type
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:type
+    owner: Party
+    domain_of:
+    - Party
+    range: string
+  short-name:
+    name: short-name
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/short_name
+    description: Short display name
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - short_name
+    slot_uri: nist_sp_800_218:short_name
+    owner: Party
+    domain_of:
+    - Party
+    range: string
+  email-addresses:
+    name: email-addresses
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/email_addresses
+    description: Party email addresses
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - email_addresses
+    slot_uri: nist_sp_800_218:email_addresses
+    owner: Party
+    domain_of:
+    - Party
+    range: string
+    multivalued: true
   addresses:
     name: addresses
-    definition_uri: https://w3id.org/lmodel/nist-catalog/addresses
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/addresses
     description: Postal addresses
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:addresses
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:addresses
     owner: Party
     domain_of:
     - Party
@@ -521,16 +708,69 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  addr-lines:
+    name: addr-lines
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/addr_lines
+    description: Address lines
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - addr_lines
+    slot_uri: nist_sp_800_218:addr_lines
+    owner: Address
+    domain_of:
+    - Address
+    range: string
+    multivalued: true
+  city:
+    name: city
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/city
+    description: City name
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:city
+    owner: Address
+    domain_of:
+    - Address
+    range: string
+  state:
+    name: state
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/state
+    description: State or region
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:state
+    owner: Address
+    domain_of:
+    - Address
+    range: string
+  postal-code:
+    name: postal-code
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/postal_code
+    description: Postal code
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    aliases:
+    - postal_code
+    slot_uri: nist_sp_800_218:postal_code
+    owner: Address
+    domain_of:
+    - Address
+    range: string
   back-matter:
     name: back-matter
-    definition_uri: https://w3id.org/lmodel/nist-catalog/back_matter
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/back_matter
     description: Back-matter references and resources
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     aliases:
     - back_matter
-    slot_uri: nist_catalog:back_matter
+    slot_uri: nist_sp_800_218:back_matter
     owner: CatalogBody
     domain_of:
     - CatalogBody
@@ -539,12 +779,12 @@ slots:
     inlined_as_list: true
   resources:
     name: resources
-    definition_uri: https://w3id.org/lmodel/nist-catalog/resources
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/resources
     description: Back-matter resources
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:resources
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:resources
     owner: BackMatter
     domain_of:
     - BackMatter
@@ -552,14 +792,41 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  citation:
+    name: citation
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/citation
+    description: Citation details for a resource
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:citation
+    owner: Resource
+    domain_of:
+    - Resource
+    range: Citation
+    inlined: true
+    inlined_as_list: true
+  text:
+    name: text
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/text
+    description: Citation or link annotation text
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:text
+    owner: Link
+    domain_of:
+    - Citation
+    - Link
+    range: string
   rlinks:
     name: rlinks
-    definition_uri: https://w3id.org/lmodel/nist-catalog/rlinks
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/rlinks
     description: Resource links
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:rlinks
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:rlinks
     owner: Resource
     domain_of:
     - Resource
@@ -567,247 +834,14 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  citation:
-    name: citation
-    definition_uri: https://w3id.org/lmodel/nist-catalog/citation
-    description: Citation details for a resource
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:citation
-    owner: Resource
-    domain_of:
-    - Resource
-    range: Citation
-    inlined: true
-    inlined_as_list: true
-  id:
-    name: id
-    definition_uri: https://w3id.org/lmodel/nist-catalog/id
-    description: Unique identifier for an element
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:id
-    owner: CatalogElement
-    domain_of:
-    - Role
-    - CatalogElement
-    range: string
-  uuid:
-    name: uuid
-    definition_uri: https://w3id.org/lmodel/nist-catalog/uuid
-    description: UUID for catalog or resource element
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:uuid
-    owner: Resource
-    domain_of:
-    - CatalogBody
-    - Party
-    - Resource
-    range: string
-  title:
-    name: title
-    definition_uri: https://w3id.org/lmodel/nist-catalog/title
-    description: Human-readable title
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:title
-    owner: Part
-    domain_of:
-    - Metadata
-    - Role
-    - Resource
-    - IdentifiedElement
-    - Part
-    range: string
-  published:
-    name: published
-    definition_uri: https://w3id.org/lmodel/nist-catalog/published
-    description: Publication timestamp
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:published
-    owner: Metadata
-    domain_of:
-    - Metadata
-    range: string
-  version:
-    name: version
-    definition_uri: https://w3id.org/lmodel/nist-catalog/version
-    description: Version identifier
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:version
-    owner: Metadata
-    domain_of:
-    - Metadata
-    range: string
-  last-modified:
-    name: last-modified
-    definition_uri: https://w3id.org/lmodel/nist-catalog/last_modified
-    description: Last modification timestamp
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - last_modified
-    slot_uri: nist_catalog:last_modified
-    owner: Metadata
-    domain_of:
-    - Metadata
-    range: string
-  oscal-version:
-    name: oscal-version
-    definition_uri: https://w3id.org/lmodel/nist-catalog/oscal_version
-    description: OSCAL version identifier
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - oscal_version
-    slot_uri: nist_catalog:oscal_version
-    owner: Metadata
-    domain_of:
-    - Metadata
-    range: string
-  _class:
-    name: _class
-    definition_uri: https://w3id.org/lmodel/nist-catalog/_class
-    description: Classification of a catalog element
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:class
-    alias: class
-    owner: Part
-    domain_of:
-    - Property
-    - IdentifiedElement
-    - Part
-    range: string
-  label:
-    name: label
-    definition_uri: https://w3id.org/lmodel/nist-catalog/label
-    description: Human-readable label
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:label
-    owner: IdentifiedElement
-    domain_of:
-    - IdentifiedElement
-    range: string
-  name:
-    name: name
-    definition_uri: https://w3id.org/lmodel/nist-catalog/name
-    description: Name of a property or part
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:name
-    owner: Part
-    domain_of:
-    - Party
-    - Property
-    - Part
-    range: string
-  value:
-    name: value
-    definition_uri: https://w3id.org/lmodel/nist-catalog/value
-    description: Property value
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:value
-    owner: Property
-    domain_of:
-    - Property
-    range: string
-  ns:
-    name: ns
-    definition_uri: https://w3id.org/lmodel/nist-catalog/ns
-    description: Namespace URI for a property or part
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:ns
-    owner: Property
-    domain_of:
-    - Property
-    range: string
-  prose:
-    name: prose
-    definition_uri: https://w3id.org/lmodel/nist-catalog/prose
-    description: Free-text prose content
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:prose
-    owner: Part
-    domain_of:
-    - Guideline
-    - Part
-    range: string
-  usage:
-    name: usage
-    definition_uri: https://w3id.org/lmodel/nist-catalog/usage
-    description: Human-readable description of a parameter's expected value
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:usage
-    owner: Parameter
-    domain_of:
-    - Parameter
-    range: string
-  remarks:
-    name: remarks
-    definition_uri: https://w3id.org/lmodel/nist-catalog/remarks
-    description: Supplemental remarks
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:remarks
-    range: string
-  description:
-    name: description
-    definition_uri: https://w3id.org/lmodel/nist-catalog/description
-    description: Resource or element description
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:description
-    owner: Resource
-    domain_of:
-    - Resource
-    range: string
-  text:
-    name: text
-    definition_uri: https://w3id.org/lmodel/nist-catalog/text
-    description: Citation or link annotation text
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:text
-    owner: Link
-    domain_of:
-    - Citation
-    - Link
-    range: string
   href:
     name: href
-    definition_uri: https://w3id.org/lmodel/nist-catalog/href
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/href
     description: Link or resource reference URI
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:href
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:href
     owner: Link
     domain_of:
     - ResourceLink
@@ -815,207 +849,53 @@ slots:
     range: string
   rel:
     name: rel
-    definition_uri: https://w3id.org/lmodel/nist-catalog/rel
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/rel
     description: Relationship type for a link
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:rel
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slot_uri: nist_sp_800_218:rel
     owner: Link
     domain_of:
     - Link
     range: string
-  role-id:
-    name: role-id
-    definition_uri: https://w3id.org/lmodel/nist-catalog/role_id
-    description: Assigned role identifier
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - role_id
-    slot_uri: nist_catalog:role_id
-    owner: ResponsibleParty
-    domain_of:
-    - ResponsibleParty
-    range: string
-  party-uuids:
-    name: party-uuids
-    definition_uri: https://w3id.org/lmodel/nist-catalog/party_uuids
-    description: Referenced party UUIDs
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - party_uuids
-    slot_uri: nist_catalog:party_uuids
-    owner: ResponsibleParty
-    domain_of:
-    - ResponsibleParty
-    range: string
-    multivalued: true
-  type:
-    name: type
-    definition_uri: https://w3id.org/lmodel/nist-catalog/type
-    description: Party type (e.g., organization, person)
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:type
-    owner: Party
-    domain_of:
-    - Party
-    range: string
-  short-name:
-    name: short-name
-    definition_uri: https://w3id.org/lmodel/nist-catalog/short_name
-    description: Short display name
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - short_name
-    slot_uri: nist_catalog:short_name
-    owner: Party
-    domain_of:
-    - Party
-    range: string
-  email-addresses:
-    name: email-addresses
-    definition_uri: https://w3id.org/lmodel/nist-catalog/email_addresses
-    description: Party email addresses
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - email_addresses
-    slot_uri: nist_catalog:email_addresses
-    owner: Party
-    domain_of:
-    - Party
-    range: string
-    multivalued: true
-  addr-lines:
-    name: addr-lines
-    definition_uri: https://w3id.org/lmodel/nist-catalog/addr_lines
-    description: Address lines
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - addr_lines
-    slot_uri: nist_catalog:addr_lines
-    owner: Address
-    domain_of:
-    - Address
-    range: string
-    multivalued: true
-  city:
-    name: city
-    definition_uri: https://w3id.org/lmodel/nist-catalog/city
-    description: City name
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:city
-    owner: Address
-    domain_of:
-    - Address
-    range: string
-  state:
-    name: state
-    definition_uri: https://w3id.org/lmodel/nist-catalog/state
-    description: State or region
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:state
-    owner: Address
-    domain_of:
-    - Address
-    range: string
-  postal-code:
-    name: postal-code
-    definition_uri: https://w3id.org/lmodel/nist-catalog/postal_code
-    description: Postal code
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - postal_code
-    slot_uri: nist_catalog:postal_code
-    owner: Address
-    domain_of:
-    - Address
-    range: string
-  media-type:
-    name: media-type
-    definition_uri: https://w3id.org/lmodel/nist-catalog/media_type
-    description: Media type for a resource link
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    aliases:
-    - media_type
-    slot_uri: nist_catalog:media_type
-    owner: ResourceLink
-    domain_of:
-    - ResourceLink
-    range: string
-  SSFDPractice__class:
-    name: SSFDPractice__class
-    definition_uri: https://w3id.org/lmodel/nist-catalog/_class
+  IdentifiedElement__class:
+    name: IdentifiedElement__class
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/_class
     description: Classification of a catalog element
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: _class
-    domain: SSFDPractice
-    slot_uri: nist_catalog:class
-    alias: class
-    owner: SSFDPractice
+    domain: IdentifiedElement
+    slot_uri: nist_sp_800_218:_class
+    alias: _class
+    owner: IdentifiedElement
     domain_of:
-    - SSFDPractice
+    - IdentifiedElement
     is_usage_slot: true
     usage_slot_name: _class
     range: CatalogElementClassValue
-  SSFDPractice_controls:
-    name: SSFDPractice_controls
-    definition_uri: https://w3id.org/lmodel/nist-catalog/controls
-    description: List of controls, requirements, or practices in a group
+  Control_controls:
+    name: Control_controls
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/controls
+    description: List of practices or tasks
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: controls
-    domain: SSFDPractice
-    slot_uri: nist_catalog:controls
+    domain: Control
+    slot_uri: nist_sp_800_218:controls
     alias: controls
-    owner: SSFDPractice
+    owner: Control
     domain_of:
-    - SSFDPractice
+    - Control
     is_usage_slot: true
     usage_slot_name: controls
     range: Task
     multivalued: true
     inlined: true
     inlined_as_list: true
-  Task__class:
-    name: Task__class
-    definition_uri: https://w3id.org/lmodel/nist-catalog/_class
-    description: Classification of a catalog element
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    is_a: _class
-    domain: Task
-    slot_uri: nist_catalog:class
-    alias: class
-    owner: Task
-    domain_of:
-    - Task
-    is_usage_slot: true
-    usage_slot_name: _class
-    range: CatalogElementClassValue
 classes:
   SSFDDocument:
     name: SSFDDocument
@@ -1030,60 +910,13 @@ classes:
     - catalog
     class_uri: linkml:Any
     tree_root: true
-  SSFDPractice:
-    name: SSFDPractice
-    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/SSFDPractice
-    description: An SSDF practice containing tasks
-    in_subset:
-    - nist_sp_800_218_catalog
-    from_schema: https://w3id.org/lmodel/nist-sp-800-218
-    is_a: Control
-    slots:
-    - id
-    - props
-    - links
-    - parts
-    - title
-    - label
-    - params
-    - SSFDPractice_controls
-    - SSFDPractice__class
-    slot_usage:
-      _class:
-        name: _class
-        range: CatalogElementClassValue
-      controls:
-        name: controls
-        range: Task
-    class_uri: nist_sp_800_218:SSFDPractice
-  Task:
-    name: Task
-    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Task
-    description: An SSDF task within a practice
-    in_subset:
-    - nist_sp_800_218_catalog
-    from_schema: https://w3id.org/lmodel/nist-sp-800-218
-    is_a: IdentifiedElement
-    slots:
-    - id
-    - props
-    - links
-    - parts
-    - title
-    - label
-    - Task__class
-    slot_usage:
-      _class:
-        name: _class
-        range: CatalogElementClassValue
-    class_uri: nist_sp_800_218:Task
   CatalogBody:
     name: CatalogBody
-    definition_uri: https://w3id.org/lmodel/nist-catalog/CatalogBody
-    description: Main catalog object (uuid + metadata + groups + back-matter)
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/CatalogBody
+    description: Main SSDF catalog object
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1094,11 +927,11 @@ classes:
     class_uri: linkml:Any
   Metadata:
     name: Metadata
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Metadata
-    description: OSCAL metadata section
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Metadata
+    description: OSCAL metadata section for the SSDF catalog
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1115,22 +948,22 @@ classes:
     class_uri: linkml:Any
   Role:
     name: Role
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Role
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Role
     description: Role definition
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     slots:
     - id
     - title
-    class_uri: nist_catalog:Role
+    class_uri: nist_sp_800_218:Role
   Party:
     name: Party
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Party
-    description: Party definition (person or organization)
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Party
+    description: Party definition
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1143,11 +976,11 @@ classes:
     class_uri: linkml:Any
   Address:
     name: Address
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Address
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Address
     description: Postal address
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1158,11 +991,11 @@ classes:
     class_uri: linkml:Any
   ResponsibleParty:
     name: ResponsibleParty
-    definition_uri: https://w3id.org/lmodel/nist-catalog/ResponsibleParty
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/ResponsibleParty
     description: Assignment of parties to a role
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1171,11 +1004,11 @@ classes:
     class_uri: linkml:Any
   BackMatter:
     name: BackMatter
-    definition_uri: https://w3id.org/lmodel/nist-catalog/BackMatter
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/BackMatter
     description: OSCAL back-matter section
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1183,27 +1016,26 @@ classes:
     class_uri: linkml:Any
   Resource:
     name: Resource
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Resource
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Resource
     description: Referenced resource in back-matter
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
     - uuid
     - title
-    - description
     - citation
     - rlinks
     class_uri: linkml:Any
   Citation:
     name: Citation
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Citation
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Citation
     description: Citation wrapper
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
@@ -1211,74 +1043,37 @@ classes:
     class_uri: linkml:Any
   ResourceLink:
     name: ResourceLink
-    definition_uri: https://w3id.org/lmodel/nist-catalog/ResourceLink
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/ResourceLink
     description: Reference link for a resource
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     mappings:
     - linkml:Any
     slots:
     - href
-    - media-type
     class_uri: linkml:Any
-  Link:
-    name: Link
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Link
-    description: Relationship link with href and optional rel/text attributes
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slots:
-    - href
-    - rel
-    - text
-    class_uri: nist_catalog:Link
-  Property:
-    name: Property
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Property
-    description: A name-value property with optional namespace and class
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slots:
-    - name
-    - value
-    - ns
-    - _class
-    class_uri: nist_catalog:Property
-  Guideline:
-    name: Guideline
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Guideline
-    description: Additional prose guidance associated with a parameter
-    in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    slots:
-    - prose
-    class_uri: nist_catalog:Guideline
   CatalogElement:
     name: CatalogElement
-    definition_uri: https://w3id.org/lmodel/nist-catalog/CatalogElement
-    description: Abstract base class for identifiable catalog elements
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/CatalogElement
+    description: Base class for identifiable catalog elements
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     abstract: true
     slots:
     - id
     - props
     - links
     - parts
-    class_uri: nist_catalog:CatalogElement
+    class_uri: nist_sp_800_218:CatalogElement
   IdentifiedElement:
     name: IdentifiedElement
-    definition_uri: https://w3id.org/lmodel/nist-catalog/IdentifiedElement
-    description: A catalog element with title, optional class/label, and inherited
-      id/props/links/parts
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/IdentifiedElement
+    description: A catalog element with a title and class classification
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: CatalogElement
     slots:
     - id
@@ -1286,16 +1081,19 @@ classes:
     - links
     - parts
     - title
-    - _class
-    - label
-    class_uri: nist_catalog:IdentifiedElement
+    - IdentifiedElement__class
+    slot_usage:
+      _class:
+        name: _class
+        range: CatalogElementClassValue
+    class_uri: nist_sp_800_218:IdentifiedElement
   ControlGroup:
     name: ControlGroup
-    definition_uri: https://w3id.org/lmodel/nist-catalog/ControlGroup
-    description: A top-level control or requirement family group
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/ControlGroup
+    description: An SSDF practice group (e.g. PO, PS, PW, RV)
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: IdentifiedElement
     slots:
     - id
@@ -1303,17 +1101,16 @@ classes:
     - links
     - parts
     - title
-    - _class
-    - label
+    - IdentifiedElement__class
     - controls
-    class_uri: nist_catalog:ControlGroup
+    class_uri: nist_sp_800_218:ControlGroup
   Control:
     name: Control
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Control
-    description: A control, requirement, or practice
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Control
+    description: An SSDF practice containing tasks
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: IdentifiedElement
     slots:
     - id
@@ -1321,17 +1118,20 @@ classes:
     - links
     - parts
     - title
-    - _class
-    - label
-    - params
-    class_uri: nist_catalog:Control
-  Parameter:
-    name: Parameter
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Parameter
-    description: A configurable or organization-defined parameter
+    - IdentifiedElement__class
+    - Control_controls
+    slot_usage:
+      controls:
+        name: controls
+        range: Task
+    class_uri: nist_sp_800_218:Control
+  Task:
+    name: Task
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Task
+    description: An SSDF task within a practice
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: IdentifiedElement
     slots:
     - id
@@ -1339,32 +1139,53 @@ classes:
     - links
     - parts
     - title
-    - _class
-    - label
-    - usage
-    - guidelines
-    class_uri: nist_catalog:Parameter
+    - IdentifiedElement__class
+    class_uri: nist_sp_800_218:Task
+  Property:
+    name: Property
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Property
+    description: A name-value property with optional namespace
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slots:
+    - name
+    - value
+    - ns
+    class_uri: nist_sp_800_218:Property
+  Link:
+    name: Link
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Link
+    description: Relationship link with optional annotation text
+    in_subset:
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    slots:
+    - href
+    - rel
+    - text
+    class_uri: nist_sp_800_218:Link
   Part:
     name: Part
-    definition_uri: https://w3id.org/lmodel/nist-catalog/Part
-    description: Structured narrative part containing prose and optional nested parts
+    definition_uri: https://w3id.org/lmodel/nist-sp-800-218/Part
+    description: Structured narrative part containing prose content
     in_subset:
-    - oscal_catalog_common
-    from_schema: https://w3id.org/lmodel/nist-catalog
-    is_a: CatalogElement
+    - nist_sp_800_218_catalog
+    from_schema: https://w3id.org/lmodel/nist-sp-800-218
+    is_a: IdentifiedElement
     slots:
     - id
     - props
     - links
     - parts
-    - name
     - title
-    - _class
+    - IdentifiedElement__class
+    - name
     - prose
-    class_uri: nist_catalog:Part
+    class_uri: nist_sp_800_218:Part
 metamodel_version: 1.7.0
 source_file: nist_sp_800_218.yaml
-source_file_date: '2026-03-20T21:15:19'
-source_file_size: 2024
-generation_date: '2026-03-20T21:15:31'
+source_file_date: '2026-03-20T22:32:33'
+source_file_size: 10292
+generation_date: '2026-03-20T22:32:43'
 
