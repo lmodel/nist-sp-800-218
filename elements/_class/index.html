@@ -499,7 +499,7 @@
 <h1 id="slot-_class">Slot: _class</h1>
 <p><em>Classification of a catalog element</em></p>
 <p>URI: <a href="https://w3id.org/lmodel/nist-sp-800-218/_class">nist_sp_800_218:_class</a>
-Alias: _class</p>
+Alias: class</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -513,13 +513,28 @@ Alias: _class</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
-<td>A catalog element with title, optional class/label, and inherited id/props/li...</td>
+<td><a href="../Property/">Property</a></td>
+<td>A name-value property with optional namespace and class</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../ControlGroup/">ControlGroup</a></td>
-<td>A top-level control or requirement family group</td>
+<td><a href="../Part/">Part</a></td>
+<td>Structured narrative part containing prose and optional nested parts</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Parameter/">Parameter</a></td>
+<td>A configurable or organization-defined parameter</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Task/">Task</a></td>
+<td>An SSDF task within a practice</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><a href="../IdentifiedElement/">IdentifiedElement</a></td>
+<td>A catalog element with title, optional class/label, and inherited id/props/li...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -533,24 +548,9 @@ Alias: _class</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Parameter/">Parameter</a></td>
-<td>A configurable or organization-defined parameter</td>
+<td><a href="../ControlGroup/">ControlGroup</a></td>
+<td>A top-level control or requirement family group</td>
 <td>no</td>
-</tr>
-<tr>
-<td><a href="../Part/">Part</a></td>
-<td>Structured narrative part containing prose and optional nested parts</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Property/">Property</a></td>
-<td>A name-value property with optional namespace and class</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Task/">Task</a></td>
-<td>An SSDF task within a practice</td>
-<td>yes</td>
 </tr>
 </tbody>
 </table>
@@ -625,7 +625,7 @@ Alias: _class</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oscal_catalog_common</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/lmodel/nist-sp-800-218</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_class</span>
+<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span>
 <span class="nt">domain_of</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Property</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentifiedElement</span>

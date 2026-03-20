@@ -616,12 +616,13 @@ slots:
     - oscal_catalog_common
     from_schema: https://w3id.org/lmodel/nist-catalog
     slot_uri: nist_catalog:title
-    owner: IdentifiedElement
+    owner: Part
     domain_of:
     - Metadata
     - Role
     - Resource
     - IdentifiedElement
+    - Part
     range: string
   published:
     name: published
@@ -682,7 +683,8 @@ slots:
     in_subset:
     - oscal_catalog_common
     from_schema: https://w3id.org/lmodel/nist-catalog
-    slot_uri: nist_catalog:_class
+    slot_uri: nist_catalog:class
+    alias: class
     owner: Part
     domain_of:
     - Property
@@ -969,8 +971,8 @@ slots:
     from_schema: https://w3id.org/lmodel/nist-catalog
     is_a: _class
     domain: SSFDPractice
-    slot_uri: nist_catalog:_class
-    alias: _class
+    slot_uri: nist_catalog:class
+    alias: class
     owner: SSFDPractice
     domain_of:
     - SSFDPractice
@@ -1006,8 +1008,8 @@ slots:
     from_schema: https://w3id.org/lmodel/nist-catalog
     is_a: _class
     domain: Task
-    slot_uri: nist_catalog:_class
-    alias: _class
+    slot_uri: nist_catalog:class
+    alias: class
     owner: Task
     domain_of:
     - Task
@@ -1356,12 +1358,13 @@ classes:
     - links
     - parts
     - name
+    - title
     - _class
     - prose
     class_uri: nist_catalog:Part
 metamodel_version: 1.7.0
 source_file: nist_sp_800_218.yaml
-source_file_date: '2026-03-20T19:26:44'
-source_file_size: 2026
-generation_date: '2026-03-20T19:26:54'
+source_file_date: '2026-03-20T21:15:19'
+source_file_size: 2024
+generation_date: '2026-03-20T21:15:31'
 
