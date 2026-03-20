@@ -1,0 +1,144 @@
+# metamodel_version: 1.7.0
+# version: 1.1.0
+enum CatalogElementClassValue
+  {
+    group
+    practice
+    task
+  }
+
+scalar Address
+    addr-lines: [String]
+    city: String
+    state: String
+    postal-code: String
+
+scalar BackMatter
+    resources: [Resource]
+
+scalar CatalogBody
+    uuid: String
+    metadata: Metadata
+    groups: [ControlGroup]
+    back-matter: BackMatter
+
+interface CatalogElement
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+  }
+
+scalar Citation
+    text: String
+
+type Control
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+    title: String
+    class: CatalogElementClassValue
+    controls: [Task]
+  }
+
+type ControlGroup
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+    title: String
+    class: CatalogElementClassValue
+    controls: [Control]
+  }
+
+type IdentifiedElement
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+    title: String
+    class: CatalogElementClassValue
+  }
+
+type Link
+  {
+    href: String
+    rel: String
+    text: String
+  }
+
+scalar Metadata
+    title: String
+    published: String
+    last-modified: String
+    version: String
+    oscal-version: String
+    props: [Property]
+    links: [Link]
+    roles: [Role]
+    parties: [Party]
+    responsible-parties: [ResponsibleParty]
+
+type Part
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+    title: String
+    class: CatalogElementClassValue
+    name: String
+    prose: String
+  }
+
+scalar Party
+    uuid: String
+    type: String
+    name: String
+    short-name: String
+    email-addresses: [String]
+    addresses: [Address]
+
+type Property
+  {
+    name: String
+    value: String
+    ns: String
+  }
+
+scalar Resource
+    uuid: String
+    title: String
+    citation: Citation
+    rlinks: [ResourceLink]
+
+scalar ResourceLink
+    href: String
+
+scalar ResponsibleParty
+    role-id: String
+    party-uuids: [String]
+
+type Role
+  {
+    id: String
+    title: String
+  }
+
+scalar SSFDDocument
+    catalog: CatalogBody
+
+type Task
+  {
+    id: String
+    props: [Property]
+    links: [Link]
+    parts: [Part]
+    title: String
+    class: CatalogElementClassValue
+  }

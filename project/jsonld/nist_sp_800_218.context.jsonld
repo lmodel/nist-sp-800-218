@@ -1,0 +1,197 @@
+{
+   "@context": {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "linkml": "https://w3id.org/linkml/",
+      "nist_sp_800_218": "https://w3id.org/lmodel/nist-sp-800-218/",
+      "@vocab": "https://w3id.org/lmodel/nist-sp-800-218/",
+      "addr_lines": {
+         "@id": "addr_lines"
+      },
+      "addresses": {
+         "@type": "@id",
+         "@id": "addresses"
+      },
+      "back_matter": {
+         "@type": "@id",
+         "@id": "back_matter"
+      },
+      "catalog": {
+         "@type": "@id",
+         "@id": "catalog"
+      },
+      "citation": {
+         "@type": "@id",
+         "@id": "citation"
+      },
+      "city": {
+         "@id": "city"
+      },
+      "class": {
+         "@id": "class"
+      },
+      "controls": {
+         "@type": "@id",
+         "@id": "controls"
+      },
+      "email_addresses": {
+         "@id": "email_addresses"
+      },
+      "groups": {
+         "@type": "@id",
+         "@id": "groups"
+      },
+      "href": {
+         "@id": "href"
+      },
+      "id": {
+         "@id": "id"
+      },
+      "last_modified": {
+         "@id": "last_modified"
+      },
+      "links": {
+         "@type": "@id",
+         "@id": "links"
+      },
+      "metadata": {
+         "@type": "@id",
+         "@id": "metadata"
+      },
+      "name": {
+         "@id": "name"
+      },
+      "ns": {
+         "@id": "ns"
+      },
+      "oscal_version": {
+         "@id": "oscal_version"
+      },
+      "parties": {
+         "@type": "@id",
+         "@id": "parties"
+      },
+      "parts": {
+         "@type": "@id",
+         "@id": "parts"
+      },
+      "party_uuids": {
+         "@id": "party_uuids"
+      },
+      "postal_code": {
+         "@id": "postal_code"
+      },
+      "props": {
+         "@type": "@id",
+         "@id": "props"
+      },
+      "prose": {
+         "@id": "prose"
+      },
+      "published": {
+         "@id": "published"
+      },
+      "rel": {
+         "@id": "rel"
+      },
+      "resources": {
+         "@type": "@id",
+         "@id": "resources"
+      },
+      "responsible_parties": {
+         "@type": "@id",
+         "@id": "responsible_parties"
+      },
+      "rlinks": {
+         "@type": "@id",
+         "@id": "rlinks"
+      },
+      "role_id": {
+         "@id": "role_id"
+      },
+      "roles": {
+         "@type": "@id",
+         "@id": "roles"
+      },
+      "short_name": {
+         "@id": "short_name"
+      },
+      "state": {
+         "@id": "state"
+      },
+      "text": {
+         "@id": "text"
+      },
+      "title": {
+         "@id": "title"
+      },
+      "type": {
+         "@id": "type"
+      },
+      "uuid": {
+         "@id": "uuid"
+      },
+      "value": {
+         "@id": "value"
+      },
+      "version": {
+         "@id": "version"
+      },
+      "Address": {
+         "@id": "linkml:Any"
+      },
+      "BackMatter": {
+         "@id": "linkml:Any"
+      },
+      "CatalogBody": {
+         "@id": "linkml:Any"
+      },
+      "CatalogElement": {
+         "@id": "CatalogElement"
+      },
+      "Citation": {
+         "@id": "linkml:Any"
+      },
+      "Control": {
+         "@id": "Control"
+      },
+      "ControlGroup": {
+         "@id": "ControlGroup"
+      },
+      "IdentifiedElement": {
+         "@id": "IdentifiedElement"
+      },
+      "Link": {
+         "@id": "Link"
+      },
+      "Metadata": {
+         "@id": "linkml:Any"
+      },
+      "Part": {
+         "@id": "Part"
+      },
+      "Party": {
+         "@id": "linkml:Any"
+      },
+      "Property": {
+         "@id": "Property"
+      },
+      "Resource": {
+         "@id": "linkml:Any"
+      },
+      "ResourceLink": {
+         "@id": "linkml:Any"
+      },
+      "ResponsibleParty": {
+         "@id": "linkml:Any"
+      },
+      "Role": {
+         "@id": "Role"
+      },
+      "SSFDDocument": {
+         "@id": "linkml:Any"
+      },
+      "Task": {
+         "@id": "Task"
+      }
+   }
+}
