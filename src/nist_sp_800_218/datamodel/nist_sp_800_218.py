@@ -1,5 +1,5 @@
 # Auto generated from nist_sp_800_218.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-20T15:24:48
+# Generation date: 2026-03-20T23:43:39
 # Schema: nist-sp-800-218
 #
 # id: https://w3id.org/lmodel/nist-sp-800-218
@@ -384,7 +384,7 @@ slots.last_modified = Slot(uri=NIST_SP_800_218.last_modified, name="last-modifie
 slots.oscal_version = Slot(uri=NIST_SP_800_218.oscal_version, name="oscal-version", curie=NIST_SP_800_218.curie('oscal_version'),
                    model_uri=NIST_SP_800_218.oscal_version, domain=None, range=Optional[str])
 
-slots._class = Slot(uri=NIST_SP_800_218._class, name="_class", curie=NIST_SP_800_218.curie('_class'),
+slots._class = Slot(uri=NIST_SP_800_218["class"], name="_class", curie=NIST_SP_800_218.curie('class'),
                    model_uri=NIST_SP_800_218._class, domain=None, range=Optional[str])
 
 slots.name = Slot(uri=NIST_SP_800_218.name, name="name", curie=NIST_SP_800_218.curie('name'),
@@ -459,7 +459,7 @@ slots.href = Slot(uri=NIST_SP_800_218.href, name="href", curie=NIST_SP_800_218.c
 slots.rel = Slot(uri=NIST_SP_800_218.rel, name="rel", curie=NIST_SP_800_218.curie('rel'),
                    model_uri=NIST_SP_800_218.rel, domain=None, range=Optional[str])
 
-slots.IdentifiedElement__class = Slot(uri=NIST_SP_800_218._class, name="IdentifiedElement__class", curie=NIST_SP_800_218.curie('_class'),
+slots.IdentifiedElement__class = Slot(uri=NIST_SP_800_218["class"], name="IdentifiedElement__class", curie=NIST_SP_800_218.curie('class'),
                    model_uri=NIST_SP_800_218.IdentifiedElement__class, domain=IdentifiedElement, range=Optional[Union[str, "CatalogElementClassValue"]])
 
 slots.Control_controls = Slot(uri=NIST_SP_800_218.controls, name="Control_controls", curie=NIST_SP_800_218.curie('controls'),

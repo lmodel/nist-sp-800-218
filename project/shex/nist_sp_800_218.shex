@@ -111,7 +111,7 @@ linkml:Sparqlpath xsd:string
        (  $<IdentifiedElement_tes> (  &<CatalogElement_tes> ;
              rdf:type [ <CatalogElement> ] ? ;
              <title> @linkml:String ? ;
-             <_class> [ <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group>
+             <class> [ <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group>
                 <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#practice>
                 <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#task> ] ?
           ) ;

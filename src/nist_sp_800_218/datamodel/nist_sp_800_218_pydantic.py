@@ -150,7 +150,7 @@ class IdentifiedElement(CatalogElement):
 
     title: Optional[str] = Field(default=None, description="""Human-readable title""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'Role', 'Resource', 'IdentifiedElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
-    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="_class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
+    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
     id: Optional[str] = Field(default=None, description="""Unique identifier for an element""", json_schema_extra = { "linkml_meta": {'domain_of': ['Role', 'CatalogElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
     props: Optional[list[Property]] = Field(default=None, description="""List of properties""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'CatalogElement'],
@@ -171,7 +171,7 @@ class ControlGroup(IdentifiedElement):
          'in_subset': ['nist_sp_800_218_catalog']} })
     title: Optional[str] = Field(default=None, description="""Human-readable title""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'Role', 'Resource', 'IdentifiedElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
-    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="_class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
+    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
     id: Optional[str] = Field(default=None, description="""Unique identifier for an element""", json_schema_extra = { "linkml_meta": {'domain_of': ['Role', 'CatalogElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
     props: Optional[list[Property]] = Field(default=None, description="""List of properties""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'CatalogElement'],
@@ -193,7 +193,7 @@ class Control(IdentifiedElement):
          'in_subset': ['nist_sp_800_218_catalog']} })
     title: Optional[str] = Field(default=None, description="""Human-readable title""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'Role', 'Resource', 'IdentifiedElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
-    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="_class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
+    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
     id: Optional[str] = Field(default=None, description="""Unique identifier for an element""", json_schema_extra = { "linkml_meta": {'domain_of': ['Role', 'CatalogElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
     props: Optional[list[Property]] = Field(default=None, description="""List of properties""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'CatalogElement'],
@@ -212,7 +212,7 @@ class Task(IdentifiedElement):
 
     title: Optional[str] = Field(default=None, description="""Human-readable title""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'Role', 'Resource', 'IdentifiedElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
-    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="_class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
+    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
     id: Optional[str] = Field(default=None, description="""Unique identifier for an element""", json_schema_extra = { "linkml_meta": {'domain_of': ['Role', 'CatalogElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
     props: Optional[list[Property]] = Field(default=None, description="""List of properties""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'CatalogElement'],
@@ -260,7 +260,7 @@ class Part(IdentifiedElement):
     prose: Optional[str] = Field(default=None, description="""Free-text prose content""", json_schema_extra = { "linkml_meta": {'domain_of': ['Part'], 'in_subset': ['nist_sp_800_218_catalog']} })
     title: Optional[str] = Field(default=None, description="""Human-readable title""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'Role', 'Resource', 'IdentifiedElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
-    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="_class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
+    class_: Optional[CatalogElementClassValue] = Field(default=None, alias="class", description="""Classification of a catalog element""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentifiedElement'], 'in_subset': ['nist_sp_800_218_catalog']} })
     id: Optional[str] = Field(default=None, description="""Unique identifier for an element""", json_schema_extra = { "linkml_meta": {'domain_of': ['Role', 'CatalogElement'],
          'in_subset': ['nist_sp_800_218_catalog']} })
     props: Optional[list[Property]] = Field(default=None, description="""List of properties""", json_schema_extra = { "linkml_meta": {'domain_of': ['Metadata', 'CatalogElement'],

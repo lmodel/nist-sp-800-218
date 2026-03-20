@@ -183,7 +183,7 @@ export interface IdentifiedElement extends CatalogElement {
     /** Human-readable title */
     title?: string,
     /** Classification of a catalog element */
-    _class?: string,
+    class?: string,
 }
 
 

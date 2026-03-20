@@ -157,7 +157,7 @@
             "additionalProperties": false,
             "description": "An SSDF practice containing tasks",
             "properties": {
-                "_class": {
+                "class": {
                     "$ref": "#/$defs/CatalogElementClassValue",
                     "description": "Classification of a catalog element"
                 },
@@ -223,7 +223,7 @@
             "additionalProperties": false,
             "description": "An SSDF practice group (e.g. PO, PS, PW, RV)",
             "properties": {
-                "_class": {
+                "class": {
                     "$ref": "#/$defs/CatalogElementClassValue",
                     "description": "Classification of a catalog element"
                 },
@@ -289,7 +289,7 @@
             "additionalProperties": false,
             "description": "A catalog element with a title and class classification",
             "properties": {
-                "_class": {
+                "class": {
                     "$ref": "#/$defs/CatalogElementClassValue",
                     "description": "Classification of a catalog element"
                 },
@@ -473,7 +473,7 @@
             "additionalProperties": false,
             "description": "Structured narrative part containing prose content",
             "properties": {
-                "_class": {
+                "class": {
                     "$ref": "#/$defs/CatalogElementClassValue",
                     "description": "Classification of a catalog element"
                 },
@@ -782,7 +782,7 @@
             "additionalProperties": false,
             "description": "An SSDF task within a practice",
             "properties": {
-                "_class": {
+                "class": {
                     "$ref": "#/$defs/CatalogElementClassValue",
                     "description": "Classification of a catalog element"
                 },

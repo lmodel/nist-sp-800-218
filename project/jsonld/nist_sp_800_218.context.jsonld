@@ -4,8 +4,8 @@
       "linkml": "https://w3id.org/linkml/",
       "nist_sp_800_218": "https://w3id.org/lmodel/nist-sp-800-218/",
       "@vocab": "https://w3id.org/lmodel/nist-sp-800-218/",
-      "_class": {
-         "@id": "_class"
+      "class": {
+         "@id": "class"
       },
       "addr_lines": {
          "@id": "addr_lines"

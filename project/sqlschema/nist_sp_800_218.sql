@@ -56,24 +56,24 @@
 -- # Class: IdentifiedElement Description: A catalog element with a title and class classification
 --     * Slot: uid
 --     * Slot: title Description: Human-readable title
---     * Slot: _class Description: Classification of a catalog element
+--     * Slot: class Description: Classification of a catalog element
 --     * Slot: id Description: Unique identifier for an element
 -- # Class: ControlGroup Description: An SSDF practice group (e.g. PO, PS, PW, RV)
 --     * Slot: uid
 --     * Slot: title Description: Human-readable title
---     * Slot: _class Description: Classification of a catalog element
+--     * Slot: class Description: Classification of a catalog element
 --     * Slot: id Description: Unique identifier for an element
 --     * Slot: CatalogBody_id Description: Autocreated FK slot
 -- # Class: Control Description: An SSDF practice containing tasks
 --     * Slot: uid
 --     * Slot: title Description: Human-readable title
---     * Slot: _class Description: Classification of a catalog element
+--     * Slot: class Description: Classification of a catalog element
 --     * Slot: id Description: Unique identifier for an element
 --     * Slot: ControlGroup_uid Description: Autocreated FK slot
 -- # Class: Task Description: An SSDF task within a practice
 --     * Slot: uid
 --     * Slot: title Description: Human-readable title
---     * Slot: _class Description: Classification of a catalog element
+--     * Slot: class Description: Classification of a catalog element
 --     * Slot: id Description: Unique identifier for an element
 --     * Slot: Control_uid Description: Autocreated FK slot
 -- # Class: Property Description: A name-value property with optional namespace
@@ -105,7 +105,7 @@
 --     * Slot: name Description: Name of a property or part
 --     * Slot: prose Description: Free-text prose content
 --     * Slot: title Description: Human-readable title
---     * Slot: _class Description: Classification of a catalog element
+--     * Slot: class Description: Classification of a catalog element
 --     * Slot: id Description: Unique identifier for an element
 --     * Slot: CatalogElement_uid Description: Autocreated FK slot
 --     * Slot: IdentifiedElement_uid Description: Autocreated FK slot
@@ -157,7 +157,7 @@ CREATE INDEX "ix_CatalogElement_uid" ON "CatalogElement" (uid);
 CREATE TABLE "IdentifiedElement" (
 	uid INTEGER NOT NULL,
 	title TEXT,
-	_class VARCHAR(8),
+	class VARCHAR(8),
 	id TEXT,
 	PRIMARY KEY (uid)
 );
@@ -248,7 +248,7 @@ CREATE INDEX "ix_ResourceLink_id" ON "ResourceLink" (id);
 CREATE TABLE "ControlGroup" (
 	uid INTEGER NOT NULL,
 	title TEXT,
-	_class VARCHAR(8),
+	class VARCHAR(8),
 	id TEXT,
 	"CatalogBody_id" INTEGER,
 	PRIMARY KEY (uid),
@@ -277,7 +277,7 @@ CREATE INDEX "ix_ResponsibleParty_party_uuids_party_uuids" ON "ResponsibleParty_
 CREATE TABLE "Control" (
 	uid INTEGER NOT NULL,
 	title TEXT,
-	_class VARCHAR(8),
+	class VARCHAR(8),
 	id TEXT,
 	"ControlGroup_uid" INTEGER,
 	PRIMARY KEY (uid),
@@ -297,7 +297,7 @@ CREATE INDEX "ix_Address_addr_lines_Address_id" ON "Address_addr_lines" ("Addres
 CREATE TABLE "Task" (
 	uid INTEGER NOT NULL,
 	title TEXT,
-	_class VARCHAR(8),
+	class VARCHAR(8),
 	id TEXT,
 	"Control_uid" INTEGER,
 	PRIMARY KEY (uid),
@@ -310,7 +310,7 @@ CREATE TABLE "Part" (
 	name TEXT,
 	prose TEXT,
 	title TEXT,
-	_class VARCHAR(8),
+	class VARCHAR(8),
 	id TEXT,
 	"CatalogElement_uid" INTEGER,
 	"IdentifiedElement_uid" INTEGER,

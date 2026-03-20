@@ -125,6 +125,7 @@ slots:
       - nist_sp_800_218_catalog
 
   _class:
+    alias: class
     description: Classification of a catalog element
     in_subset:
       - nist_sp_800_218_catalog
