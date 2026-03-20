@@ -521,7 +521,8 @@ slots:
     in_subset:
     - nist_sp_800_218_catalog
     from_schema: https://w3id.org/lmodel/nist-sp-800-218
-    slot_uri: nist_sp_800_218:_class
+    slot_uri: nist_sp_800_218:class
+    alias: class
     owner: IdentifiedElement
     domain_of:
     - IdentifiedElement
@@ -868,8 +869,8 @@ slots:
     from_schema: https://w3id.org/lmodel/nist-sp-800-218
     is_a: _class
     domain: IdentifiedElement
-    slot_uri: nist_sp_800_218:_class
-    alias: _class
+    slot_uri: nist_sp_800_218:class
+    alias: class
     owner: IdentifiedElement
     domain_of:
     - IdentifiedElement
@@ -1185,7 +1186,7 @@ classes:
     class_uri: nist_sp_800_218:Part
 metamodel_version: 1.7.0
 source_file: nist_sp_800_218.yaml
-source_file_date: '2026-03-20T22:34:30'
-source_file_size: 10292
-generation_date: '2026-03-20T22:34:40'
+source_file_date: '2026-03-20T22:39:55'
+source_file_size: 10309
+generation_date: '2026-03-20T22:40:06'
 
