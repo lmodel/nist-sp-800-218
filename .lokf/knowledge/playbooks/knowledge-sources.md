@@ -22,7 +22,7 @@ sources:
   - resource: .github/workflows
   - resource: .github/dependabot.yml
   - resource: justfile
-  - resource: config.yaml
+  - resource: .linkml/generators.yaml
   - resource: .linkmllint.yaml
   - resource: .pre-commit-config.yaml
   - resource: project
@@ -98,7 +98,7 @@ exclusions:
     reason: The sidecar's git settings.
 generated:
   by: process:ktl-librarian
-  at: "2026-10-29T19:21:05Z"
+  at: "2026-10-29T20:52:53Z"
 status: draft
 ---
 
@@ -115,7 +115,7 @@ Each concept derived from a file or folder of this repository names it by its pa
 | `src/nist_sp_800_218/schema/oscal-content/`, the NIST sections of `NOTICE` | `datasets/ssdf-catalog-copy`, the four `practice-groups/` | re-read the catalog's metadata, its groups and their practices and tasks; the upstream watch compares the blobs weekly |
 | `scripts/check_upstream_release.py`, `.github/scripts/` | `playbooks/update-upstream-pins`, `workflows/upstream-watch` | re-read the pins, the digital object identifiers and the issue title |
 | `README.md` (What it models, Influences, Mappings, Not modelled here), `docs/about.md`, `.linkmllint.yaml`, `CHANGELOG.md` | `explanations/scope-and-influences`, `explanations/element-names` | re-read each section and the lint comment |
-| `justfile`, `config.yaml`, `project/`, `src/nist_sp_800_218/datamodel/`, `docs/schema/`, `docs/elements/`, `.pre-commit-config.yaml` | `datasets/generated-artefacts` | re-read the `gen-project`, `gen-doc` and `test` recipes and the `excludes`; re-list `project/*/` |
+| `justfile`, `.linkml/generators.yaml`, `project/`, `src/nist_sp_800_218/datamodel/`, `docs/schema/`, `docs/elements/`, `.pre-commit-config.yaml` | `datasets/generated-artefacts` | re-read the `gen-project`, `gen-doc` and `test` recipes and the `excludes`; re-list `project/*/` |
 | `tests/` | `datasets/test-data` | re-count `valid/` and `invalid/`; re-read the tests and the neighbours' checksums |
 | the Validating data section of `docs/index.md` | `playbooks/validate-data` | re-read the section |
 | `CONTRIBUTING.md`, the `lint`, `gen-project`, `gen-doc` and `test` recipes | `playbooks/regenerate-and-test` | confirm the setup, the checklist and the recipes |

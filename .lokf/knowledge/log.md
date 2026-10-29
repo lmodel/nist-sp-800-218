@@ -2,6 +2,7 @@
 
 ## 2026-10-29
 
+* **Changed**: the generators' settings moved from `config.yaml` to `.linkml/generators.yaml`.
 * **Added**: nist-sp-800-218 LinkML schema, from `src/nist_sp_800_218/schema/nist_sp_800_218.yaml`, its adapt copy and the lokf-adapt recipes.
 * **Added**: NIST's SSDF catalog copy, from `src/nist_sp_800_218/schema/oscal-content/`, NOTICE and the watch's pins.
 * **Added**: Generated artefacts, from the justfile's recipes, `config.yaml` and `project/`.
