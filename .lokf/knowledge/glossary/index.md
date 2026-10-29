@@ -1,0 +1,7 @@
+# Glossary
+
+* [Practice group](practice-group.md) - In the SSDF, one of the four groups its practices are organized into: Prepare the Organization (PO), Protect the Software (PS), Produce Well-Secured Software (PW) and Respond to Vulnerabilities (RV). The schema renders a group as `SsdfPracticeGroup`, with its two letters in `group_id`.
+* [Practice](practice.md) - In the SSDF, a secure software development practice: a named outcome with a unique identifier, such as PO.1, and a short explanation of what it is and why it helps. The schema renders a practice as `SsdfPractice`, with its identifier in `practice_id`.
+* [Task](task.md) - In the SSDF, an action that may be needed to perform a practice, with an identifier such as PO.1.1. The schema renders a task as `SsdfTask`, with its identifier in `task_id`, its examples, its references and any identifier it had before version 1.1.
+* [Notional implementation example](notional-implementation-example.md) - In the SSDF, a notional example of the types of tools, processes or other methods that could help implement a task; no example is required, and the examples are not the only options. The schema renders one as `SsdfImplementationExample`.
+* [Reference (SSDF)](ssdf-reference.md) - In the SSDF, a pointer from a task to an established secure development practice document and to the parts of it the task maps to. The schema renders one as `SsdfReference`, with the document in `reference_document` and the parts in `mapped_items`.
