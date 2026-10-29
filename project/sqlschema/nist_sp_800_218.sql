@@ -1,375 +1,101 @@
--- # Class: SSFDDocument Description: Root wrapper for SSDF catalog content
+-- # Class: SsdfFramework Description: One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.
 --     * Slot: id
---     * Slot: catalog_id Description: Root catalog payload
--- # Class: CatalogBody Description: Main SSDF catalog object
+--     * Slot: ssdf_version Description: The SSDF version, as NIST numbers it in the publication's title, such as 1.1.
+-- # Class: SsdfPracticeGroup Description: One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities.
 --     * Slot: id
---     * Slot: uuid Description: UUID for catalog or resource element
---     * Slot: metadata_id Description: Catalog metadata
---     * Slot: back_matter_id Description: Back-matter references and resources
--- # Class: Metadata Description: OSCAL metadata section for the SSDF catalog
+--     * Slot: title Description: The name SP 800-218 gives the practice group or practice.
+--     * Slot: description Description: What the practice group, practice, task or example says, in the words of whoever records it.
+--     * Slot: group_id Description: The group's two letters, such as PO for Prepare the Organization.
+--     * Slot: SsdfFramework_id Description: Autocreated FK slot
+-- # Class: SsdfPractice Description: A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it.
 --     * Slot: id
---     * Slot: title Description: Human-readable title
---     * Slot: published Description: Publication timestamp
---     * Slot: last_modified Description: Last modification timestamp
---     * Slot: version Description: Version identifier
---     * Slot: oscal_version Description: OSCAL version identifier
--- # Class: Role Description: Role definition
---     * Slot: uid
---     * Slot: id Description: Unique identifier for an element
---     * Slot: title Description: Human-readable title
---     * Slot: Metadata_id Description: Autocreated FK slot
--- # Class: Party Description: Party definition
+--     * Slot: title Description: The name SP 800-218 gives the practice group or practice.
+--     * Slot: description Description: What the practice group, practice, task or example says, in the words of whoever records it.
+--     * Slot: practice_id Description: The practice's identifier, such as PO.1.
+--     * Slot: SsdfPracticeGroup_id Description: Autocreated FK slot
+-- # Class: SsdfTask Description: An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to.
 --     * Slot: id
---     * Slot: uuid Description: UUID for catalog or resource element
---     * Slot: type Description: Party type
---     * Slot: name Description: Name of a property or part
---     * Slot: short_name Description: Short display name
---     * Slot: Metadata_id Description: Autocreated FK slot
--- # Class: Address Description: Postal address
+--     * Slot: description Description: What the practice group, practice, task or example says, in the words of whoever records it.
+--     * Slot: task_id Description: The task's identifier, such as PO.1.1.
+--     * Slot: SsdfPractice_id Description: Autocreated FK slot
+-- # Class: SsdfImplementationExample Description: A notional implementation example: one type of tool, process or other method that could help implement a task.
 --     * Slot: id
---     * Slot: city Description: City name
---     * Slot: state Description: State or region
---     * Slot: postal_code Description: Postal code
---     * Slot: Party_id Description: Autocreated FK slot
--- # Class: ResponsibleParty Description: Assignment of parties to a role
+--     * Slot: description Description: What the practice group, practice, task or example says, in the words of whoever records it.
+--     * Slot: example_id Description: The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1.
+--     * Slot: SsdfTask_id Description: Autocreated FK slot
+-- # Class: SsdfReference Description: A pointer from a task to an established secure development document, and to the parts of that document the task maps to.
 --     * Slot: id
---     * Slot: role_id Description: Assigned role identifier
---     * Slot: Metadata_id Description: Autocreated FK slot
--- # Class: BackMatter Description: OSCAL back-matter section
---     * Slot: id
--- # Class: Resource Description: Referenced resource in back-matter
---     * Slot: id
---     * Slot: uuid Description: UUID for catalog or resource element
---     * Slot: title Description: Human-readable title
---     * Slot: BackMatter_id Description: Autocreated FK slot
---     * Slot: citation_id Description: Citation details for a resource
--- # Class: Citation Description: Citation wrapper
---     * Slot: id
---     * Slot: text Description: Citation or link annotation text
--- # Class: ResourceLink Description: Reference link for a resource
---     * Slot: id
---     * Slot: href Description: Link or resource reference URI
---     * Slot: Resource_id Description: Autocreated FK slot
--- # Abstract Class: CatalogElement Description: Base class for identifiable catalog elements
---     * Slot: uid
---     * Slot: id Description: Unique identifier for an element
--- # Class: IdentifiedElement Description: A catalog element with a title and class classification
---     * Slot: uid
---     * Slot: title Description: Human-readable title
---     * Slot: class Description: Classification of a catalog element
---     * Slot: id Description: Unique identifier for an element
--- # Class: ControlGroup Description: An SSDF practice group (e.g. PO, PS, PW, RV)
---     * Slot: uid
---     * Slot: title Description: Human-readable title
---     * Slot: class Description: Classification of a catalog element
---     * Slot: id Description: Unique identifier for an element
---     * Slot: CatalogBody_id Description: Autocreated FK slot
--- # Class: Control Description: An SSDF practice containing tasks
---     * Slot: uid
---     * Slot: title Description: Human-readable title
---     * Slot: class Description: Classification of a catalog element
---     * Slot: id Description: Unique identifier for an element
---     * Slot: ControlGroup_uid Description: Autocreated FK slot
--- # Class: Task Description: An SSDF task within a practice
---     * Slot: uid
---     * Slot: title Description: Human-readable title
---     * Slot: class Description: Classification of a catalog element
---     * Slot: id Description: Unique identifier for an element
---     * Slot: Control_uid Description: Autocreated FK slot
--- # Class: Property Description: A name-value property with optional namespace
---     * Slot: id
---     * Slot: name Description: Name of a property or part
---     * Slot: value Description: Property value
---     * Slot: ns Description: Namespace URI for a property
---     * Slot: Metadata_id Description: Autocreated FK slot
---     * Slot: CatalogElement_uid Description: Autocreated FK slot
---     * Slot: IdentifiedElement_uid Description: Autocreated FK slot
---     * Slot: ControlGroup_uid Description: Autocreated FK slot
---     * Slot: Control_uid Description: Autocreated FK slot
---     * Slot: Task_uid Description: Autocreated FK slot
---     * Slot: Part_uid Description: Autocreated FK slot
--- # Class: Link Description: Relationship link with optional annotation text
---     * Slot: id
---     * Slot: href Description: Link or resource reference URI
---     * Slot: rel Description: Relationship type for a link
---     * Slot: text Description: Citation or link annotation text
---     * Slot: Metadata_id Description: Autocreated FK slot
---     * Slot: CatalogElement_uid Description: Autocreated FK slot
---     * Slot: IdentifiedElement_uid Description: Autocreated FK slot
---     * Slot: ControlGroup_uid Description: Autocreated FK slot
---     * Slot: Control_uid Description: Autocreated FK slot
---     * Slot: Task_uid Description: Autocreated FK slot
---     * Slot: Part_uid Description: Autocreated FK slot
--- # Class: Part Description: Structured narrative part containing prose content
---     * Slot: uid
---     * Slot: name Description: Name of a property or part
---     * Slot: prose Description: Free-text prose content
---     * Slot: title Description: Human-readable title
---     * Slot: class Description: Classification of a catalog element
---     * Slot: id Description: Unique identifier for an element
---     * Slot: CatalogElement_uid Description: Autocreated FK slot
---     * Slot: IdentifiedElement_uid Description: Autocreated FK slot
---     * Slot: ControlGroup_uid Description: Autocreated FK slot
---     * Slot: Control_uid Description: Autocreated FK slot
---     * Slot: Task_uid Description: Autocreated FK slot
---     * Slot: Part_uid Description: Autocreated FK slot
--- # Class: Party_email_addresses
---     * Slot: Party_id Description: Autocreated FK slot
---     * Slot: email_addresses Description: Party email addresses
--- # Class: Address_addr_lines
---     * Slot: Address_id Description: Autocreated FK slot
---     * Slot: addr_lines Description: Address lines
--- # Class: ResponsibleParty_party_uuids
---     * Slot: ResponsibleParty_id Description: Autocreated FK slot
---     * Slot: party_uuids Description: Referenced party UUIDs
+--     * Slot: reference_document Description: The document the task maps to, by the label SP 800-218 gives it.
+--     * Slot: mapped_items Description: The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.
+--     * Slot: SsdfTask_id Description: Autocreated FK slot
+-- # Class: SsdfTask_former_task_ids
+--     * Slot: SsdfTask_id Description: Autocreated FK slot
+--     * Slot: former_task_ids Description: The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3.
 
-CREATE TABLE "Metadata" (
+CREATE TABLE "SsdfFramework" (
 	id INTEGER NOT NULL,
-	title TEXT,
-	published TEXT,
-	last_modified TEXT,
-	version TEXT,
-	oscal_version TEXT,
+	ssdf_version TEXT NOT NULL,
 	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_Metadata_id" ON "Metadata" (id);
+CREATE INDEX "ix_SsdfFramework_id" ON "SsdfFramework" (id);
 
-CREATE TABLE "BackMatter" (
+CREATE TABLE "SsdfPracticeGroup" (
 	id INTEGER NOT NULL,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_BackMatter_id" ON "BackMatter" (id);
-
-CREATE TABLE "Citation" (
-	id INTEGER NOT NULL,
-	text TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_Citation_id" ON "Citation" (id);
-
-CREATE TABLE "CatalogElement" (
-	uid INTEGER NOT NULL,
-	id TEXT,
-	PRIMARY KEY (uid)
-);
-CREATE INDEX "ix_CatalogElement_uid" ON "CatalogElement" (uid);
-
-CREATE TABLE "IdentifiedElement" (
-	uid INTEGER NOT NULL,
 	title TEXT,
-	class VARCHAR(8),
-	id TEXT,
-	PRIMARY KEY (uid)
-);
-CREATE INDEX "ix_IdentifiedElement_uid" ON "IdentifiedElement" (uid);
-
-CREATE TABLE "CatalogBody" (
-	id INTEGER NOT NULL,
-	uuid TEXT,
-	metadata_id INTEGER,
-	back_matter_id INTEGER,
+	description TEXT,
+	group_id TEXT NOT NULL,
+	"SsdfFramework_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(metadata_id) REFERENCES "Metadata" (id),
-	FOREIGN KEY(back_matter_id) REFERENCES "BackMatter" (id)
+	FOREIGN KEY("SsdfFramework_id") REFERENCES "SsdfFramework" (id)
 );
-CREATE INDEX "ix_CatalogBody_id" ON "CatalogBody" (id);
+CREATE INDEX "ix_SsdfPracticeGroup_id" ON "SsdfPracticeGroup" (id);
 
-CREATE TABLE "Role" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+CREATE TABLE "SsdfPractice" (
+	id INTEGER NOT NULL,
 	title TEXT,
-	"Metadata_id" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("Metadata_id") REFERENCES "Metadata" (id)
-);
-CREATE INDEX "ix_Role_uid" ON "Role" (uid);
-
-CREATE TABLE "Party" (
-	id INTEGER NOT NULL,
-	uuid TEXT,
-	type TEXT,
-	name TEXT,
-	short_name TEXT,
-	"Metadata_id" INTEGER,
+	description TEXT,
+	practice_id TEXT NOT NULL,
+	"SsdfPracticeGroup_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Metadata_id") REFERENCES "Metadata" (id)
+	FOREIGN KEY("SsdfPracticeGroup_id") REFERENCES "SsdfPracticeGroup" (id)
 );
-CREATE INDEX "ix_Party_id" ON "Party" (id);
+CREATE INDEX "ix_SsdfPractice_id" ON "SsdfPractice" (id);
 
-CREATE TABLE "ResponsibleParty" (
+CREATE TABLE "SsdfTask" (
 	id INTEGER NOT NULL,
-	role_id TEXT,
-	"Metadata_id" INTEGER,
+	description TEXT,
+	task_id TEXT NOT NULL,
+	"SsdfPractice_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Metadata_id") REFERENCES "Metadata" (id)
+	FOREIGN KEY("SsdfPractice_id") REFERENCES "SsdfPractice" (id)
 );
-CREATE INDEX "ix_ResponsibleParty_id" ON "ResponsibleParty" (id);
+CREATE INDEX "ix_SsdfTask_id" ON "SsdfTask" (id);
 
-CREATE TABLE "Resource" (
+CREATE TABLE "SsdfImplementationExample" (
 	id INTEGER NOT NULL,
-	uuid TEXT,
-	title TEXT,
-	"BackMatter_id" INTEGER,
-	citation_id INTEGER,
+	description TEXT NOT NULL,
+	example_id TEXT NOT NULL,
+	"SsdfTask_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("BackMatter_id") REFERENCES "BackMatter" (id),
-	FOREIGN KEY(citation_id) REFERENCES "Citation" (id)
+	FOREIGN KEY("SsdfTask_id") REFERENCES "SsdfTask" (id)
 );
-CREATE INDEX "ix_Resource_id" ON "Resource" (id);
+CREATE INDEX "ix_SsdfImplementationExample_id" ON "SsdfImplementationExample" (id);
 
-CREATE TABLE "SSFDDocument" (
+CREATE TABLE "SsdfReference" (
 	id INTEGER NOT NULL,
-	catalog_id INTEGER,
+	reference_document VARCHAR(10) NOT NULL,
+	mapped_items TEXT NOT NULL,
+	"SsdfTask_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(catalog_id) REFERENCES "CatalogBody" (id)
+	FOREIGN KEY("SsdfTask_id") REFERENCES "SsdfTask" (id)
 );
-CREATE INDEX "ix_SSFDDocument_id" ON "SSFDDocument" (id);
+CREATE INDEX "ix_SsdfReference_id" ON "SsdfReference" (id);
 
-CREATE TABLE "Address" (
-	id INTEGER NOT NULL,
-	city TEXT,
-	state TEXT,
-	postal_code TEXT,
-	"Party_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("Party_id") REFERENCES "Party" (id)
+CREATE TABLE "SsdfTask_former_task_ids" (
+	"SsdfTask_id" INTEGER,
+	former_task_ids TEXT,
+	PRIMARY KEY ("SsdfTask_id", former_task_ids),
+	FOREIGN KEY("SsdfTask_id") REFERENCES "SsdfTask" (id)
 );
-CREATE INDEX "ix_Address_id" ON "Address" (id);
-
-CREATE TABLE "ResourceLink" (
-	id INTEGER NOT NULL,
-	href TEXT,
-	"Resource_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("Resource_id") REFERENCES "Resource" (id)
-);
-CREATE INDEX "ix_ResourceLink_id" ON "ResourceLink" (id);
-
-CREATE TABLE "ControlGroup" (
-	uid INTEGER NOT NULL,
-	title TEXT,
-	class VARCHAR(8),
-	id TEXT,
-	"CatalogBody_id" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("CatalogBody_id") REFERENCES "CatalogBody" (id)
-);
-CREATE INDEX "ix_ControlGroup_uid" ON "ControlGroup" (uid);
-
-CREATE TABLE "Party_email_addresses" (
-	"Party_id" INTEGER,
-	email_addresses TEXT,
-	PRIMARY KEY ("Party_id", email_addresses),
-	FOREIGN KEY("Party_id") REFERENCES "Party" (id)
-);
-CREATE INDEX "ix_Party_email_addresses_Party_id" ON "Party_email_addresses" ("Party_id");
-CREATE INDEX "ix_Party_email_addresses_email_addresses" ON "Party_email_addresses" (email_addresses);
-
-CREATE TABLE "ResponsibleParty_party_uuids" (
-	"ResponsibleParty_id" INTEGER,
-	party_uuids TEXT,
-	PRIMARY KEY ("ResponsibleParty_id", party_uuids),
-	FOREIGN KEY("ResponsibleParty_id") REFERENCES "ResponsibleParty" (id)
-);
-CREATE INDEX "ix_ResponsibleParty_party_uuids_ResponsibleParty_id" ON "ResponsibleParty_party_uuids" ("ResponsibleParty_id");
-CREATE INDEX "ix_ResponsibleParty_party_uuids_party_uuids" ON "ResponsibleParty_party_uuids" (party_uuids);
-
-CREATE TABLE "Control" (
-	uid INTEGER NOT NULL,
-	title TEXT,
-	class VARCHAR(8),
-	id TEXT,
-	"ControlGroup_uid" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("ControlGroup_uid") REFERENCES "ControlGroup" (uid)
-);
-CREATE INDEX "ix_Control_uid" ON "Control" (uid);
-
-CREATE TABLE "Address_addr_lines" (
-	"Address_id" INTEGER,
-	addr_lines TEXT,
-	PRIMARY KEY ("Address_id", addr_lines),
-	FOREIGN KEY("Address_id") REFERENCES "Address" (id)
-);
-CREATE INDEX "ix_Address_addr_lines_addr_lines" ON "Address_addr_lines" (addr_lines);
-CREATE INDEX "ix_Address_addr_lines_Address_id" ON "Address_addr_lines" ("Address_id");
-
-CREATE TABLE "Task" (
-	uid INTEGER NOT NULL,
-	title TEXT,
-	class VARCHAR(8),
-	id TEXT,
-	"Control_uid" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("Control_uid") REFERENCES "Control" (uid)
-);
-CREATE INDEX "ix_Task_uid" ON "Task" (uid);
-
-CREATE TABLE "Part" (
-	uid INTEGER NOT NULL,
-	name TEXT,
-	prose TEXT,
-	title TEXT,
-	class VARCHAR(8),
-	id TEXT,
-	"CatalogElement_uid" INTEGER,
-	"IdentifiedElement_uid" INTEGER,
-	"ControlGroup_uid" INTEGER,
-	"Control_uid" INTEGER,
-	"Task_uid" INTEGER,
-	"Part_uid" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("CatalogElement_uid") REFERENCES "CatalogElement" (uid),
-	FOREIGN KEY("IdentifiedElement_uid") REFERENCES "IdentifiedElement" (uid),
-	FOREIGN KEY("ControlGroup_uid") REFERENCES "ControlGroup" (uid),
-	FOREIGN KEY("Control_uid") REFERENCES "Control" (uid),
-	FOREIGN KEY("Task_uid") REFERENCES "Task" (uid),
-	FOREIGN KEY("Part_uid") REFERENCES "Part" (uid)
-);
-CREATE INDEX "ix_Part_uid" ON "Part" (uid);
-
-CREATE TABLE "Property" (
-	id INTEGER NOT NULL,
-	name TEXT,
-	value TEXT,
-	ns TEXT,
-	"Metadata_id" INTEGER,
-	"CatalogElement_uid" INTEGER,
-	"IdentifiedElement_uid" INTEGER,
-	"ControlGroup_uid" INTEGER,
-	"Control_uid" INTEGER,
-	"Task_uid" INTEGER,
-	"Part_uid" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("Metadata_id") REFERENCES "Metadata" (id),
-	FOREIGN KEY("CatalogElement_uid") REFERENCES "CatalogElement" (uid),
-	FOREIGN KEY("IdentifiedElement_uid") REFERENCES "IdentifiedElement" (uid),
-	FOREIGN KEY("ControlGroup_uid") REFERENCES "ControlGroup" (uid),
-	FOREIGN KEY("Control_uid") REFERENCES "Control" (uid),
-	FOREIGN KEY("Task_uid") REFERENCES "Task" (uid),
-	FOREIGN KEY("Part_uid") REFERENCES "Part" (uid)
-);
-CREATE INDEX "ix_Property_id" ON "Property" (id);
-
-CREATE TABLE "Link" (
-	id INTEGER NOT NULL,
-	href TEXT,
-	rel TEXT,
-	text TEXT,
-	"Metadata_id" INTEGER,
-	"CatalogElement_uid" INTEGER,
-	"IdentifiedElement_uid" INTEGER,
-	"ControlGroup_uid" INTEGER,
-	"Control_uid" INTEGER,
-	"Task_uid" INTEGER,
-	"Part_uid" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("Metadata_id") REFERENCES "Metadata" (id),
-	FOREIGN KEY("CatalogElement_uid") REFERENCES "CatalogElement" (uid),
-	FOREIGN KEY("IdentifiedElement_uid") REFERENCES "IdentifiedElement" (uid),
-	FOREIGN KEY("ControlGroup_uid") REFERENCES "ControlGroup" (uid),
-	FOREIGN KEY("Control_uid") REFERENCES "Control" (uid),
-	FOREIGN KEY("Task_uid") REFERENCES "Task" (uid),
-	FOREIGN KEY("Part_uid") REFERENCES "Part" (uid)
-);
-CREATE INDEX "ix_Link_id" ON "Link" (id);
+CREATE INDEX "ix_SsdfTask_former_task_ids_SsdfTask_id" ON "SsdfTask_former_task_ids" ("SsdfTask_id");
+CREATE INDEX "ix_SsdfTask_former_task_ids_former_task_ids" ON "SsdfTask_former_task_ids" (former_task_ids);

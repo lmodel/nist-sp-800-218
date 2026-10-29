@@ -4,7 +4,16 @@ BASE <https://w3id.org/lmodel/nist-sp-800-218/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX schema1: <http://schema.org/>
 
+
+<SsdfGroupIdentifier> xsd:string
+
+<SsdfPracticeIdentifier> xsd:string
+
+<SsdfTaskIdentifier> xsd:string
+
+<SsdfExampleIdentifier> xsd:string
 
 linkml:String xsd:string
 
@@ -44,179 +53,84 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
-<Address> CLOSED {
-    (  $<Address_tes> (  <addr_lines> @linkml:String * ;
-          <city> @linkml:String ? ;
-          <state> @linkml:String ? ;
-          <postal_code> @linkml:String ?
+<SsdfFramework> CLOSED {
+    (  $<SsdfFramework_tes> (  <ssdf_version> @linkml:String ;
+          <practice_groups> @<SsdfPracticeGroup> +
        ) ;
-       rdf:type [ linkml:Any ] ?
+       rdf:type [ <Framework> ] ?
     )
 }
 
-<BackMatter> CLOSED {
-    (  $<BackMatter_tes> <resources> @<Resource> * ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<CatalogBody> CLOSED {
-    (  $<CatalogBody_tes> (  <uuid> @linkml:String ? ;
-          <metadata> @<Metadata> ? ;
-          <groups> @<ControlGroup> * ;
-          <back_matter> @<BackMatter> ?
+<SsdfImplementationExample> CLOSED {
+    (  $<SsdfImplementationExample_tes> (  schema1:description @linkml:String ;
+          <example_id> @<SsdfExampleIdentifier>
        ) ;
-       rdf:type [ linkml:Any ] ?
+       rdf:type [ <ImplementationExample> ] ?
     )
 }
 
-<CatalogElement>  (
-    {
-       (  $<CatalogElement_tes> (  <id> @linkml:String ? ;
-             <props> @<Property> * ;
-             <links> @<Link> * ;
-             <parts> @<Part> *
-          ) ;
-          rdf:type [ <CatalogElement> ] ?
-       )
-    } OR @<IdentifiedElement>
-)
-
-<Citation> CLOSED {
-    (  $<Citation_tes> <text> @linkml:String ? ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<Control> CLOSED {
-    (  $<Control_tes> (  &<IdentifiedElement_tes> ;
-          rdf:type [ <IdentifiedElement> ] ? ;
-          <controls> @<Task> *
+<SsdfPractice> CLOSED {
+    (  $<SsdfPractice_tes> (  schema1:name @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          <practice_id> @<SsdfPracticeIdentifier> ;
+          <practice_tasks> @<SsdfTask> *
        ) ;
-       rdf:type [ <Control> ] ?
+       rdf:type [ <Practice> ] ?
     )
 }
 
-<ControlGroup> CLOSED {
-    (  $<ControlGroup_tes> (  &<IdentifiedElement_tes> ;
-          rdf:type [ <IdentifiedElement> ] ? ;
-          <controls> @<Control> *
+<SsdfPracticeGroup> CLOSED {
+    (  $<SsdfPracticeGroup_tes> (  schema1:name @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          <group_id> @<SsdfGroupIdentifier> ;
+          <group_practices> @<SsdfPractice> *
        ) ;
-       rdf:type [ <ControlGroup> ] ?
+       rdf:type [ <PracticeGroup> ] ?
     )
 }
 
-<IdentifiedElement>  (
-    CLOSED {
-       (  $<IdentifiedElement_tes> (  &<CatalogElement_tes> ;
-             rdf:type [ <CatalogElement> ] ? ;
-             <title> @linkml:String ? ;
-             <class> [ <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#group>
-                <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#practice>
-                <https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue#task> ] ?
-          ) ;
-          rdf:type [ <IdentifiedElement> ] ?
-       )
-    } OR @<Control> OR @<ControlGroup> OR @<Part> OR @<Task>
-)
-
-<Link> CLOSED {
-    (  $<Link_tes> (  <href> @linkml:String ? ;
-          <rel> @linkml:String ? ;
-          <text> @linkml:String ?
+<SsdfReference> CLOSED {
+    (  $<SsdfReference_tes> (  <reference_document> [ <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#BSAFSS>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#BSIMM>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#CNCFSSCP>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#EO14028>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#IDASOAR>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#IEC62443>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#IR8397>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#ISO27034>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#ISO29147>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#ISO30111>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#MSSDL>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#NISTCSF>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#NISTLABEL>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#NTIASBOM>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#OWASPASVS>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#OWASPMASVS>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#OWASPSAMM>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#OWASPSCVS>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#PCISSLC>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SCAGILE>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SCFPSSD>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SCSIC>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SCTPC>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SCTTM>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SP800160>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SP800161>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SP800181>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SP800216>
+             <https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument#SP80053> ] ;
+          <mapped_items> @linkml:String
        ) ;
-       rdf:type [ <Link> ] ?
+       rdf:type [ <Reference> ] ?
     )
 }
 
-<Metadata> CLOSED {
-    (  $<Metadata_tes> (  <title> @linkml:String ? ;
-          <published> @linkml:String ? ;
-          <last_modified> @linkml:String ? ;
-          <version> @linkml:String ? ;
-          <oscal_version> @linkml:String ? ;
-          <props> @<Property> * ;
-          <links> @<Link> * ;
-          <roles> @<Role> * ;
-          <parties> @<Party> * ;
-          <responsible_parties> @<ResponsibleParty> *
-       ) ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<Part> CLOSED {
-    (  $<Part_tes> (  &<IdentifiedElement_tes> ;
-          rdf:type [ <IdentifiedElement> ] ? ;
-          <name> @linkml:String ? ;
-          <prose> @linkml:String ?
-       ) ;
-       rdf:type [ <Part> ] ?
-    )
-}
-
-<Party> CLOSED {
-    (  $<Party_tes> (  <uuid> @linkml:String ? ;
-          <type> @linkml:String ? ;
-          <name> @linkml:String ? ;
-          <short_name> @linkml:String ? ;
-          <email_addresses> @linkml:String * ;
-          <addresses> @<Address> *
-       ) ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<Property> CLOSED {
-    (  $<Property_tes> (  <name> @linkml:String ? ;
-          <value> @linkml:String ? ;
-          <ns> @linkml:String ?
-       ) ;
-       rdf:type [ <Property> ] ?
-    )
-}
-
-<Resource> CLOSED {
-    (  $<Resource_tes> (  <uuid> @linkml:String ? ;
-          <title> @linkml:String ? ;
-          <citation> @<Citation> ? ;
-          <rlinks> @<ResourceLink> *
-       ) ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<ResourceLink> CLOSED {
-    (  $<ResourceLink_tes> <href> @linkml:String ? ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<ResponsibleParty> CLOSED {
-    (  $<ResponsibleParty_tes> (  <role_id> @linkml:String ? ;
-          <party_uuids> @linkml:String *
-       ) ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<Role> CLOSED {
-    (  $<Role_tes> (  <id> @linkml:String ? ;
-          <title> @linkml:String ?
-       ) ;
-       rdf:type [ <Role> ] ?
-    )
-}
-
-<SSFDDocument> CLOSED {
-    (  $<SSFDDocument_tes> <catalog> @<CatalogBody> ? ;
-       rdf:type [ linkml:Any ] ?
-    )
-}
-
-<Task> CLOSED {
-    (  $<Task_tes> (  &<IdentifiedElement_tes> ;
-          rdf:type [ <IdentifiedElement> ] ?
+<SsdfTask> CLOSED {
+    (  $<SsdfTask_tes> (  schema1:description @linkml:String ? ;
+          <task_id> @<SsdfTaskIdentifier> ;
+          <former_task_ids> @<SsdfTaskIdentifier> * ;
+          <implementation_examples> @<SsdfImplementationExample> * ;
+          <task_references> @<SsdfReference> *
        ) ;
        rdf:type [ <Task> ] ?
     )

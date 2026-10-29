@@ -1,528 +1,166 @@
-@prefix linkml: <https://w3id.org/linkml/> .
 @prefix nist_sp_800_218: <https://w3id.org/lmodel/nist-sp-800-218/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema1: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-nist_sp_800_218:CatalogElement a sh:NodeShape ;
-    rdfs:comment "Base class for identifiable catalog elements" ;
-    sh:closed false ;
-    sh:ignoredProperties ( rdf:type nist_sp_800_218:_class nist_sp_800_218:prose nist_sp_800_218:controls nist_sp_800_218:title nist_sp_800_218:name ) ;
-    sh:property [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:props ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:id ],
-        [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:parts ] ;
-    sh:targetClass nist_sp_800_218:CatalogElement .
-
-nist_sp_800_218:IdentifiedElement a sh:NodeShape ;
-    rdfs:comment "A catalog element with a title and class classification" ;
-    sh:closed true ;
-    sh:ignoredProperties ( nist_sp_800_218:controls rdf:type nist_sp_800_218:prose nist_sp_800_218:name ) ;
-    sh:property [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:props ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:id ],
-        [ sh:description "Classification of a catalog element" ;
-            sh:in ( "group" "practice" "task" ) ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:_class ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:parts ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:title ] ;
-    sh:targetClass nist_sp_800_218:IdentifiedElement .
-
-nist_sp_800_218:Control a sh:NodeShape ;
-    rdfs:comment "An SSDF practice containing tasks" ;
+nist_sp_800_218:Framework a sh:NodeShape ;
+    rdfs:comment "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class nist_sp_800_218:Task ;
-            sh:description "List of practices or tasks" ;
+    sh:property [ sh:class nist_sp_800_218:PracticeGroup ;
+            sh:description "The practice groups, in the order SP 800-218 gives them." ;
+            sh:minCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:controls ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path nist_sp_800_218:parts ],
-        [ sh:description "Classification of a catalog element" ;
-            sh:in ( "group" "practice" "task" ) ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:_class ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:props ] ;
-    sh:targetClass nist_sp_800_218:Control .
-
-nist_sp_800_218:ControlGroup a sh:NodeShape ;
-    rdfs:comment "An SSDF practice group (e.g. PO, PS, PW, RV)" ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:props ],
-        [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path nist_sp_800_218:parts ],
-        [ sh:description "Classification of a catalog element" ;
-            sh:in ( "group" "practice" "task" ) ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:_class ],
+            sh:path nist_sp_800_218:practice_groups ],
         [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
+            sh:description "The SSDF version, as NIST numbers it in the publication's title, such as 1.1." ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:class nist_sp_800_218:Control ;
-            sh:description "List of practices or tasks" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 0 ;
-            sh:path nist_sp_800_218:controls ] ;
-    sh:targetClass nist_sp_800_218:ControlGroup .
+            sh:path nist_sp_800_218:ssdf_version ;
+            sh:pattern "^[0-9]+\\.[0-9]+$" ] ;
+    sh:targetClass nist_sp_800_218:Framework .
 
-nist_sp_800_218:Role a sh:NodeShape ;
-    rdfs:comment "Role definition" ;
+nist_sp_800_218:ImplementationExample a sh:NodeShape ;
+    rdfs:comment "A notional implementation example: one type of tool, process or other method that could help implement a task." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
+            sh:description "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path nist_sp_800_218:example_id ;
+            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:description ] ;
+    sh:targetClass nist_sp_800_218:ImplementationExample .
+
+nist_sp_800_218:Practice a sh:NodeShape ;
+    rdfs:comment "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The practice's identifier, such as PO.1." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path nist_sp_800_218:practice_id ;
+            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*$" ],
+        [ sh:class nist_sp_800_218:Task ;
+            sh:description "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path nist_sp_800_218:practice_tasks ],
+        [ sh:datatype xsd:string ;
+            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path nist_sp_800_218:title ],
+            sh:path schema1:description ],
         [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
+            sh:description "The name SP 800-218 gives the practice group or practice." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path nist_sp_800_218:id ] ;
-    sh:targetClass nist_sp_800_218:Role .
+            sh:path schema1:name ] ;
+    sh:targetClass nist_sp_800_218:Practice .
+
+nist_sp_800_218:PracticeGroup a sh:NodeShape ;
+    rdfs:comment "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The group's two letters, such as PO for Prepare the Organization." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path nist_sp_800_218:group_id ;
+            sh:pattern "^(PO|PS|PW|RV)$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name SP 800-218 gives the practice group or practice." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:name ],
+        [ sh:datatype xsd:string ;
+            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path schema1:description ],
+        [ sh:class nist_sp_800_218:Practice ;
+            sh:description "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path nist_sp_800_218:group_practices ] ;
+    sh:targetClass nist_sp_800_218:PracticeGroup .
+
+nist_sp_800_218:Reference a sh:NodeShape ;
+    rdfs:comment "A pointer from a task to an established secure development document, and to the parts of that document the task maps to." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The document the task maps to, by the label SP 800-218 gives it." ;
+            sh:in ( "BSAFSS" "BSIMM" "CNCFSSCP" "EO14028" "IDASOAR" "IEC62443" "IR8397" "ISO27034" "ISO29147" "ISO30111" "MSSDL" "NISTCSF" "NISTLABEL" "NTIASBOM" "OWASPASVS" "OWASPMASVS" "OWASPSAMM" "OWASPSCVS" "PCISSLC" "SCAGILE" "SCFPSSD" "SCSIC" "SCTPC" "SCTTM" "SP800160" "SP800161" "SP800181" "SP800216" "SP80053" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path nist_sp_800_218:reference_document ],
+        [ sh:datatype xsd:string ;
+            sh:description "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path nist_sp_800_218:mapped_items ;
+            sh:pattern "\\S" ] ;
+    sh:targetClass nist_sp_800_218:Reference .
 
 nist_sp_800_218:Task a sh:NodeShape ;
-    rdfs:comment "An SSDF task within a practice" ;
+    rdfs:comment "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path nist_sp_800_218:former_task_ids ;
+            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" ],
+        [ sh:class nist_sp_800_218:ImplementationExample ;
+            sh:description "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path nist_sp_800_218:implementation_examples ],
+        [ sh:class nist_sp_800_218:Reference ;
+            sh:description "The established secure development documents the task maps to, each with the parts of the document it maps to." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 4 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:parts ],
-        [ sh:description "Classification of a catalog element" ;
-            sh:in ( "group" "practice" "task" ) ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:_class ],
+            sh:path nist_sp_800_218:task_references ],
         [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
+            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:props ],
+            sh:path schema1:description ],
         [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
+            sh:description "The task's identifier, such as PO.1.1." ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:id ] ;
+            sh:order 1 ;
+            sh:path nist_sp_800_218:task_id ;
+            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" ] ;
     sh:targetClass nist_sp_800_218:Task .
-
-nist_sp_800_218:Part a sh:NodeShape ;
-    rdfs:comment "Structured narrative part containing prose content" ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class nist_sp_800_218:Part ;
-            sh:description "Nested parts that provide prose and structure" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 7 ;
-            sh:path nist_sp_800_218:parts ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier for an element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of a property or part" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:datatype xsd:string ;
-            sh:description "Free-text prose content" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:prose ],
-        [ sh:description "Classification of a catalog element" ;
-            sh:in ( "group" "practice" "task" ) ;
-            sh:maxCount 1 ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:_class ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:props ] ;
-    sh:targetClass nist_sp_800_218:Part .
-
-nist_sp_800_218:Link a sh:NodeShape ;
-    rdfs:comment "Relationship link with optional annotation text" ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Link or resource reference URI" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:href ],
-        [ sh:datatype xsd:string ;
-            sh:description "Citation or link annotation text" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:text ],
-        [ sh:datatype xsd:string ;
-            sh:description "Relationship type for a link" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:rel ] ;
-    sh:targetClass nist_sp_800_218:Link .
-
-nist_sp_800_218:Property a sh:NodeShape ;
-    rdfs:comment "A name-value property with optional namespace" ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Name of a property or part" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Namespace URI for a property" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:ns ],
-        [ sh:datatype xsd:string ;
-            sh:description "Property value" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:value ] ;
-    sh:targetClass nist_sp_800_218:Property .
-
-linkml:Any a sh:NodeShape ;
-    rdfs:comment "Assignment of parties to a role",
-        "Citation wrapper",
-        "Main SSDF catalog object",
-        "OSCAL back-matter section",
-        "OSCAL metadata section for the SSDF catalog",
-        "Party definition",
-        "Postal address",
-        "Reference link for a resource",
-        "Referenced resource in back-matter",
-        "Root wrapper for SSDF catalog content" ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ),
-        ( rdf:type ) ;
-    sh:property [ sh:class linkml:Any ;
-            sh:description "Postal addresses" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:addresses ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:class linkml:Any ;
-            sh:description "Catalog metadata" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:metadata ],
-        [ sh:class linkml:Any ;
-            sh:description "Responsible party assignments" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 9 ;
-            sh:path nist_sp_800_218:responsible_parties ],
-        [ sh:datatype xsd:string ;
-            sh:description "Version identifier" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:version ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable title" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:title ],
-        [ sh:datatype xsd:string ;
-            sh:description "OSCAL version identifier" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:oscal_version ],
-        [ sh:datatype xsd:string ;
-            sh:description "Publication timestamp" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:published ],
-        [ sh:datatype xsd:string ;
-            sh:description "Assigned role identifier" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:role_id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Last modification timestamp" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:last_modified ],
-        [ sh:datatype xsd:string ;
-            sh:description "UUID for catalog or resource element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:uuid ],
-        [ sh:class linkml:Any ;
-            sh:description "Resource links" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:rlinks ],
-        [ sh:class linkml:Any ;
-            sh:description "Back-matter references and resources" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:back_matter ],
-        [ sh:datatype xsd:string ;
-            sh:description "Link or resource reference URI" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:href ],
-        [ sh:class nist_sp_800_218:Property ;
-            sh:description "List of properties" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path nist_sp_800_218:props ],
-        [ sh:datatype xsd:string ;
-            sh:description "Postal code" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:postal_code ],
-        [ sh:datatype xsd:string ;
-            sh:description "Party type" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "UUID for catalog or resource element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:uuid ],
-        [ sh:class linkml:Any ;
-            sh:description "Back-matter resources" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:resources ],
-        [ sh:class nist_sp_800_218:Link ;
-            sh:description "List of links and relationships" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path nist_sp_800_218:links ],
-        [ sh:datatype xsd:string ;
-            sh:description "City name" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:city ],
-        [ sh:datatype xsd:string ;
-            sh:description "UUID for catalog or resource element" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:uuid ],
-        [ sh:datatype xsd:string ;
-            sh:description "Name of a property or part" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:name ],
-        [ sh:class nist_sp_800_218:Role ;
-            sh:description "Roles used in metadata" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 7 ;
-            sh:path nist_sp_800_218:roles ],
-        [ sh:class nist_sp_800_218:ControlGroup ;
-            sh:description "List of SSDF practice groups in the catalog" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:groups ],
-        [ sh:datatype xsd:string ;
-            sh:description "Party email addresses" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:email_addresses ],
-        [ sh:class linkml:Any ;
-            sh:description "Citation details for a resource" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:citation ],
-        [ sh:datatype xsd:string ;
-            sh:description "Short display name" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:short_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Citation or link annotation text" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:text ],
-        [ sh:class linkml:Any ;
-            sh:description "Root catalog payload" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:catalog ],
-        [ sh:datatype xsd:string ;
-            sh:description "State or region" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:state ],
-        [ sh:class linkml:Any ;
-            sh:description "Parties used in metadata" ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 8 ;
-            sh:path nist_sp_800_218:parties ],
-        [ sh:datatype xsd:string ;
-            sh:description "Address lines" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:addr_lines ],
-        [ sh:datatype xsd:string ;
-            sh:description "Referenced party UUIDs" ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:party_uuids ] ;
-    sh:targetClass linkml:Any .
 

@@ -1,144 +1,77 @@
 # metamodel_version: 1.7.0
 # version: 1.1.0
-enum CatalogElementClassValue
+enum SsdfReferenceDocument
   {
-    group
-    practice
-    task
+    BSAFSS
+    BSIMM
+    CNCFSSCP
+    EO14028
+    IDASOAR
+    IEC62443
+    IR8397
+    ISO27034
+    ISO29147
+    ISO30111
+    MSSDL
+    NISTCSF
+    NISTLABEL
+    NTIASBOM
+    OWASPASVS
+    OWASPMASVS
+    OWASPSAMM
+    OWASPSCVS
+    PCISSLC
+    SCAGILE
+    SCFPSSD
+    SCSIC
+    SCTPC
+    SCTTM
+    SP800160
+    SP800161
+    SP800181
+    SP800216
+    SP80053
   }
 
-scalar Address
-    addr-lines: [String]
-    city: String
-    state: String
-    postal-code: String
-
-scalar BackMatter
-    resources: [Resource]
-
-scalar CatalogBody
-    uuid: String
-    metadata: Metadata
-    groups: [ControlGroup]
-    back-matter: BackMatter
-
-interface CatalogElement
+type SsdfFramework
   {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
+    ssdfVersion: String!
+    practiceGroups: [SsdfPracticeGroup]!
   }
 
-scalar Citation
-    text: String
-
-type Control
+type SsdfImplementationExample
   {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
+    description: String!
+    exampleId: SsdfExampleIdentifier!
+  }
+
+type SsdfPractice
+  {
     title: String
-    class: CatalogElementClassValue
-    controls: [Task]
+    description: String
+    practiceId: SsdfPracticeIdentifier!
+    practiceTasks: [SsdfTask]
   }
 
-type ControlGroup
+type SsdfPracticeGroup
   {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
     title: String
-    class: CatalogElementClassValue
-    controls: [Control]
+    description: String
+    groupId: SsdfGroupIdentifier!
+    groupPractices: [SsdfPractice]
   }
 
-type IdentifiedElement
+type SsdfReference
   {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
-    title: String
-    class: CatalogElementClassValue
+    referenceDocument: SsdfReferenceDocument!
+    mappedItems: String!
   }
 
-type Link
+type SsdfTask
   {
-    href: String
-    rel: String
-    text: String
-  }
-
-scalar Metadata
-    title: String
-    published: String
-    last-modified: String
-    version: String
-    oscal-version: String
-    props: [Property]
-    links: [Link]
-    roles: [Role]
-    parties: [Party]
-    responsible-parties: [ResponsibleParty]
-
-type Part
-  {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
-    title: String
-    class: CatalogElementClassValue
-    name: String
-    prose: String
-  }
-
-scalar Party
-    uuid: String
-    type: String
-    name: String
-    short-name: String
-    email-addresses: [String]
-    addresses: [Address]
-
-type Property
-  {
-    name: String
-    value: String
-    ns: String
-  }
-
-scalar Resource
-    uuid: String
-    title: String
-    citation: Citation
-    rlinks: [ResourceLink]
-
-scalar ResourceLink
-    href: String
-
-scalar ResponsibleParty
-    role-id: String
-    party-uuids: [String]
-
-type Role
-  {
-    id: String
-    title: String
-  }
-
-scalar SSFDDocument
-    catalog: CatalogBody
-
-type Task
-  {
-    id: String
-    props: [Property]
-    links: [Link]
-    parts: [Part]
-    title: String
-    class: CatalogElementClassValue
+    description: String
+    taskId: SsdfTaskIdentifier!
+    formerTaskIds: [SsdfTaskIdentifier]
+    implementationExamples: [SsdfImplementationExample]
+    taskReferences: [SsdfReference]
   }

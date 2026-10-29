@@ -3,194 +3,81 @@
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "linkml": "https://w3id.org/linkml/",
       "nist_sp_800_218": "https://w3id.org/lmodel/nist-sp-800-218/",
+      "oscal": "https://w3id.org/lmodel/oscal/",
+      "schema": "http://schema.org/",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
       "@vocab": "https://w3id.org/lmodel/nist-sp-800-218/",
-      "class": {
-         "@id": "class"
+      "description": {
+         "@id": "schema:description"
       },
-      "addr_lines": {
-         "@id": "addr_lines"
-      },
-      "addresses": {
+      "practice_groups": {
          "@type": "@id",
-         "@id": "addresses"
+         "@id": "practice_groups"
       },
-      "back_matter": {
+      "ssdf_version": {
+         "@id": "ssdf_version"
+      },
+      "example_id": {
+         "@id": "example_id"
+      },
+      "practice_id": {
+         "@id": "practice_id"
+      },
+      "practice_tasks": {
          "@type": "@id",
-         "@id": "back_matter"
+         "@id": "practice_tasks"
       },
-      "catalog": {
+      "group_id": {
+         "@id": "group_id"
+      },
+      "group_practices": {
          "@type": "@id",
-         "@id": "catalog"
+         "@id": "group_practices"
       },
-      "citation": {
+      "mapped_items": {
+         "@id": "mapped_items"
+      },
+      "reference_document": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "reference_document"
+      },
+      "former_task_ids": {
+         "@id": "former_task_ids"
+      },
+      "implementation_examples": {
          "@type": "@id",
-         "@id": "citation"
+         "@id": "implementation_examples"
       },
-      "city": {
-         "@id": "city"
+      "task_id": {
+         "@id": "task_id"
       },
-      "controls": {
+      "task_references": {
          "@type": "@id",
-         "@id": "controls"
-      },
-      "email_addresses": {
-         "@id": "email_addresses"
-      },
-      "groups": {
-         "@type": "@id",
-         "@id": "groups"
-      },
-      "href": {
-         "@id": "href"
-      },
-      "id": {
-         "@id": "id"
-      },
-      "last_modified": {
-         "@id": "last_modified"
-      },
-      "links": {
-         "@type": "@id",
-         "@id": "links"
-      },
-      "metadata": {
-         "@type": "@id",
-         "@id": "metadata"
-      },
-      "name": {
-         "@id": "name"
-      },
-      "ns": {
-         "@id": "ns"
-      },
-      "oscal_version": {
-         "@id": "oscal_version"
-      },
-      "parties": {
-         "@type": "@id",
-         "@id": "parties"
-      },
-      "parts": {
-         "@type": "@id",
-         "@id": "parts"
-      },
-      "party_uuids": {
-         "@id": "party_uuids"
-      },
-      "postal_code": {
-         "@id": "postal_code"
-      },
-      "props": {
-         "@type": "@id",
-         "@id": "props"
-      },
-      "prose": {
-         "@id": "prose"
-      },
-      "published": {
-         "@id": "published"
-      },
-      "rel": {
-         "@id": "rel"
-      },
-      "resources": {
-         "@type": "@id",
-         "@id": "resources"
-      },
-      "responsible_parties": {
-         "@type": "@id",
-         "@id": "responsible_parties"
-      },
-      "rlinks": {
-         "@type": "@id",
-         "@id": "rlinks"
-      },
-      "role_id": {
-         "@id": "role_id"
-      },
-      "roles": {
-         "@type": "@id",
-         "@id": "roles"
-      },
-      "short_name": {
-         "@id": "short_name"
-      },
-      "state": {
-         "@id": "state"
-      },
-      "text": {
-         "@id": "text"
+         "@id": "task_references"
       },
       "title": {
-         "@id": "title"
+         "@id": "schema:name"
       },
-      "type": {
-         "@id": "type"
+      "SsdfFramework": {
+         "@id": "Framework"
       },
-      "uuid": {
-         "@id": "uuid"
+      "SsdfImplementationExample": {
+         "@id": "ImplementationExample"
       },
-      "value": {
-         "@id": "value"
+      "SsdfPractice": {
+         "@id": "Practice"
       },
-      "version": {
-         "@id": "version"
+      "SsdfPracticeGroup": {
+         "@id": "PracticeGroup"
       },
-      "Address": {
-         "@id": "linkml:Any"
+      "SsdfReference": {
+         "@id": "Reference"
       },
-      "BackMatter": {
-         "@id": "linkml:Any"
-      },
-      "CatalogBody": {
-         "@id": "linkml:Any"
-      },
-      "CatalogElement": {
-         "@id": "CatalogElement"
-      },
-      "Citation": {
-         "@id": "linkml:Any"
-      },
-      "Control": {
-         "@id": "Control"
-      },
-      "ControlGroup": {
-         "@id": "ControlGroup"
-      },
-      "IdentifiedElement": {
-         "@id": "IdentifiedElement"
-      },
-      "Link": {
-         "@id": "Link"
-      },
-      "Metadata": {
-         "@id": "linkml:Any"
-      },
-      "Part": {
-         "@id": "Part"
-      },
-      "Party": {
-         "@id": "linkml:Any"
-      },
-      "Property": {
-         "@id": "Property"
-      },
-      "Resource": {
-         "@id": "linkml:Any"
-      },
-      "ResourceLink": {
-         "@id": "linkml:Any"
-      },
-      "ResponsibleParty": {
-         "@id": "linkml:Any"
-      },
-      "Role": {
-         "@id": "Role"
-      },
-      "SSFDDocument": {
-         "@id": "linkml:Any"
-      },
-      "Task": {
+      "SsdfTask": {
          "@id": "Task"
       }
    }

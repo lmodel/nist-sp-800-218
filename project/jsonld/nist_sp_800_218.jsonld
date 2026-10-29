@@ -1,10 +1,36 @@
 {
-  "name": "nist-sp-800-218",
-  "description": "'Electronic (LinkML) Version of Secure Software Development Framework (SSDF): Recommendations for Mitigating the Risk of Software Vulnerabilities'",
-  "title": "nist-sp-800-218",
+  "name": "nist_sp_800_218",
+  "annotations": [
+    {
+      "tag": "cprt_framework_version",
+      "value": "SP_800_218_1_1_0"
+    },
+    {
+      "tag": "publication_date",
+      "value": "2022-02"
+    },
+    {
+      "tag": "oscal_content_tag",
+      "value": "v1.6.0"
+    },
+    {
+      "tag": "oscal_content_commit",
+      "value": "f0de6d8d8c059d374f15e0ae07508d82e370fc1d"
+    }
+  ],
+  "description": "A LinkML model of the Secure Software Development Framework (SSDF) version 1.1, which NIST Special Publication 800-218 recommends: its practice groups, practices and tasks, the notional implementation examples of each task, and the references that map each task to other secure software development documents.",
+  "title": "Secure Software Development Framework (SSDF) version 1.1",
+  "comments": [
+    "The version is the SSDF version that SP 800-218 defines, and source is the publication's digital object identifier. NIST's Cybersecurity and Privacy Reference Tool names the same version SP_800_218_1_1_0, and the catalog NIST publishes for it in usnistgov/oscal-content is copied to src/nist_sp_800_218/schema/oscal-content/ at the tag and commit in the annotations. scripts/check_upstream_release.py reads the same pins and reports when NIST publishes a newer edition or changes the catalog. The release tags are the schema's own versions.",
+    "SP 800-218 is a work of the United States Government and is not subject to copyright in the United States. The descriptions here are this project's own words; NIST's text of each practice, task and example stays in the catalog copy.",
+    "NIST's catalog renders each practice group as an OSCAL group, each practice and task as an OSCAL control, each example as a part and each reference as a link. The broad_mappings name those lmodel/oscal classes."
+  ],
   "source": "https://doi.org/10.6028/NIST.SP.800-218",
   "see_also": [
-    "https://lmodel.github.io/nist-sp-800-218"
+    "https://lmodel.github.io/nist-sp-800-218",
+    "https://csrc.nist.gov/pubs/sp/800/218/final",
+    "https://csrc.nist.gov/projects/ssdf",
+    "https://github.com/usnistgov/oscal-content/tree/v1.6.0/nist.gov/SP800-218/ver1"
   ],
   "id": "https://w3id.org/lmodel/nist-sp-800-218",
   "version": "1.1.0",
@@ -20,20 +46,67 @@
     {
       "prefix_prefix": "nist_sp_800_218",
       "prefix_reference": "https://w3id.org/lmodel/nist-sp-800-218/"
+    },
+    {
+      "prefix_prefix": "oscal",
+      "prefix_reference": "https://w3id.org/lmodel/oscal/"
+    },
+    {
+      "prefix_prefix": "schema",
+      "prefix_reference": "http://schema.org/"
+    },
+    {
+      "prefix_prefix": "xsd",
+      "prefix_reference": "http://www.w3.org/2001/XMLSchema#"
     }
   ],
   "default_prefix": "nist_sp_800_218",
   "default_range": "string",
-  "subsets": [
-    {
-      "name": "nist_sp_800_218_catalog",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/NistSp800218Catalog",
-      "description": "NIST SP 800-218 SSDF Catalog subset for practice groups, practices, and tasks",
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "@type": "SubsetDefinition"
-    }
-  ],
   "types": [
+    {
+      "name": "ssdf_group_identifier",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfGroupIdentifier",
+      "description": "The two letters that name one of the four practice groups.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "pattern": "^(PO|PS|PW|RV)$",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ssdf_practice_identifier",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfPracticeIdentifier",
+      "description": "A practice's identifier: its group's letters, a dot and the practice's number within the group, such as PO.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*$",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ssdf_task_identifier",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfTaskIdentifier",
+      "description": "A task's identifier: its practice's identifier, a dot and the task's number within the practice, such as PO.1.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ssdf_example_identifier",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfExampleIdentifier",
+      "description": "The identifier NIST's reference data gives a notional implementation example: its task's identifier, a dot and the example's number, such as PO.1.1.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$",
+      "@type": "TypeDefinition"
+    },
     {
       "name": "string",
       "definition_uri": "https://w3id.org/linkml/String",
@@ -345,1178 +418,771 @@
   ],
   "enums": [
     {
-      "name": "CatalogElementClassValue",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/CatalogElementClassValue",
-      "description": "Allowed class values for SSDF catalog elements",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfReferenceDocument",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfReferenceDocument",
+      "description": "The established secure development documents that SP 800-218 maps its tasks to, by the labels its References list gives them. SP 800-218 cites each at the edition shown in its title.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://doi.org/10.6028/NIST.SP.800-218"
+      ],
       "permissible_values": [
         {
-          "text": "group",
-          "description": "A top-level practice group"
+          "text": "BSAFSS",
+          "description": "BSA's framework for securing the software lifecycle.",
+          "title": "The BSA Framework for Secure Software, version 1.1 (2020)",
+          "see_also": [
+            "https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf"
+          ]
         },
         {
-          "text": "practice",
-          "description": "An SSDF practice within a group"
+          "text": "BSIMM",
+          "description": "The Building Security In Maturity Model, twelfth edition.",
+          "title": "BSIMM12 2021 Foundations Report",
+          "see_also": [
+            "https://www.bsimm.com/content/dam/bsimm/reports/bsimm12-foundations.pdf"
+          ]
         },
         {
-          "text": "task",
-          "description": "A task within an SSDF practice"
+          "text": "CNCFSSCP",
+          "description": "The Cloud Native Computing Foundation's software supply chain paper.",
+          "title": "Software Supply Chain Best Practices (2021)",
+          "see_also": [
+            "https://github.com/cncf/tag-security/tree/main/supply-chain-security/supply-chain-security-paper"
+          ]
+        },
+        {
+          "text": "EO14028",
+          "description": "The executive order whose Section 4e clauses SP 800-218 maps in its Appendix A.",
+          "title": "Executive Order 14028, Improving the Nation's Cybersecurity (2021)",
+          "see_also": [
+            "https://www.govinfo.gov/app/details/DCPD-202100401"
+          ]
+        },
+        {
+          "text": "IDASOAR",
+          "description": "The Institute for Defense Analyses report on software vulnerability tools and techniques.",
+          "title": "State-of-the-Art Resources (SOAR) for Software Vulnerability Detection, Test, and Evaluation 2016",
+          "see_also": [
+            "https://www.ida.org/research-and-publications/publications/all/s/st/stateoftheart-resources-soar-for-software-vulnerability-detection-test-and-evaluation-2016"
+          ]
+        },
+        {
+          "text": "IEC62443",
+          "description": "The International Electrotechnical Commission's standard for secure development of industrial automation and control products.",
+          "title": "IEC 62443-4-1:2018, Secure product development lifecycle requirements",
+          "see_also": [
+            "https://webstore.iec.ch/publication/33615"
+          ]
+        },
+        {
+          "text": "IR8397",
+          "description": "NIST's guidelines for the verification a software developer performs.",
+          "title": "NIST IR 8397, Guidelines on Minimum Standards for Developer Verification of Software (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.IR.8397"
+          ]
+        },
+        {
+          "text": "ISO27034",
+          "description": "The international standard's overview and concepts of application security.",
+          "title": "ISO/IEC 27034-1:2011, Application security, Part 1",
+          "see_also": [
+            "https://www.iso.org/standard/44378.html"
+          ]
+        },
+        {
+          "text": "ISO29147",
+          "description": "The international standard for disclosing vulnerabilities in products and services.",
+          "title": "ISO/IEC 29147:2018, Vulnerability disclosure",
+          "see_also": [
+            "https://www.iso.org/standard/72311.html"
+          ]
+        },
+        {
+          "text": "ISO30111",
+          "description": "The international standard for the processes that handle a reported vulnerability.",
+          "title": "ISO/IEC 30111:2019, Vulnerability handling processes",
+          "see_also": [
+            "https://www.iso.org/standard/69725.html"
+          ]
+        },
+        {
+          "text": "MSSDL",
+          "description": "Microsoft's practices for building security into software development.",
+          "title": "Microsoft Security Development Lifecycle (2021)",
+          "see_also": [
+            "https://www.microsoft.com/en-us/securityengineering/sdl/"
+          ]
+        },
+        {
+          "text": "NISTCSF",
+          "description": "The NIST Cybersecurity Framework at version 1.1, which SP 800-218 maps to by subcategory.",
+          "title": "Framework for Improving Critical Infrastructure Cybersecurity, version 1.1 (2018)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.CSWP.04162018"
+          ]
+        },
+        {
+          "text": "NISTLABEL",
+          "description": "NIST's criteria for a cybersecurity label on consumer software.",
+          "title": "Recommended Criteria for Cybersecurity Labeling of Consumer Software (2022)",
+          "see_also": [
+            "https://www.nist.gov/itl/executive-order-improving-nations-cybersecurity"
+          ]
+        },
+        {
+          "text": "NTIASBOM",
+          "description": "The National Telecommunications and Information Administration's minimum elements of a software bill of materials.",
+          "title": "The Minimum Elements For a Software Bill of Materials (2021)",
+          "see_also": [
+            "https://www.ntia.doc.gov/report/2021/minimum-elements-software-bill-materials-sbom"
+          ]
+        },
+        {
+          "text": "OWASPASVS",
+          "description": "The Open Web Application Security Project's verification standard for applications.",
+          "title": "OWASP Application Security Verification Standard 4.0.3 (2021)",
+          "see_also": [
+            "https://github.com/OWASP/ASVS"
+          ]
+        },
+        {
+          "text": "OWASPMASVS",
+          "description": "The Open Web Application Security Project's verification standard for mobile applications.",
+          "title": "OWASP Mobile Application Security Verification Standard, version 1.4.2 (2021)",
+          "see_also": [
+            "https://github.com/OWASP/owasp-masvs/releases"
+          ]
+        },
+        {
+          "text": "OWASPSAMM",
+          "description": "The Open Web Application Security Project's software assurance maturity model.",
+          "title": "Software Assurance Maturity Model, version 1.5 (2017)",
+          "see_also": [
+            "https://www.owasp.org/index.php/OWASP_SAMM_Project"
+          ]
+        },
+        {
+          "text": "OWASPSCVS",
+          "description": "The Open Web Application Security Project's verification standard for software components.",
+          "title": "OWASP Software Component Verification Standard, version 1.0 (2020)",
+          "see_also": [
+            "https://github.com/OWASP/Software-Component-Verification-Standard"
+          ]
+        },
+        {
+          "text": "PCISSLC",
+          "description": "The Payment Card Industry Security Standards Council's requirements for a secure software lifecycle.",
+          "title": "Secure Software Lifecycle (Secure SLC) Requirements and Assessment Procedures, version 1.1 (2021)",
+          "see_also": [
+            "https://www.pcisecuritystandards.org/document_library?category=sware_sec#results"
+          ]
+        },
+        {
+          "text": "SCAGILE",
+          "description": "SAFECode's security stories and tasks for agile teams.",
+          "title": "Practical Security Stories and Security Tasks for Agile Development Environments (2012)",
+          "see_also": [
+            "http://www.safecode.org/publication/SAFECode_Agile_Dev_Security0712.pdf"
+          ]
+        },
+        {
+          "text": "SCFPSSD",
+          "description": "SAFECode's essential elements of a secure development lifecycle program.",
+          "title": "Fundamental Practices for Secure Software Development, third edition (2018)",
+          "see_also": [
+            "https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf"
+          ]
+        },
+        {
+          "text": "SCSIC",
+          "description": "SAFECode's controls for software integrity in the supply chain.",
+          "title": "Software Integrity Controls: An Assurance-Based Approach to Minimizing Risks in the Software Supply Chain (2010)",
+          "see_also": [
+            "http://www.safecode.org/publication/SAFECode_Software_Integrity_Controls0610.pdf"
+          ]
+        },
+        {
+          "text": "SCTPC",
+          "description": "SAFECode's guidance on the security risks of third-party components.",
+          "title": "Managing Security Risks Inherent in the Use of Third-Party Components (2017)",
+          "see_also": [
+            "https://www.safecode.org/wp-content/uploads/2017/05/SAFECode_TPC_Whitepaper.pdf"
+          ]
+        },
+        {
+          "text": "SCTTM",
+          "description": "SAFECode's guidance on threat modeling during development.",
+          "title": "Tactical Threat Modeling (2017)",
+          "see_also": [
+            "https://www.safecode.org/wp-content/uploads/2017/05/SAFECode_TM_Whitepaper.pdf"
+          ]
+        },
+        {
+          "text": "SP800160",
+          "description": "NIST's considerations for engineering trustworthy secure systems.",
+          "title": "NIST SP 800-160 Volume 1, Systems Security Engineering (2016, updated 2018)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-160v1"
+          ]
+        },
+        {
+          "text": "SP800161",
+          "description": "NIST's supply chain risk management practices, at the draft SP 800-218 cites.",
+          "title": "NIST SP 800-161 Rev. 1 second draft, Cybersecurity Supply Chain Risk Management Practices (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-161r1-draft2"
+          ]
+        },
+        {
+          "text": "SP800181",
+          "description": "The workforce framework whose tasks, knowledge, skills and abilities SP 800-218 maps to.",
+          "title": "NIST SP 800-181, NICE Cybersecurity Workforce Framework (2017)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-181"
+          ]
+        },
+        {
+          "text": "SP800216",
+          "description": "NIST's recommendations for federal vulnerability disclosure, at the draft SP 800-218 cites.",
+          "title": "NIST SP 800-216 draft, Recommendations for Federal Vulnerability Disclosure Guidelines (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-216-draft"
+          ]
+        },
+        {
+          "text": "SP80053",
+          "description": "NIST's catalog of security and privacy controls, which SP 800-218 maps to by control.",
+          "title": "NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations (2020)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-53r5"
+          ]
         }
       ]
     }
   ],
   "slots": [
     {
-      "name": "catalog",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/catalog",
-      "description": "Root catalog payload",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/catalog",
-      "owner": "SSFDDocument",
-      "domain_of": [
-        "SSFDDocument"
-      ],
-      "range": "CatalogBody",
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "metadata",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/metadata",
-      "description": "Catalog metadata",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/metadata",
-      "owner": "CatalogBody",
-      "domain_of": [
-        "CatalogBody"
-      ],
-      "range": "Metadata",
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "groups",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/groups",
-      "description": "List of SSDF practice groups in the catalog",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/groups",
-      "owner": "CatalogBody",
-      "domain_of": [
-        "CatalogBody"
-      ],
-      "range": "ControlGroup",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "controls",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/controls",
-      "description": "List of practices or tasks",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/controls",
-      "owner": "Control",
-      "domain_of": [
-        "ControlGroup",
-        "Control"
-      ],
-      "range": "Control",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "props",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/props",
-      "description": "List of properties",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/props",
-      "owner": "CatalogElement",
-      "domain_of": [
-        "Metadata",
-        "CatalogElement"
-      ],
-      "range": "Property",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "links",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/links",
-      "description": "List of links and relationships",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/links",
-      "owner": "CatalogElement",
-      "domain_of": [
-        "Metadata",
-        "CatalogElement"
-      ],
-      "range": "Link",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "parts",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/parts",
-      "description": "Nested parts that provide prose and structure",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/parts",
-      "owner": "CatalogElement",
-      "domain_of": [
-        "CatalogElement"
-      ],
-      "range": "Part",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "id",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/id",
-      "description": "Unique identifier for an element",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/id",
-      "owner": "CatalogElement",
-      "domain_of": [
-        "Role",
-        "CatalogElement"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "uuid",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/uuid",
-      "description": "UUID for catalog or resource element",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/uuid",
-      "owner": "Resource",
-      "domain_of": [
-        "CatalogBody",
-        "Party",
-        "Resource"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "title",
       "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/title",
-      "description": "Human-readable title",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
+      "description": "The name SP 800-218 gives the practice group or practice.",
+      "comments": [
+        "It means what LOKF's title means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one title key."
       ],
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/title",
-      "owner": "IdentifiedElement",
+      "mappings": [
+        "http://schema.org/name"
+      ],
+      "slot_uri": "http://schema.org/name",
+      "owner": "SsdfPractice",
       "domain_of": [
-        "Metadata",
-        "Role",
-        "Resource",
-        "IdentifiedElement"
+        "SsdfPracticeGroup",
+        "SsdfPractice"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "version",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/version",
-      "description": "Version identifier",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
+      "name": "description",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/description",
+      "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+      "comments": [
+        "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
       ],
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/version",
-      "owner": "Metadata",
+      "mappings": [
+        "http://schema.org/description"
+      ],
+      "slot_uri": "http://schema.org/description",
+      "owner": "SsdfImplementationExample",
       "domain_of": [
-        "Metadata"
+        "SsdfPracticeGroup",
+        "SsdfPractice",
+        "SsdfTask",
+        "SsdfImplementationExample"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "published",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/published",
-      "description": "Publication timestamp",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfFramework__ssdf_version",
+      "description": "The SSDF version, as NIST numbers it in the publication's title, such as 1.1.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/published",
-      "owner": "Metadata",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/ssdf_version",
+      "alias": "ssdf_version",
+      "owner": "SsdfFramework",
       "domain_of": [
-        "Metadata"
+        "SsdfFramework"
       ],
       "range": "string",
+      "required": true,
+      "pattern": "^[0-9]+\\.[0-9]+$",
       "@type": "SlotDefinition"
     },
     {
-      "name": "last_modified",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/last_modified",
-      "description": "Last modification timestamp",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfFramework__practice_groups",
+      "description": "The practice groups, in the order SP 800-218 gives them.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "last_modified"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/last_modified",
-      "owner": "Metadata",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/practice_groups",
+      "alias": "practice_groups",
+      "owner": "SsdfFramework",
       "domain_of": [
-        "Metadata"
+        "SsdfFramework"
       ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "oscal_version",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/oscal_version",
-      "description": "OSCAL version identifier",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "oscal_version"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/oscal_version",
-      "owner": "Metadata",
-      "domain_of": [
-        "Metadata"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "_class",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/_class",
-      "description": "Classification of a catalog element",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/class",
-      "alias": "class",
-      "owner": "IdentifiedElement",
-      "domain_of": [
-        "IdentifiedElement"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "name",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/name",
-      "description": "Name of a property or part",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/name",
-      "owner": "Part",
-      "domain_of": [
-        "Party",
-        "Property",
-        "Part"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "value",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/value",
-      "description": "Property value",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/value",
-      "owner": "Property",
-      "domain_of": [
-        "Property"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "ns",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/ns",
-      "description": "Namespace URI for a property",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/ns",
-      "owner": "Property",
-      "domain_of": [
-        "Property"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "prose",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/prose",
-      "description": "Free-text prose content",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/prose",
-      "owner": "Part",
-      "domain_of": [
-        "Part"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "roles",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/roles",
-      "description": "Roles used in metadata",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/roles",
-      "owner": "Metadata",
-      "domain_of": [
-        "Metadata"
-      ],
-      "range": "Role",
+      "range": "SsdfPracticeGroup",
+      "required": true,
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "parties",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/parties",
-      "description": "Parties used in metadata",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfPracticeGroup__group_id",
+      "description": "The group's two letters, such as PO for Prepare the Organization.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/parties",
-      "owner": "Metadata",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/group_id",
+      "alias": "group_id",
+      "owner": "SsdfPracticeGroup",
       "domain_of": [
-        "Metadata"
+        "SsdfPracticeGroup"
       ],
-      "range": "Party",
+      "range": "ssdf_group_identifier",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ssdfPracticeGroup__group_practices",
+      "description": "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/group_practices",
+      "alias": "group_practices",
+      "owner": "SsdfPracticeGroup",
+      "domain_of": [
+        "SsdfPracticeGroup"
+      ],
+      "range": "SsdfPractice",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "responsible_parties",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/responsible_parties",
-      "description": "Responsible party assignments",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfPractice__practice_id",
+      "description": "The practice's identifier, such as PO.1.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "responsible_parties"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/responsible_parties",
-      "owner": "Metadata",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/practice_id",
+      "alias": "practice_id",
+      "owner": "SsdfPractice",
       "domain_of": [
-        "Metadata"
+        "SsdfPractice"
       ],
-      "range": "ResponsibleParty",
+      "range": "ssdf_practice_identifier",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ssdfPractice__practice_tasks",
+      "description": "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/practice_tasks",
+      "alias": "practice_tasks",
+      "owner": "SsdfPractice",
+      "domain_of": [
+        "SsdfPractice"
+      ],
+      "range": "SsdfTask",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "role_id",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/role_id",
-      "description": "Assigned role identifier",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfTask__task_id",
+      "description": "The task's identifier, such as PO.1.1.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "role_id"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/role_id",
-      "owner": "ResponsibleParty",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/task_id",
+      "alias": "task_id",
+      "owner": "SsdfTask",
       "domain_of": [
-        "ResponsibleParty"
+        "SsdfTask"
       ],
-      "range": "string",
+      "range": "ssdf_task_identifier",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "party_uuids",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/party_uuids",
-      "description": "Referenced party UUIDs",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfTask__former_task_ids",
+      "description": "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "party_uuids"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/party_uuids",
-      "owner": "ResponsibleParty",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/former_task_ids",
+      "alias": "former_task_ids",
+      "owner": "SsdfTask",
       "domain_of": [
-        "ResponsibleParty"
+        "SsdfTask"
       ],
-      "range": "string",
+      "range": "ssdf_task_identifier",
       "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "type",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/type",
-      "description": "Party type",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfTask__implementation_examples",
+      "description": "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/type",
-      "owner": "Party",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/implementation_examples",
+      "alias": "implementation_examples",
+      "owner": "SsdfTask",
       "domain_of": [
-        "Party"
+        "SsdfTask"
       ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "short_name",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/short_name",
-      "description": "Short display name",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "short_name"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/short_name",
-      "owner": "Party",
-      "domain_of": [
-        "Party"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "email_addresses",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/email_addresses",
-      "description": "Party email addresses",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "email_addresses"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/email_addresses",
-      "owner": "Party",
-      "domain_of": [
-        "Party"
-      ],
-      "range": "string",
-      "multivalued": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "addresses",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/addresses",
-      "description": "Postal addresses",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/addresses",
-      "owner": "Party",
-      "domain_of": [
-        "Party"
-      ],
-      "range": "Address",
+      "range": "SsdfImplementationExample",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "addr_lines",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/addr_lines",
-      "description": "Address lines",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfTask__task_references",
+      "description": "The established secure development documents the task maps to, each with the parts of the document it maps to.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "addr_lines"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/addr_lines",
-      "owner": "Address",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/task_references",
+      "alias": "task_references",
+      "owner": "SsdfTask",
       "domain_of": [
-        "Address"
+        "SsdfTask"
       ],
-      "range": "string",
-      "multivalued": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "city",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/city",
-      "description": "City name",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/city",
-      "owner": "Address",
-      "domain_of": [
-        "Address"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "state",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/state",
-      "description": "State or region",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/state",
-      "owner": "Address",
-      "domain_of": [
-        "Address"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "postal_code",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/postal_code",
-      "description": "Postal code",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "postal_code"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/postal_code",
-      "owner": "Address",
-      "domain_of": [
-        "Address"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "back_matter",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/back_matter",
-      "description": "Back-matter references and resources",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "aliases": [
-        "back_matter"
-      ],
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/back_matter",
-      "owner": "CatalogBody",
-      "domain_of": [
-        "CatalogBody"
-      ],
-      "range": "BackMatter",
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "resources",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/resources",
-      "description": "Back-matter resources",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/resources",
-      "owner": "BackMatter",
-      "domain_of": [
-        "BackMatter"
-      ],
-      "range": "Resource",
+      "range": "SsdfReference",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "citation",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/citation",
-      "description": "Citation details for a resource",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfImplementationExample__example_id",
+      "description": "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/citation",
-      "owner": "Resource",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/example_id",
+      "alias": "example_id",
+      "owner": "SsdfImplementationExample",
       "domain_of": [
-        "Resource"
+        "SsdfImplementationExample"
       ],
-      "range": "Citation",
-      "inlined": true,
-      "inlined_as_list": true,
+      "range": "ssdf_example_identifier",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "text",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/text",
-      "description": "Citation or link annotation text",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "ssdfReference__reference_document",
+      "description": "The document the task maps to, by the label SP 800-218 gives it.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/text",
-      "owner": "Link",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/reference_document",
+      "alias": "reference_document",
+      "owner": "SsdfReference",
       "domain_of": [
-        "Citation",
-        "Link"
+        "SsdfReference"
+      ],
+      "range": "SsdfReferenceDocument",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ssdfReference__mapped_items",
+      "description": "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/mapped_items",
+      "alias": "mapped_items",
+      "owner": "SsdfReference",
+      "domain_of": [
+        "SsdfReference"
       ],
       "range": "string",
+      "required": true,
+      "pattern": "\\S",
       "@type": "SlotDefinition"
     },
     {
-      "name": "rlinks",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/rlinks",
-      "description": "Resource links",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
+      "name": "SsdfImplementationExample_description",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/description",
+      "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+      "comments": [
+        "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
       ],
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/rlinks",
-      "owner": "Resource",
+      "mappings": [
+        "http://schema.org/description"
+      ],
+      "is_a": "description",
+      "domain": "SsdfImplementationExample",
+      "slot_uri": "http://schema.org/description",
+      "alias": "description",
+      "owner": "SsdfImplementationExample",
       "domain_of": [
-        "Resource"
-      ],
-      "range": "ResourceLink",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "href",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/href",
-      "description": "Link or resource reference URI",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/href",
-      "owner": "Link",
-      "domain_of": [
-        "ResourceLink",
-        "Link"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "rel",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/rel",
-      "description": "Relationship type for a link",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/rel",
-      "owner": "Link",
-      "domain_of": [
-        "Link"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "IdentifiedElement__class",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/_class",
-      "description": "Classification of a catalog element",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "_class",
-      "domain": "IdentifiedElement",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/class",
-      "alias": "class",
-      "owner": "IdentifiedElement",
-      "domain_of": [
-        "IdentifiedElement"
+        "SsdfImplementationExample"
       ],
       "is_usage_slot": true,
-      "usage_slot_name": "_class",
-      "range": "CatalogElementClassValue",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "Control_controls",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/controls",
-      "description": "List of practices or tasks",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "controls",
-      "domain": "Control",
-      "slot_uri": "https://w3id.org/lmodel/nist-sp-800-218/controls",
-      "alias": "controls",
-      "owner": "Control",
-      "domain_of": [
-        "Control"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "controls",
-      "range": "Task",
-      "multivalued": true,
-      "inlined": true,
-      "inlined_as_list": true,
+      "usage_slot_name": "description",
+      "range": "string",
+      "required": true,
       "@type": "SlotDefinition"
     }
   ],
   "classes": [
     {
-      "name": "SSFDDocument",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SSFDDocument",
-      "description": "Root wrapper for SSDF catalog content",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfFramework",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfFramework",
+      "description": "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/pubs/sp/800/218/final"
+      ],
       "mappings": [
-        "linkml:Any"
+        "nist_sp_800_218:Framework"
       ],
       "slots": [
-        "catalog"
+        "ssdfFramework__ssdf_version",
+        "ssdfFramework__practice_groups"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
+      "attributes": [
+        {
+          "name": "ssdf_version",
+          "description": "The SSDF version, as NIST numbers it in the publication's title, such as 1.1.",
+          "required": true,
+          "pattern": "^[0-9]+\\.[0-9]+$",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "practice_groups",
+          "description": "The practice groups, in the order SP 800-218 gives them.",
+          "range": "SsdfPracticeGroup",
+          "required": true,
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Framework",
       "tree_root": true,
       "@type": "ClassDefinition"
     },
     {
-      "name": "CatalogBody",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/CatalogBody",
-      "description": "Main SSDF catalog object",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfPracticeGroup",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfPracticeGroup",
+      "description": "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
       "mappings": [
-        "linkml:Any"
+        "nist_sp_800_218:PracticeGroup"
       ],
-      "slots": [
-        "uuid",
-        "metadata",
-        "groups",
-        "back_matter"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Metadata",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Metadata",
-      "description": "OSCAL metadata section for the SSDF catalog",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
+      "broad_mappings": [
+        "oscal:Group"
       ],
       "slots": [
         "title",
-        "published",
-        "last_modified",
-        "version",
-        "oscal_version",
-        "props",
-        "links",
-        "roles",
-        "parties",
-        "responsible_parties"
+        "description",
+        "ssdfPracticeGroup__group_id",
+        "ssdfPracticeGroup__group_practices"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
+      "attributes": [
+        {
+          "name": "group_id",
+          "description": "The group's two letters, such as PO for Prepare the Organization.",
+          "range": "ssdf_group_identifier",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "group_practices",
+          "description": "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead.",
+          "range": "SsdfPractice",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/PracticeGroup",
       "@type": "ClassDefinition"
     },
     {
-      "name": "Role",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Role",
-      "description": "Role definition",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfPractice",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfPractice",
+      "description": "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "slots": [
-        "id",
-        "title"
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
       ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Role",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Party",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Party",
-      "description": "Party definition",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
       "mappings": [
-        "linkml:Any"
+        "nist_sp_800_218:Practice"
+      ],
+      "broad_mappings": [
+        "oscal:Control"
       ],
       "slots": [
-        "uuid",
-        "type",
-        "name",
-        "short_name",
-        "email_addresses",
-        "addresses"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Address",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Address",
-      "description": "Postal address",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
-      ],
-      "slots": [
-        "addr_lines",
-        "city",
-        "state",
-        "postal_code"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "ResponsibleParty",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/ResponsibleParty",
-      "description": "Assignment of parties to a role",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
-      ],
-      "slots": [
-        "role_id",
-        "party_uuids"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "BackMatter",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/BackMatter",
-      "description": "OSCAL back-matter section",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
-      ],
-      "slots": [
-        "resources"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Resource",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Resource",
-      "description": "Referenced resource in back-matter",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
-      ],
-      "slots": [
-        "uuid",
         "title",
-        "citation",
-        "rlinks"
+        "description",
+        "ssdfPractice__practice_id",
+        "ssdfPractice__practice_tasks"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
+      "attributes": [
+        {
+          "name": "practice_id",
+          "description": "The practice's identifier, such as PO.1.",
+          "range": "ssdf_practice_identifier",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "practice_tasks",
+          "description": "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead.",
+          "range": "SsdfTask",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Practice",
       "@type": "ClassDefinition"
     },
     {
-      "name": "Citation",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Citation",
-      "description": "Citation wrapper",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfTask",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfTask",
+      "description": "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
       "mappings": [
-        "linkml:Any"
+        "nist_sp_800_218:Task"
+      ],
+      "broad_mappings": [
+        "oscal:Control"
       ],
       "slots": [
-        "text"
+        "description",
+        "ssdfTask__task_id",
+        "ssdfTask__former_task_ids",
+        "ssdfTask__implementation_examples",
+        "ssdfTask__task_references"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "ResourceLink",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/ResourceLink",
-      "description": "Reference link for a resource",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
+      "attributes": [
+        {
+          "name": "task_id",
+          "description": "The task's identifier, such as PO.1.1.",
+          "range": "ssdf_task_identifier",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "former_task_ids",
+          "description": "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3.",
+          "range": "ssdf_task_identifier",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "implementation_examples",
+          "description": "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways.",
+          "range": "SsdfImplementationExample",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "task_references",
+          "description": "The established secure development documents the task maps to, each with the parts of the document it maps to.",
+          "range": "SsdfReference",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
       ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "mappings": [
-        "linkml:Any"
-      ],
-      "slots": [
-        "href"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/linkml/Any",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "CatalogElement",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/CatalogElement",
-      "description": "Base class for identifiable catalog elements",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "abstract": true,
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/CatalogElement",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "IdentifiedElement",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/IdentifiedElement",
-      "description": "A catalog element with a title and class classification",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "CatalogElement",
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts",
-        "title",
-        "IdentifiedElement__class"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/IdentifiedElement",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "ControlGroup",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/ControlGroup",
-      "description": "An SSDF practice group (e.g. PO, PS, PW, RV)",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "IdentifiedElement",
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts",
-        "title",
-        "IdentifiedElement__class",
-        "controls"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/ControlGroup",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Control",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Control",
-      "description": "An SSDF practice containing tasks",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "IdentifiedElement",
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts",
-        "title",
-        "IdentifiedElement__class",
-        "Control_controls"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Control",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Task",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Task",
-      "description": "An SSDF task within a practice",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "IdentifiedElement",
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts",
-        "title",
-        "IdentifiedElement__class"
-      ],
-      "slot_usage": {},
       "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Task",
       "@type": "ClassDefinition"
     },
     {
-      "name": "Property",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Property",
-      "description": "A name-value property with optional namespace",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfImplementationExample",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfImplementationExample",
+      "description": "A notional implementation example: one type of tool, process or other method that could help implement a task.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "mappings": [
+        "nist_sp_800_218:ImplementationExample"
+      ],
+      "broad_mappings": [
+        "oscal:Part"
+      ],
       "slots": [
-        "name",
-        "value",
-        "ns"
+        "SsdfImplementationExample_description",
+        "ssdfImplementationExample__example_id"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Property",
+      "attributes": [
+        {
+          "name": "example_id",
+          "description": "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1.",
+          "range": "ssdf_example_identifier",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/ImplementationExample",
       "@type": "ClassDefinition"
     },
     {
-      "name": "Link",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Link",
-      "description": "Relationship link with optional annotation text",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
-      ],
+      "name": "SsdfReference",
+      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/SsdfReference",
+      "description": "A pointer from a task to an established secure development document, and to the parts of that document the task maps to.",
       "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "mappings": [
+        "nist_sp_800_218:Reference"
+      ],
+      "broad_mappings": [
+        "oscal:Link"
+      ],
       "slots": [
-        "href",
-        "rel",
-        "text"
+        "ssdfReference__reference_document",
+        "ssdfReference__mapped_items"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Link",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "Part",
-      "definition_uri": "https://w3id.org/lmodel/nist-sp-800-218/Part",
-      "description": "Structured narrative part containing prose content",
-      "in_subset": [
-        "nist_sp_800_218_catalog"
+      "attributes": [
+        {
+          "name": "reference_document",
+          "description": "The document the task maps to, by the label SP 800-218 gives it.",
+          "range": "SsdfReferenceDocument",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "mapped_items",
+          "description": "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.",
+          "required": true,
+          "pattern": "\\S",
+          "@type": "SlotDefinition"
+        }
       ],
-      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
-      "is_a": "IdentifiedElement",
-      "slots": [
-        "id",
-        "props",
-        "links",
-        "parts",
-        "title",
-        "IdentifiedElement__class",
-        "name",
-        "prose"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Part",
+      "class_uri": "https://w3id.org/lmodel/nist-sp-800-218/Reference",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "nist_sp_800_218.yaml",
-  "source_file_date": "2026-03-20T22:39:40",
-  "source_file_size": 10309,
-  "generation_date": "2026-03-20T23:43:20",
+  "source_file_date": "2026-10-29T18:41:13",
+  "source_file_size": 18356,
+  "generation_date": "2026-10-29T18:42:16",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/nist_sp_800_218.context.jsonld",
