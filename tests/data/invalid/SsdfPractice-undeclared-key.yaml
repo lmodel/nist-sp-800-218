@@ -1,0 +1,3 @@
+# Invalid: every class is closed, so a key the class does not declare fails.
+practice_id: PO.1
+practice_name: Define Security Requirements for Software Development

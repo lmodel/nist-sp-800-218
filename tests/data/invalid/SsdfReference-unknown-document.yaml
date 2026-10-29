@@ -1,0 +1,4 @@
+# Invalid: OWASPTEST is not among SP 800-218's references; version 1.1
+# deleted it.
+reference_document: OWASPTEST
+mapped_items: "4.1"

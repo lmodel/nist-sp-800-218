@@ -1,0 +1,12 @@
+# Practice PO.1 with one of its tasks inlined, as the framework document
+# holds it. The descriptions paraphrase SP 800-218.
+practice_id: PO.1
+title: Define Security Requirements for Software Development
+description: >-
+  Security requirements for software development are known at all times, so
+  that every phase of the life cycle can take them into account.
+practice_tasks:
+  - task_id: PO.1.1
+    description: >-
+      Identify and document the security requirements for the organization's
+      development infrastructure and processes, and keep them current.
