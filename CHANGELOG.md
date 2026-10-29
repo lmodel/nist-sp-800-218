@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-29
+
 ### Added
 
 - **A LinkML schema of the Secure Software Development Framework (SSDF) version 1.1**, which the National Institute of Standards and Technology (NIST) defines in Special Publication (SP) 800-218. It holds the practice groups, practices and tasks, each task's notional implementation examples, and its references to 29 secure development documents.
