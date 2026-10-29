@@ -85,14 +85,7 @@ UTC_TIME = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z")
 # who checked what and when rather than what the concept claims. In the body
 # they are the open questions and the block KTL Registrar derives from the
 # frontmatter.
-NOT_CLAIMS = {
-    "generated",
-    "verified",
-    "status",
-    "stale_after",
-    "timestamp",
-    "usage_window",
-}
+NOT_CLAIMS = {"generated", "verified", "status", "stale_after", "timestamp", "usage_window"}
 RELATED_START, RELATED_END = "<!-- lokf:related -->", "<!-- /lokf:related -->"
 # A base commit as `--since` may name it: no leading dash, so git never reads
 # it as an option.
@@ -163,18 +156,10 @@ def plain_spellings(fm_text: str) -> list[str]:
                     findings.append(f"a comment beside {field} at {at(ev)}")
         if isinstance(ev, (yaml.MappingStartEvent, yaml.SequenceStartEvent)):
             if field in GATE_FIELDS:
-                findings.append(
-                    f"a collection where {field} should be one scalar at {at(ev)}"
-                )
+                findings.append(f"a collection where {field} should be one scalar at {at(ev)}")
             if in_value:
                 top["expect_key"] = True
-            stack.append(
-                {
-                    "kind": "map" if isinstance(ev, yaml.MappingStartEvent) else "seq",
-                    "expect_key": True,
-                    "key": None,
-                }
-            )
+            stack.append({"kind": "map" if isinstance(ev, yaml.MappingStartEvent) else "seq", "expect_key": True, "key": None})
             continue
         if isinstance(ev, (yaml.MappingEndEvent, yaml.SequenceEndEvent)):
             stack.pop()
@@ -276,15 +261,8 @@ def claims(frontmatter: dict, body: str, base: str = ""):
     kept = {k: v for k, v in frontmatter.items() if k not in NOT_CLAIMS}
     if base:
         kept, body = under(kept, base), under(body, base)
-    if isinstance(
-        kept.get("sources"), list
-    ):  # a source's usage_count is a usage signal too
-        kept["sources"] = [
-            {k: v for k, v in s.items() if k != "usage_count"}
-            if isinstance(s, dict)
-            else s
-            for s in kept["sources"]
-        ]
+    if isinstance(kept.get("sources"), list):  # a source's usage_count is a usage signal too
+        kept["sources"] = [{k: v for k, v in s.items() if k != "usage_count"} if isinstance(s, dict) else s for s in kept["sources"]]
     out: list[str] = []
     fenced = in_questions = in_related = False
     for line in body.split("\n"):
@@ -307,13 +285,7 @@ def claims(frontmatter: dict, body: str, base: str = ""):
 
 def git(cwd: Path, *args: str) -> str | None:
     try:
-        done = subprocess.run(
-            ["git", "-C", str(cwd), *args],
-            capture_output=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=120,
-        )
+        done = subprocess.run(["git", "-C", str(cwd), *args], capture_output=True, encoding="utf-8", errors="replace", timeout=120)
     except (OSError, subprocess.SubprocessError):
         return None
     return done.stdout if done.returncode == 0 else None
@@ -326,9 +298,7 @@ def base_iri(text: str | None) -> str:
     return value if isinstance(value, str) else ""
 
 
-def unstamped_edit(
-    path: Path, frontmatter: dict, body: str, bundle: Path
-) -> str | None:
+def unstamped_edit(path: Path, frontmatter: dict, body: str, bundle: Path) -> str | None:
     """Rule 13: a concept that reads as confirmed by a person still holds the claims they confirmed.
 
     The text they confirmed is the concept at the newest commit that recorded
@@ -342,29 +312,17 @@ def unstamped_edit(
     if frontmatter.get("status") == "deprecated":
         return None
     verified = frontmatter.get("verified")
-    events = (
-        [verified]
-        if isinstance(verified, dict)
-        else verified
-        if isinstance(verified, list)
-        else []
-    )
+    events = [verified] if isinstance(verified, dict) else verified if isinstance(verified, list) else []
     confirmations = [
         (moment(e.get("at")), e.get("at"), str(e.get("by")))
         for e in events
-        if isinstance(e, dict)
-        and str(e.get("by", "")).startswith("human:")
-        and moment(e.get("at"))
+        if isinstance(e, dict) and str(e.get("by", "")).startswith("human:") and moment(e.get("at"))
     ]
     if not confirmations:
         return None
     confirmed_at, written, by = max(confirmations)
     generated = frontmatter.get("generated")
-    stamp = (
-        moment(generated.get("at"))
-        if isinstance(generated, dict)
-        else moment(frontmatter.get("timestamp"))
-    )
+    stamp = moment(generated.get("at")) if isinstance(generated, dict) else moment(frontmatter.get("timestamp"))
     if stamp > confirmed_at:
         return None  # it already reads as edited since that confirmation
     real = path.resolve()
@@ -373,34 +331,20 @@ def unstamped_edit(
     if not commit:
         return None
     then = git(real.parent, "show", f"{commit}:./{real.name}")
-    split = (
-        split_frontmatter(
-            then.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
-        )
-        if then
-        else None
-    )
+    split = split_frontmatter(then.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")) if then else None
     if split is None:
         return None
     try:
         frontmatter_then = yaml.safe_load(split[0])
     except yaml.YAMLError:
         return None
-    if not isinstance(frontmatter_then, dict) or claims(
-        frontmatter_then, split[1]
-    ) == claims(frontmatter, body):
+    if not isinstance(frontmatter_then, dict) or claims(frontmatter_then, split[1]) == claims(frontmatter, body):
         return None
     index = bundle.resolve() / "index.md"
-    base_now = (
-        base_iri(index.read_text(encoding="utf-8", errors="replace"))
-        if index.is_file()
-        else ""
-    )
+    base_now = base_iri(index.read_text(encoding="utf-8", errors="replace")) if index.is_file() else ""
     base_then = base_iri(git(index.parent, "show", f"{commit}:./index.md"))
     if base_now and base_then and base_now != base_then:
-        if claims(frontmatter_then, split[1], base_then) == claims(
-            frontmatter, body, base_now
-        ):
+        if claims(frontmatter_then, split[1], base_then) == claims(frontmatter, body, base_now):
             return None
     return (
         f"{path}: changed since {by} confirmed it ({confirmed_at[:10]}, in {commit[:7]}), and `generated` was not "
@@ -412,13 +356,7 @@ def unstamped_edit(
 def human_events(frontmatter: dict) -> set[tuple[str, str]]:
     """The (actor, time) of each `verified` event a person recorded."""
     verified = frontmatter.get("verified")
-    events = (
-        [verified]
-        if isinstance(verified, dict)
-        else verified
-        if isinstance(verified, list)
-        else []
-    )
+    events = [verified] if isinstance(verified, dict) else verified if isinstance(verified, list) else []
     return {
         (str(e.get("by")), str(e.get("at")))
         for e in events
@@ -430,9 +368,7 @@ def parsed(text: str | None) -> tuple[dict, str] | None:
     """A concept's frontmatter and body as git holds them, or None when there is no such file or no mapping."""
     if text is None:
         return None
-    split = split_frontmatter(
-        text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
-    )
+    split = split_frontmatter(text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n"))
     if split is None:
         return None
     try:
@@ -454,62 +390,35 @@ def verdict_edits(bundle: Path, since: str) -> list[str]:
     never read as one. Outside git, or with no such base, nothing is said.
     """
     if not COMMIT.fullmatch(since):
-        return [
-            f"rule 14: '{since}' is not a commit - pass the base the pull request was opened against"
-        ]
+        return [f"rule 14: '{since}' is not a commit - pass the base the pull request was opened against"]
     real = bundle.resolve()
     top = git(real, "rev-parse", "--show-toplevel")
     if top is None:
         return []
     top_path = Path(top.strip())
     if git(top_path, "rev-parse", "--verify", "--quiet", since + "^{commit}") is None:
-        return [
-            f"rule 14: the base commit {since} is not in this clone's history - check out the full history"
-        ]
+        return [f"rule 14: the base commit {since} is not in this clone's history - check out the full history"]
     rel = real.relative_to(top_path.resolve()).as_posix()
     findings: list[str] = []
-    for commit in (
-        git(top_path, "rev-list", "--reverse", f"{since}..HEAD", "--", rel) or ""
-    ).split():
-        parents = (
-            git(top_path, "rev-list", "--parents", "-n", "1", commit) or ""
-        ).split()[1:]
+    for commit in (git(top_path, "rev-list", "--reverse", f"{since}..HEAD", "--", rel) or "").split():
+        parents = (git(top_path, "rev-list", "--parents", "-n", "1", commit) or "").split()[1:]
         names: set[str] = set()
         for parent in parents or [""]:
             against = [parent, commit] if parent else ["--root", commit]
-            out = git(
-                top_path,
-                "diff-tree",
-                "--no-commit-id",
-                "--name-only",
-                "-r",
-                "--diff-filter=AM",
-                *against,
-                "--",
-                rel,
-            )
-            names.update(
-                n
-                for n in (out or "").splitlines()
-                if n.endswith(".md") and Path(n).name not in RESERVED
-            )
+            out = git(top_path, "diff-tree", "--no-commit-id", "--name-only", "-r", "--diff-filter=AM", *against, "--", rel)
+            names.update(n for n in (out or "").splitlines() if n.endswith(".md") and Path(n).name not in RESERVED)
         for name in sorted(names):
             now = parsed(git(top_path, "show", f"{commit}:{name}"))
             if now is None:
                 continue
             frontmatter, body = now
-            before = [
-                parsed(git(top_path, "show", f"{parent}:{name}")) for parent in parents
-            ]
+            before = [parsed(git(top_path, "show", f"{parent}:{name}")) for parent in parents]
             held: set[tuple[str, str]] = set()
             for earlier in before:
                 if earlier is not None:
                     held |= human_events(earlier[0])
             added = human_events(frontmatter) - held
-            if not added or any(
-                e is not None and claims(e[0], e[1]) == claims(frontmatter, body)
-                for e in before
-            ):
+            if not added or any(e is not None and claims(e[0], e[1]) == claims(frontmatter, body) for e in before):
                 continue
             generated = frontmatter.get("generated")
             author = str(generated.get("by")) if isinstance(generated, dict) else ""
@@ -521,12 +430,7 @@ def verdict_edits(bundle: Path, since: str) -> list[str]:
     return findings
 
 
-def footnotes(
-    path: Path,
-    frontmatter: dict,
-    body: str,
-    source_ids: dict[str, dict[str, list[Path]]],
-) -> list[str]:
+def footnotes(path: Path, frontmatter: dict, body: str, source_ids: dict[str, dict[str, list[Path]]]) -> list[str]:
     """Rule 16: each footnote in the body joins a claim to one of the concept's `sources` entries, by that entry's `id`.
 
     A reference `[^label]` and a definition line `[^label]: text` each use
@@ -540,13 +444,7 @@ def footnotes(
     """
     findings: list[str] = []
     sources = frontmatter.get("sources")
-    entries = (
-        [sources]
-        if isinstance(sources, dict)
-        else sources
-        if isinstance(sources, list)
-        else []
-    )
+    entries = [sources] if isinstance(sources, dict) else sources if isinstance(sources, list) else []
     ids: dict[str, str] = {}
     for entry in entries:
         if not isinstance(entry, dict) or entry.get("id") is None:
@@ -582,9 +480,7 @@ def footnotes(
         )
     for label, resource in sorted(ids.items()):
         if label not in referenced:
-            findings.append(
-                f"{path}: sources[].id {label} is cited by no footnote - write [^{label}] after a claim it backs, or drop the id"
-            )
+            findings.append(f"{path}: sources[].id {label} is cited by no footnote - write [^{label}] after a claim it backs, or drop the id")
         elif label not in defined:
             findings.append(
                 f'{path}: footnote [^{label}] has no definition line - add "[^{label}]: {resource}, <where in it>" at the end of the body'
@@ -607,9 +503,7 @@ def bullet_target(text: str, bundle: Path) -> tuple[Path | None, str]:
     m = MARKDOWN_LINK.search(text)
     if m is None or "://" in m.group(2):
         return None, ""
-    return bundle / re.sub(r"^(\.\./|\./)", "", m.group(2)), " ".join(
-        m.group(1).split()
-    )
+    return bundle / re.sub(r"^(\.\./|\./)", "", m.group(2)), " ".join(m.group(1).split())
 
 
 def bullet_head(text: str) -> str:
@@ -629,12 +523,7 @@ def bullet_names(bullet: dict, bundle: Path) -> set[str]:
 def starts_with_title(text: str, titles: set[str]) -> bool:
     """The text, whitespace collapsed, starts with a concept's title, followed by the end of the line or one of AFTER_TITLE."""
     collapsed = " ".join(text.split())
-    return any(
-        collapsed.startswith(t)
-        and (len(collapsed) == len(t) or collapsed[len(t)] in AFTER_TITLE)
-        for t in titles
-        if t
-    )
+    return any(collapsed.startswith(t) and (len(collapsed) == len(t) or collapsed[len(t)] in AFTER_TITLE) for t in titles if t)
 
 
 def logged_writes(bundle: Path, titles: set[str], since: str) -> list[str]:
@@ -653,22 +542,14 @@ def logged_writes(bundle: Path, titles: set[str], since: str) -> list[str]:
     log = bundle / "log.md"
     if not log.is_file():
         return []
-    text = (
-        log.read_bytes()
-        .decode("utf-8", errors="replace")
-        .lstrip("\ufeff")
-        .replace("\r\n", "\n")
-        .replace("\r", "\n")
-    )
+    text = log.read_bytes().decode("utf-8", errors="replace").lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
     bullets: list[dict] = []
     day = first_day = ""
     current: dict | None = None
     for line in text.split("\n"):
         if line.startswith("## "):
             m = DAY_HEADING.match(line)
-            day = (
-                m.group(1) if m else ""
-            )  # under a heading rule 1 reports, nothing is read
+            day = m.group(1) if m else ""  # under a heading rule 1 reports, nothing is read
             first_day = first_day or day
             current = None
             continue
@@ -682,22 +563,9 @@ def logged_writes(bundle: Path, titles: set[str], since: str) -> list[str]:
             current = None
     diff = None
     if since and COMMIT.fullmatch(since):
-        diff = git(
-            log.resolve().parent,
-            "diff",
-            "--no-color",
-            "--no-ext-diff",
-            "--unified=0",
-            since,
-            "--",
-            "log.md",
-        )
+        diff = git(log.resolve().parent, "diff", "--no-color", "--no-ext-diff", "--unified=0", since, "--", "log.md")
     if diff is not None:
-        added = {
-            line[1:]
-            for line in diff.split("\n")
-            if line.startswith("+") and not line.startswith("+++")
-        }
+        added = {line[1:] for line in diff.split("\n") if line.startswith("+") and not line.startswith("+++")}
         chosen = [b for b in bullets if b["line"] in added]
     else:
         chosen = [b for b in bullets if b["day"] == first_day]
@@ -709,11 +577,7 @@ def logged_writes(bundle: Path, titles: set[str], since: str) -> list[str]:
         if path is not None:
             if path.is_file():
                 continue
-            which = (
-                "the retired concept"
-                if b["kind"] == "Deprecation"
-                else "the concept it names"
-            )
+            which = "the retired concept" if b["kind"] == "Deprecation" else "the concept it names"
             what = f"links {path}, which the bundle lacks - link {which}, or log its removal"
         else:
             if starts_with_title(b["text"], titles):
@@ -722,35 +586,22 @@ def logged_writes(bundle: Path, titles: set[str], since: str) -> list[str]:
                 f"names no concept the bundle holds: {' '.join(b['text'].split())[:60]} - "
                 "start it with the concept's title, or link the concept"
             )
-        if any(
-            bullet_names(r, bundle) & bullet_names(b, bundle)
-            for r in bullets
-            if r["kind"] == "Removal" and r["day"] >= b["day"]
-        ):
+        if any(bullet_names(r, bundle) & bullet_names(b, bundle) for r in bullets if r["kind"] == "Removal" and r["day"] >= b["day"]):
             continue
         findings.append(f"{log}: {b['kind']} bullet under {b['day']} {what}")
     return findings
 
 
-def index_bullets(
-    index: Path, cache: dict[Path, dict[str, tuple[str, str]]]
-) -> dict[str, tuple[str, str]]:
+def index_bullets(index: Path, cache: dict[Path, dict[str, tuple[str, str]]]) -> dict[str, tuple[str, str]]:
     """The bullets of one index.md, as link -> (title, description), each with its whitespace collapsed."""
     if index not in cache:
         found: dict[str, tuple[str, str]] = {}
         if index.is_file():
-            text = (
-                index.read_text(encoding="utf-8", errors="replace")
-                .replace("\r\n", "\n")
-                .replace("\r", "\n")
-            )
+            text = index.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
             for line in text.split("\n"):
                 m = INDEX_BULLET.match(line)
                 if m:
-                    found[m.group(2)] = (
-                        " ".join(m.group(1).split()),
-                        " ".join(m.group(3).split()),
-                    )
+                    found[m.group(2)] = (" ".join(m.group(1).split()), " ".join(m.group(3).split()))
         cache[index] = found
     return cache[index]
 
@@ -766,13 +617,9 @@ def check_file(
     findings: list[str] = []
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
-        findings.append(
-            f"{path}: starts with a byte order mark - save as UTF-8 without BOM"
-        )
+        findings.append(f"{path}: starts with a byte order mark - save as UTF-8 without BOM")
         raw = raw[3:]
-    text = (
-        raw.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
-    )
+    text = raw.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
 
     split = split_frontmatter(text)
     if split is None:
@@ -797,9 +644,7 @@ def check_file(
     # 10. the fields the provenance gates read line by line are spelt so a
     #     line reader and a parser see the same event.
     for what in plain_spellings(fm_text):
-        findings.append(
-            f"{path}: frontmatter uses {what} - write it plainly, so the gate reads the event a parser reads"
-        )
+        findings.append(f"{path}: frontmatter uses {what} - write it plainly, so the gate reads the event a parser reads")
 
     # 2. every `at:` a quoted time in one shape: unquoted, YAML resolves it to
     #    a datetime, a date or a number, and only a string reaches every
@@ -843,9 +688,7 @@ def check_file(
         if in_section and line.startswith("#"):
             in_section = False
         if in_section and line.startswith("- ") and not OPEN_QUESTION.match(line):
-            findings.append(
-                f"{path}: open question not '- YYYY-MM-DD, <actor>: ...': {line[:60]}"
-            )
+            findings.append(f"{path}: open question not '- YYYY-MM-DD, <actor>: ...': {line[:60]}")
 
     # 18. each exclusion says why the material was left out, and no material
     #     is both a source and an exclusion of one concept.
@@ -853,9 +696,7 @@ def check_file(
     for i, exclusion in listed(frontmatter, "exclusions"):
         reason = exclusion.get("reason")
         if not isinstance(reason, str) or not reason.strip():
-            findings.append(
-                f"{path}: exclusions[{i}] gives no reason - say in a sentence why the material was left out"
-            )
+            findings.append(f"{path}: exclusions[{i}] gives no reason - say in a sentence why the material was left out")
         key = same_material(exclusion.get("resource"))
         if key is not None and key in used:
             findings.append(
@@ -888,9 +729,7 @@ def check_file(
     #     a concept with neither can be neither re-verified nor counted.
     resource, sources = frontmatter.get("resource"), frontmatter.get("sources")
     has_resource = isinstance(resource, str) and bool(resource.strip())
-    has_sources = isinstance(sources, dict) or (
-        isinstance(sources, list) and bool(sources)
-    )
+    has_sources = isinstance(sources, dict) or (isinstance(sources, list) and bool(sources))
     if not has_resource and not has_sources:
         findings.append(
             f"{path}: neither resource nor sources names where it came from - "
@@ -908,10 +747,7 @@ def main(argv: list[str]) -> int:
     if len(args) == 3 and args[1] == "--since":
         args, since = args[:1], args[2]
     if len(args) != 1:
-        print(
-            "usage: knowledge-conventions.py <bundle-dir> [--since <commit>]",
-            file=sys.stderr,
-        )
+        print("usage: knowledge-conventions.py <bundle-dir> [--since <commit>]", file=sys.stderr)
         return 2
     bundle = Path(args[0])
     if not bundle.is_dir():
@@ -936,10 +772,7 @@ def main(argv: list[str]) -> int:
     #     is a choice this rule leaves alone.
     cache: dict[Path, dict[str, tuple[str, str]]] = {}
     for path, entry in entries.items():
-        places = {
-            path.parent / "index.md": path.name,
-            bundle / "index.md": path.relative_to(bundle).as_posix(),
-        }
+        places = {path.parent / "index.md": path.name, bundle / "index.md": path.relative_to(bundle).as_posix()}
         for index, link in places.items():
             bullet = index_bullets(index, cache).get(link)
             if bullet is not None and bullet != entry:
@@ -962,10 +795,7 @@ def main(argv: list[str]) -> int:
     #     into one RDF node, and a query then credits each claim to both.
     for label, by_resource in sorted(source_ids.items()):
         if len(by_resource) > 1:
-            where = "; ".join(
-                f"{resource or '(no resource)'} in {' '.join(str(p) for p in paths)}"
-                for resource, paths in by_resource.items()
-            )
+            where = "; ".join(f"{resource or '(no resource)'} in {' '.join(str(p) for p in paths)}" for resource, paths in by_resource.items())
             findings.append(
                 f"id {label} names more than one resource: {where} - "
                 "one id names one resource across the bundle, since the id mints one source node under the bundle base"

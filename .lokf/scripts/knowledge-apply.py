@@ -94,77 +94,37 @@ import yaml
 
 RESERVED = {"index.md", "log.md", "diataxis.md"}
 PATH_RE = re.compile(r"^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9-]*)+\.md$")
-EVENT_RE = re.compile(
-    r"^\s*-?\s*by:\s*human:"
-)  # a line the provenance gates read as a person's event
-NOTE_RE = re.compile(
-    r"^\s*-\s*\d{4}-\d{2}-\d{2},\s*human:"
-)  # a line the curator reads as a person's note
-KEPT_NOTE_RE = re.compile(
-    r"^- \d{4}-\d{2}-\d{2}, *human:"
-)  # a person's note as knowledge-provenance.sh --unattended reads one
-CURATOR_NOTE_RE = re.compile(
-    r"^- \d{4}-\d{2}-\d{2}, *process:ktl-curator:"
-)  # a curator's send-back recorded with no authenticated login (review-session.md)
+EVENT_RE = re.compile(r"^\s*-?\s*by:\s*human:")  # a line the provenance gates read as a person's event
+NOTE_RE = re.compile(r"^\s*-\s*\d{4}-\d{2}-\d{2},\s*human:")  # a line the curator reads as a person's note
+KEPT_NOTE_RE = re.compile(r"^- \d{4}-\d{2}-\d{2}, *human:")  # a person's note as knowledge-provenance.sh --unattended reads one
+CURATOR_NOTE_RE = re.compile(r"^- \d{4}-\d{2}-\d{2}, *process:ktl-curator:")  # a curator's send-back recorded with no authenticated login (review-session.md)
 ACTOR_RE = re.compile(r"^process:\S+$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 # Matched case-insensitively, and including the event-internal keys, so a
 # patch cannot write a top-level `by: human:...` or a `Verified:` that a line
 # reader would skip but a person, or another parser, could read as provenance.
-DENIED_SET = {
-    "id",
-    "type",
-    "generated",
-    "verified",
-    "status",
-    "stale_after",
-    "timestamp",
-    "by",
-    "at",
-    "revision",
-}
-DENIED_CREATE = {
-    "generated",
-    "verified",
-    "status",
-    "stale_after",
-    "timestamp",
-    "by",
-    "at",
-    "revision",
-}
+DENIED_SET = {"id", "type", "generated", "verified", "status", "stale_after", "timestamp", "by", "at", "revision"}
+DENIED_CREATE = {"generated", "verified", "status", "stale_after", "timestamp", "by", "at", "revision"}
 RELATED_START, RELATED_END = "<!-- lokf:related -->", "<!-- /lokf:related -->"
 OPEN_Q = "## Open questions"
-BULLET_RE = re.compile(
-    r"^- \d{4}-\d{2}-\d{2}, (\S+?): "
-)  # an open question's actor, in the shape the curator writes
+BULLET_RE = re.compile(r"^- \d{4}-\d{2}-\d{2}, (\S+?): ")  # an open question's actor, in the shape the curator writes
 # A web address that is not already an autolink, a link's target or a link's
 # text: no `<`, `](` or `[` before it. A pair of parentheses inside it stays
 # in it, as Wikipedia's addresses need, and its last character is no
 # punctuation, so a full stop, a comma or a closing parenthesis after it
 # stays in the sentence.
-BARE_URL_RE = re.compile(
-    r"(?<!\]\()(?<![<\[\w/])https?://(?:[^\s<>`()]|\([^\s<>`()]*\))*(?:[^\s<>`().,;:!?'\"]|\([^\s<>`()]*\))"
-)
-HEADING_RE = re.compile(
-    r"^(#{1,6})[ \t]+(.*\S)[ \t]*$"
-)  # a Markdown heading: its level and its text
-OWN_BULLET_RE = re.compile(
-    r"^\* \[[^\]]*\]\([^)]+\)(?: - .*)?$"
-)  # any concept's own index bullet: its link alone, then its description
+BARE_URL_RE = re.compile(r"(?<!\]\()(?<![<\[\w/])https?://(?:[^\s<>`()]|\([^\s<>`()]*\))*(?:[^\s<>`().,;:!?'\"]|\([^\s<>`()]*\))")
+HEADING_RE = re.compile(r"^(#{1,6})[ \t]+(.*\S)[ \t]*$")  # a Markdown heading: its level and its text
+OWN_BULLET_RE = re.compile(r"^\* \[[^\]]*\]\([^)]+\)(?: - .*)?$")  # any concept's own index bullet: its link alone, then its description
 FEEDBACK_KIND_RE = re.compile(r"^- \*\*(Miss|Disagreement)\*\* ")
 HANDOFF_LINES, HANDOFF_CHARS = 10, 300
-FEEDBACK_ENTRIES = (
-    10  # the reader entries one patch may handle; the rest wait for the next run
-)
+FEEDBACK_ENTRIES = 10  # the reader entries one patch may handle; the rest wait for the next run
 # The characters Unicode calls default ignorable, which a renderer draws as
 # nothing, beyond the format and control characters: variation selectors,
 # which can spell hidden text after a visible character, the Hangul fillers
 # and the combining grapheme joiner, among others. knowledge-ingest.py holds
 # the same list.
-IGNORABLE = re.compile(
-    "[\u034f\u115f\u1160\u17b4\u17b5\u180b-\u180f\u2065\u3164\ufe00-\ufe0f\uffa0\ufff0-\ufff8\U000e0000-\U000e0fff]"
-)
+IGNORABLE = re.compile("[\u034f\u115f\u1160\u17b4\u17b5\u180b-\u180f\u2065\u3164\ufe00-\ufe0f\uffa0\ufff0-\ufff8\U000e0000-\U000e0fff]")
 # The keys each operation reads besides `op` and `path`. The script refuses
 # any other key, naming it, because a key it skipped would pass a dry run and
 # change nothing. A `set` on a rewrite was once dropped that way. Every
@@ -192,7 +152,7 @@ LEDGER_HEAD = (
 
 # What `--format` prints. ktl-librarian's references/patch.md carries the same
 # block, and check 19 of the repository contract holds the two equal.
-FORMAT = r"""by: process:ktl-librarian        # optional; the actor every stamp carries, always process:<id>
+FORMAT = r'''by: process:ktl-librarian        # optional; the actor every stamp carries, always process:<id>
 log: "**Changed**: each service concept now cites its source by repository path."   # optional; the line for every operation that gives none, written once
 ops:
   - op: create                   # a concept that does not exist yet
@@ -254,7 +214,7 @@ ops:
 handoff:                         # optional; at most ten lines of 300 characters for the reviewer, in your own words and never a reader's; written nowhere in the bundle
   - "datasets/orders-db.md and playbooks/release.md came back for the same misread date; the skill's rule on dates needs a look."
   - "https://acme.example/spec did not answer, so references/acme-spec.md was not rechecked."
-"""
+'''
 
 
 class Refused(Exception):
@@ -305,9 +265,7 @@ class Dumper(yaml.SafeDumper):
         return super().increase_indent(flow, False)
 
 
-Dumper.add_representer(
-    Plain, lambda dumper, text: dumper.represent_scalar(text.tag, str(text))
-)
+Dumper.add_representer(Plain, lambda dumper, text: dumper.represent_scalar(text.tag, str(text)))
 
 
 def split_frontmatter(text: str):
@@ -322,14 +280,7 @@ def split_frontmatter(text: str):
 
 def dump(fm: dict, body: str) -> str:
     """The frontmatter block, then the body as it was read: a blank line after the closing --- stays, and one that was absent stays absent."""
-    fm_text = yaml.dump(
-        fm,
-        Dumper=Dumper,
-        sort_keys=False,
-        allow_unicode=True,
-        default_flow_style=False,
-        width=1_000_000,
-    )
+    fm_text = yaml.dump(fm, Dumper=Dumper, sort_keys=False, allow_unicode=True, default_flow_style=False, width=1_000_000)
     return "---\n" + fm_text + "---\n" + body.rstrip("\n") + "\n"
 
 
@@ -341,14 +292,7 @@ def one_line(value, what: str) -> str:
 
 def shown(text: str) -> str:
     """The text without the characters no reader sees: a control character, a format character such as a zero-width space, a soft hyphen, a bidirectional control or a tag character, or another character Unicode calls default ignorable, such as a variation selector. knowledge-ingest.py drops the same characters, except the two joiners, which it keeps."""
-    return " ".join(
-        "".join(
-            char
-            for char in text
-            if unicodedata.category(char) not in ("Cc", "Cf")
-            and not IGNORABLE.match(char)
-        ).split()
-    )
+    return " ".join("".join(char for char in text if unicodedata.category(char) not in ("Cc", "Cf") and not IGNORABLE.match(char)).split())
 
 
 def person_record(text: str | None) -> Counter:
@@ -364,24 +308,9 @@ def person_record(text: str | None) -> Counter:
     if isinstance(fm, dict):
         for kind in ("generated", "verified"):
             value = fm.get(kind)
-            for event in (
-                [value]
-                if isinstance(value, dict)
-                else value
-                if isinstance(value, list)
-                else []
-            ):
-                if isinstance(event, dict) and str(event.get("by", "")).startswith(
-                    "human:"
-                ):
-                    record[
-                        (
-                            kind,
-                            str(event.get("by")),
-                            str(event.get("at", "")),
-                            str(event.get("revision", "")),
-                        )
-                    ] += 1
+            for event in [value] if isinstance(value, dict) else value if isinstance(value, list) else []:
+                if isinstance(event, dict) and str(event.get("by", "")).startswith("human:"):
+                    record[(kind, str(event.get("by")), str(event.get("at", "")), str(event.get("revision", "")))] += 1
     for line in text.split("\n"):
         if KEPT_NOTE_RE.match(line):
             record[("note", line.rstrip())] += 1
@@ -391,24 +320,16 @@ def person_record(text: str | None) -> Counter:
 def record_findings(path: str, was: Counter, now: Counter) -> list:
     """One line for each way a patch would change a person's record in one concept, naming the actor and the day and never the words."""
     findings = []
-    for what, entry in [("remove", e) for e in sorted(was - now)] + [
-        ("add", e) for e in sorted(now - was)
-    ]:
+    for what, entry in [("remove", e) for e in sorted(was - now)] + [("add", e) for e in sorted(now - was)]:
         if entry[0] == "note":
             who = re.match(r"^- (\d{4}-\d{2}-\d{2}), *(human:[^ :]*)", entry[1])
             name = f"{who.group(2)}, {who.group(1)}" if who else "a person"
             if what == "remove":
-                findings.append(
-                    f"{path}: this patch would remove a note a person left ({name}); only ktl-curator clears one, on that person's word, and a rewrite carries the {OPEN_Q} section over only when its own body has none"
-                )
+                findings.append(f"{path}: this patch would remove a note a person left ({name}); only ktl-curator clears one, on that person's word, and a rewrite carries the {OPEN_Q} section over only when its own body has none")
             else:
-                findings.append(
-                    f"{path}: this patch would add a note in a person's name ({name}); only ktl-curator records one, on that person's word"
-                )
+                findings.append(f"{path}: this patch would add a note in a person's name ({name}); only ktl-curator records one, on that person's word")
         else:
-            findings.append(
-                f"{path}: this patch would {what} a person's {entry[0]} event ({entry[1]}, {entry[2] or 'no time'}); only ktl-curator writes one, in a live session"
-            )
+            findings.append(f"{path}: this patch would {what} a person's {entry[0]} event ({entry[1]}, {entry[2] or 'no time'}); only ktl-curator writes one, in a live session")
     return findings
 
 
@@ -454,10 +375,7 @@ def questions_span(body: str):
 def autolinked(text: str) -> str:
     """The line with each bare web address outside a code span written as an autolink, <https://...>. Markdown linters refuse a bare one (markdownlint's MD034), and the curator reads the line in a rendered view, where an autolink is a link."""
     parts = re.split(r"(`[^`]*`)", text)
-    return "".join(
-        part if part.startswith("`") else BARE_URL_RE.sub(r"<\g<0>>", part)
-        for part in parts
-    )
+    return "".join(part if part.startswith("`") else BARE_URL_RE.sub(r"<\g<0>>", part) for part in parts)
 
 
 def clean_question(value, what: str) -> str:
@@ -475,18 +393,14 @@ def handoff_lines(value) -> list:
     if not isinstance(value, list) or not value:
         raise Refused("handoff is a list of lines for the reviewer")
     if len(value) > HANDOFF_LINES:
-        raise Refused(
-            f"handoff holds {len(value)} lines; a reviewer gets at most {HANDOFF_LINES}"
-        )
+        raise Refused(f"handoff holds {len(value)} lines; a reviewer gets at most {HANDOFF_LINES}")
     lines = []
     for n, item in enumerate(value, start=1):
         text = shown(one_line(item, f"handoff line {n}")).replace("`", "'")
         if not text:
             raise Refused(f"handoff line {n} holds no printable text")
         if len(text) > HANDOFF_CHARS:
-            raise Refused(
-                f"handoff line {n} is {len(text)} characters; a line is at most {HANDOFF_CHARS}"
-            )
+            raise Refused(f"handoff line {n} is {len(text)} characters; a line is at most {HANDOFF_CHARS}")
         lines.append(text)
     return lines
 
@@ -504,24 +418,18 @@ class Concept:
         self.path = path
         self.deleted = False
         self.touched = False
-        self.record = person_record(
-            text
-        )  # what the file holds in a person's name, before any operation
+        self.record = person_record(text)  # what the file holds in a person's name, before any operation
         if text is None:
             self.fm, self.body = {}, ""
             return
         split = split_frontmatter(text)
         if split is None:
-            raise Refused(
-                f"{path}: no closed frontmatter block, so this script cannot read it"
-            )
+            raise Refused(f"{path}: no closed frontmatter block, so this script cannot read it")
         fm_text, body = split
         try:
             fm = read_yaml(fm_text)
         except yaml.YAMLError as exc:
-            raise Refused(
-                f"{path}: frontmatter is not valid YAML ({' '.join(str(exc).split())[:80]})"
-            )
+            raise Refused(f"{path}: frontmatter is not valid YAML ({' '.join(str(exc).split())[:80]})")
         if not isinstance(fm, dict):
             raise Refused(f"{path}: frontmatter is not a mapping")
         self.fm, self.body = fm, body
@@ -545,7 +453,7 @@ class Concept:
         q = questions_span(self.body)
         if q is None:
             return False
-        actors = (BULLET_RE.match(line) for line in self.body[q[0] : q[1]].split("\n"))
+        actors = (BULLET_RE.match(line) for line in self.body[q[0]:q[1]].split("\n"))
         return any(m is not None and m.group(1).startswith("human:") for m in actors)
 
     def noted_by_curator(self) -> bool:
@@ -553,9 +461,7 @@ class Concept:
         q = questions_span(self.body)
         if q is None:
             return False
-        return any(
-            CURATOR_NOTE_RE.match(line) for line in self.body[q[0] : q[1]].split("\n")
-        )
+        return any(CURATOR_NOTE_RE.match(line) for line in self.body[q[0]:q[1]].split("\n"))
 
     def title(self) -> str:
         return " ".join(str(self.fm.get("title", self.path)).split())
@@ -565,9 +471,7 @@ class Concept:
 
 
 class Bundle:
-    def __init__(
-        self, root: Path, by: str, now: str, today: str, log: str | None = None
-    ):
+    def __init__(self, root: Path, by: str, now: str, today: str, log: str | None = None):
         self.root = root
         self.knowledge = root / ".lokf" / "knowledge"
         self.feedback = root / ".lokf" / "feedback.md"
@@ -583,23 +487,17 @@ class Bundle:
         self.base_iri = self.read_base_iri()
 
     def read_base_iri(self) -> str:
-        split = split_frontmatter(
-            (self.knowledge / "index.md").read_text(encoding="utf-8")
-        )
+        split = split_frontmatter((self.knowledge / "index.md").read_text(encoding="utf-8"))
         fm = read_yaml(split[0]) if split else None
         base = fm.get("base_iri") if isinstance(fm, dict) else None
         if not isinstance(base, str) or not base:
-            raise Refused(
-                "index.md: the bundle's root index.md carries no base_iri, so no id can be minted"
-            )
+            raise Refused("index.md: the bundle's root index.md carries no base_iri, so no id can be minted")
         return base
 
     def concept(self, path: str, must_exist: bool) -> Concept:
         if path not in self.concepts:
             file = self.knowledge / path
-            self.concepts[path] = Concept(
-                path, file.read_text(encoding="utf-8") if file.is_file() else None
-            )
+            self.concepts[path] = Concept(path, file.read_text(encoding="utf-8") if file.is_file() else None)
             if not file.is_file():
                 self.concepts[path].deleted = True  # absent until created
         c = self.concepts[path]
@@ -618,23 +516,17 @@ class Bundle:
             raise Refused(f"{path}: create needs a frontmatter mapping")
         denied = sorted(k for k in fm_in if k.lower() in DENIED_CREATE)
         if denied:
-            raise Refused(
-                f"{path}: create may not set {', '.join(denied)}; the script stamps provenance and status"
-            )
+            raise Refused(f"{path}: create may not set {', '.join(denied)}; the script stamps provenance and status")
         if not isinstance(fm_in.get("type"), str) or not fm_in["type"]:
             raise Refused(f"{path}: create needs a type")
         title = one_line(fm_in.get("title"), f"{path}: title")
         description = one_line(fm_in.get("description"), f"{path}: description")
         if "]" in title or "[" in title:
-            raise Refused(
-                f"{path}: a title may not contain square brackets, which the index bullet uses"
-            )
+            raise Refused(f"{path}: a title may not contain square brackets, which the index bullet uses")
         minted = self.base_iri + path[: -len(".md")]
         given = fm_in.get("id")
         if given is not None and given != minted:
-            raise Refused(
-                f"{path}: id must be {minted} (base_iri plus the path), not {given}"
-            )
+            raise Refused(f"{path}: id must be {minted} (base_iri plus the path), not {given}")
         fm: dict = {"type": fm_in["type"], "id": minted}
         for k, v in fm_in.items():
             if k not in ("type", "id"):
@@ -645,16 +537,9 @@ class Bundle:
         body = op.get("body")
         if not isinstance(body, str) or not body.strip():
             raise Refused(f"{path}: create needs a body")
-        c.fm, c.body, c.deleted, c.touched = (
-            fm,
-            "\n" + body.strip("\n") + "\n",
-            False,
-            True,
-        )
+        c.fm, c.body, c.deleted, c.touched = fm, "\n" + body.strip("\n") + "\n", False, True
         self.index_set(path, title, description)
-        self.log(
-            op, f"**Added**: {title}, from `{fm.get('resource', 'the repository')}`."
-        )
+        self.log(op, f"**Added**: {title}, from `{fm.get('resource', 'the repository')}`.")
 
     def stamp(self, op: dict) -> dict:
         g = {"by": self.by, "at": self.now}
@@ -665,9 +550,7 @@ class Bundle:
 
     def guard_writable(self, c: Concept, verb: str) -> None:
         if c.authored_by_person():
-            raise Refused(
-                f"{c.path}: a person wrote this text, so {verb} is refused; add a question for the curator instead"
-            )
+            raise Refused(f"{c.path}: a person wrote this text, so {verb} is refused; add a question for the curator instead")
 
     def patch(self, op: dict) -> None:
         path = op["path"]
@@ -676,9 +559,7 @@ class Bundle:
         edits = op.get("edits", [])
         sets = op.get("set", {})
         if not isinstance(edits, list) or not isinstance(sets, dict):
-            raise Refused(
-                f"{path}: patch takes a list of edits and a mapping of keys to set"
-            )
+            raise Refused(f"{path}: patch takes a list of edits and a mapping of keys to set")
         if not edits and not sets:
             raise Refused(f"{path}: patch changes nothing")
         for edit in edits:
@@ -694,14 +575,10 @@ class Bundle:
     def set_frontmatter(self, c: Concept, sets) -> None:
         """Sets the frontmatter keys an operation's `set` names. `patch` and `rewrite` both call it, so the two refuse the same keys and check a title and a description the same way. Each calls it before it stamps `generated` and rewrites the index bullets, so the bullets carry a changed title or description."""
         if not isinstance(sets, dict):
-            raise Refused(
-                f"{c.path}: set is a mapping of frontmatter keys to their values"
-            )
+            raise Refused(f"{c.path}: set is a mapping of frontmatter keys to their values")
         denied = sorted(k for k in sets if k.lower() in DENIED_SET)
         if denied:
-            raise Refused(
-                f"{c.path}: set may not touch {', '.join(denied)}; those belong to the script, the curator or the schema"
-            )
+            raise Refused(f"{c.path}: set may not touch {', '.join(denied)}; those belong to the script, the curator or the schema")
         for k, v in sets.items():
             if k in ("title", "description"):
                 v = one_line(v, f"{c.path}: {k}")
@@ -710,23 +587,14 @@ class Bundle:
             c.fm[k] = v
 
     def apply_edit(self, c: Concept, edit) -> None:
-        if (
-            not isinstance(edit, dict)
-            or len(edit) != 1
-            or next(iter(edit)) not in EDITS
-        ):
-            raise Refused(
-                f"{c.path}: each edit is one of replace, insert_after or append"
-            )
+        if not isinstance(edit, dict) or len(edit) != 1 or next(iter(edit)) not in EDITS:
+            raise Refused(f"{c.path}: each edit is one of replace, insert_after or append")
         kind, spec = next(iter(edit.items()))
         if not isinstance(spec, dict) or not isinstance(spec.get("content"), str):
             raise Refused(f"{c.path}: {kind} needs a content string")
         content = spec["content"]
         spans = protected_spans(c.body)
-        had_q, had_r = (
-            questions_span(c.body) is not None,
-            related_span(c.body) is not None,
-        )
+        had_q, had_r = questions_span(c.body) is not None, related_span(c.body) is not None
         if kind == "append":
             self.append_body(c, content)
             return
@@ -736,29 +604,21 @@ class Bundle:
         if kind == "replace":
             n = c.body.count(target)
             if n != 1:
-                raise Refused(
-                    f"{c.path}: replace target occurs {n} times, and must occur exactly once: {target[:60]!r}"
-                )
+                raise Refused(f"{c.path}: replace target occurs {n} times, and must occur exactly once: {target[:60]!r}")
             i = c.body.index(target)
             if overlaps(spans, i, i + len(target)):
-                raise Refused(
-                    f"{c.path}: the target lies in the lokf:related block or under {OPEN_Q}, which this script never edits"
-                )
-            c.body = c.body[:i] + content + c.body[i + len(target) :]
+                raise Refused(f"{c.path}: the target lies in the lokf:related block or under {OPEN_Q}, which this script never edits")
+            c.body = c.body[:i] + content + c.body[i + len(target):]
             self.check_protected_intact(c, had_q, had_r)
             return
         lines = c.body.split("\n")
         hits = [k for k, line in enumerate(lines) if target in line]
         if len(hits) != 1:
-            raise Refused(
-                f"{c.path}: insert_after target is on {len(hits)} lines, and must be on exactly one: {target[:60]!r}"
-            )
+            raise Refused(f"{c.path}: insert_after target is on {len(hits)} lines, and must be on exactly one: {target[:60]!r}")
         k = hits[0]
         offset = sum(len(line) + 1 for line in lines[:k])
         if overlaps(spans, offset, offset + len(lines[k])):
-            raise Refused(
-                f"{c.path}: the target lies in the lokf:related block or under {OPEN_Q}, which this script never edits"
-            )
+            raise Refused(f"{c.path}: the target lies in the lokf:related block or under {OPEN_Q}, which this script never edits")
         lines[k + 1 : k + 1] = content.rstrip("\n").split("\n")
         c.body = "\n".join(lines)
         self.check_protected_intact(c, had_q, had_r)
@@ -766,20 +626,16 @@ class Bundle:
     def check_protected_intact(self, c: Concept, had_q: bool, had_r: bool) -> None:
         """An edit whose target ends right at a protected heading could glue it onto the line before, so the section is no longer a heading and the overlap test, which starts at that heading, never saw it. After the edit, a section that was there must still be there."""
         if had_q and questions_span(c.body) is None:
-            raise Refused(
-                f"{c.path}: this edit would merge the {OPEN_Q} heading into the text before it, and that section is never edited"
-            )
+            raise Refused(f"{c.path}: this edit would merge the {OPEN_Q} heading into the text before it, and that section is never edited")
         if had_r and related_span(c.body) is None:
-            raise Refused(
-                f"{c.path}: this edit would break the lokf:related block, which this script never edits"
-            )
+            raise Refused(f"{c.path}: this edit would break the lokf:related block, which this script never edits")
 
     def append_body(self, c: Concept, content: str) -> None:
         block = "\n" + content.strip("\n") + "\n"
         q = questions_span(c.body)
         if q:
             head = c.body[: q[0]].rstrip("\n")
-            c.body = head + "\n" + block + "\n" + c.body[q[0] :]
+            c.body = head + "\n" + block + "\n" + c.body[q[0]:]
         else:
             c.body = c.body.rstrip("\n") + "\n" + block
 
@@ -793,20 +649,10 @@ class Bundle:
         new = "\n" + body.strip("\n") + "\n"
         related = related_span(c.body)
         if related and related_span(new) is None:
-            new = (
-                new.rstrip("\n")
-                + "\n\n"
-                + c.body[related[0] : related[1]].strip("\n")
-                + "\n"
-            )
+            new = new.rstrip("\n") + "\n\n" + c.body[related[0]:related[1]].strip("\n") + "\n"
         questions = questions_span(c.body)
         if questions and questions_span(new) is None:
-            new = (
-                new.rstrip("\n")
-                + "\n\n"
-                + c.body[questions[0] : questions[1]].strip("\n")
-                + "\n"
-            )
+            new = new.rstrip("\n") + "\n\n" + c.body[questions[0]:questions[1]].strip("\n") + "\n"
         c.body = new
         self.set_frontmatter(c, op.get("set", {}))
         c.fm["generated"] = self.stamp(op)
@@ -825,8 +671,8 @@ class Bundle:
         bullet = f"- {self.today}, {self.by}: {text}"
         q = questions_span(c.body)
         if q:
-            section = c.body[q[0] : q[1]].rstrip("\n") + "\n" + bullet + "\n"
-            c.body = c.body[: q[0]] + section + c.body[q[1] :]
+            section = c.body[q[0]:q[1]].rstrip("\n") + "\n" + bullet + "\n"
+            c.body = c.body[: q[0]] + section + c.body[q[1]:]
         else:
             c.body = c.body.rstrip("\n") + "\n\n" + OPEN_Q + "\n\n" + bullet + "\n"
         c.fm["status"] = "draft"
@@ -839,42 +685,26 @@ class Bundle:
         c = self.concept(path, must_exist=True)
         target = op.get("target")
         if not isinstance(target, str) or not target.strip():
-            raise Refused(
-                f"{path}: resolve needs a target string found in the question"
-            )
+            raise Refused(f"{path}: resolve needs a target string found in the question")
         if not isinstance(op.get("log"), str) or not op["log"].strip():
-            raise Refused(
-                f"{path}: resolve needs a log line saying what settled the question"
-            )
+            raise Refused(f"{path}: resolve needs a log line saying what settled the question")
         q = questions_span(c.body)
         if q is None:
-            raise Refused(
-                f"{path}: no {OPEN_Q} section, so there is no question to resolve"
-            )
-        section = c.body[q[0] : q[1]].split("\n")
-        hits = [
-            k
-            for k, line in enumerate(section)
-            if line.startswith("- ") and target in line
-        ]
+            raise Refused(f"{path}: no {OPEN_Q} section, so there is no question to resolve")
+        section = c.body[q[0]:q[1]].split("\n")
+        hits = [k for k, line in enumerate(section) if line.startswith("- ") and target in line]
         if len(hits) != 1:
-            raise Refused(
-                f"{path}: resolve target is in {len(hits)} open questions, and must be in exactly one: {target[:60]!r}"
-            )
+            raise Refused(f"{path}: resolve target is in {len(hits)} open questions, and must be in exactly one: {target[:60]!r}")
         asker = BULLET_RE.match(section[hits[0]])
         if asker is not None and asker.group(1) == "process:ktl-curator":
-            raise Refused(
-                f"{path}: that is a curator's send-back, not a question to withdraw; only the curator clears it, on Confirm or Correct"
-            )
+            raise Refused(f"{path}: that is a curator's send-back, not a question to withdraw; only the curator clears it, on Confirm or Correct")
         if asker is None or asker.group(1) != self.by:
-            raise Refused(
-                f"{path}: that question is not one {self.by} asked; a person's note is the curator's to clear, on that person's word"
-            )
+            raise Refused(f"{path}: that question is not one {self.by} asked; a person's note is the curator's to clear, on that person's word")
         del section[hits[0]]
         if any(line.strip() for line in section[1:]):
-            c.body = c.body[: q[0]] + "\n".join(section) + c.body[q[1] :]
+            c.body = c.body[: q[0]] + "\n".join(section) + c.body[q[1]:]
         else:  # the heading goes with its last question
-            head, tail = c.body[: q[0]].rstrip("\n"), c.body[q[1] :].lstrip("\n")
+            head, tail = c.body[: q[0]].rstrip("\n"), c.body[q[1]:].lstrip("\n")
             c.body = head + "\n" + ("\n" + tail if tail else "")
         c.touched = True
         self.log(op, None, None, label="Resolved")
@@ -903,17 +733,11 @@ class Bundle:
         path = op["path"]
         c = self.concept(path, must_exist=True)
         if c.confirmed_by_person():
-            raise Refused(
-                f"{path}: a person confirmed this concept, so delete is refused; add a question saying the source is gone, and the curator retires it"
-            )
+            raise Refused(f"{path}: a person confirmed this concept, so delete is refused; add a question saying the source is gone, and the curator retires it")
         if c.noted_by_person():
-            raise Refused(
-                f"{path}: a person left a note on this concept, so delete is refused; add a question saying the source is gone, and the curator retires it"
-            )
+            raise Refused(f"{path}: a person left a note on this concept, so delete is refused; add a question saying the source is gone, and the curator retires it")
         if c.noted_by_curator():
-            raise Refused(
-                f"{path}: the curator left a send-back on this concept, so delete is refused; re-derive it and leave the note for the curator"
-            )
+            raise Refused(f"{path}: the curator left a send-back on this concept, so delete is refused; re-derive it and leave the note for the curator")
         self.guard_writable(c, "delete")
         if not isinstance(op.get("log"), str) or not op["log"].strip():
             raise Refused(f"{path}: delete needs a log line saying why")
@@ -924,9 +748,7 @@ class Bundle:
     # ---- index, log, feedback -------------------------------------------
     def index_text(self, file: Path, default: str) -> str:
         if file not in self.indexes:
-            self.indexes[file] = (
-                file.read_text(encoding="utf-8") if file.is_file() else default
-            )
+            self.indexes[file] = file.read_text(encoding="utf-8") if file.is_file() else default
         return self.indexes[file]
 
     def index_set(self, path: str, title, description) -> None:
@@ -935,33 +757,20 @@ class Bundle:
         folder_file = self.knowledge / folder / "index.md"
         root_file = self.knowledge / "index.md"
         folder_text = self.index_text(folder_file, f"# {section}\n")
-        if (
-            not folder_text.strip()
-        ):  # an empty file starts from its heading, as a new one does
+        if not folder_text.strip():  # an empty file starts from its heading, as a new one does
             folder_text = f"# {section}\n"
         # The " - " in a bullet introduces the description. A concept with no
         # description gets its link alone, so no bullet ends in a bare dash.
         tail = f" - {description}" if description else ""
         self.indexes[folder_file] = self.place_bullet(
-            folder_text,
-            name,
-            None if title is None else f"* [{title}]({name}){tail}",
-            path,
-            f"{folder}/index.md",
-        )
+            folder_text, name, None if title is None else f"* [{title}]({name}){tail}", path, f"{folder}/index.md")
         self.indexes[root_file] = self.place_bullet(
-            self.index_text(root_file, ""),
-            path,
-            None if title is None else f"* [{title}]({path}){tail}",
-            path,
-            "index.md",
-            section=(section, f"]({folder}/index.md)"),
-        )
+            self.index_text(root_file, ""), path,
+            None if title is None else f"* [{title}]({path}){tail}", path, "index.md",
+            section=(section, f"]({folder}/index.md)"))
 
     @staticmethod
-    def place_bullet(
-        text: str, link: str, bullet, path: str, where: str, section=None
-    ) -> str:
+    def place_bullet(text: str, link: str, bullet, path: str, where: str, section=None) -> str:
         """Sets, adds or removes one concept's bullet in one index.md, with None for bullet on delete.
 
         The concept's own bullet is a line that holds its link alone,
@@ -981,15 +790,8 @@ class Bundle:
             for k in reversed(mine):
                 del lines[k]
                 if 0 < k < len(lines) and lines[k - 1] == "" and lines[k] == "":
-                    del lines[
-                        k
-                    ]  # the blank line on either side of it, now two in a row
-            return Bundle.joined(
-                [
-                    Bundle.unlink(line, link, path, where) if ref.search(line) else line
-                    for line in lines
-                ]
-            )
+                    del lines[k]  # the blank line on either side of it, now two in a row
+            return Bundle.joined([Bundle.unlink(line, link, path, where) if ref.search(line) else line for line in lines])
         if mine:
             for k in mine:
                 lines[k] = bullet
@@ -1001,14 +803,7 @@ class Bundle:
             found = Bundle.find_section(lines, *section)
             if found is None:
                 level = Bundle.section_level(lines)
-                return (
-                    text.rstrip("\n")
-                    + "\n\n"
-                    + "#" * level
-                    + f" {section[0]}\n\n"
-                    + bullet
-                    + "\n"
-                )
+                return text.rstrip("\n") + "\n\n" + "#" * level + f" {section[0]}\n\n" + bullet + "\n"
             start, end = found
         bullets = [k for k in range(start, end) if lines[k].startswith("* [")]
         if bullets:
@@ -1043,9 +838,7 @@ class Bundle:
             if not n:
                 new, n = before_link.subn("", line, count=1)
             if not n:
-                raise Refused(
-                    f"{path}: {where} links this concept inside other text, which this script never rewrites; a person takes that link out, and the delete can then run"
-                )
+                raise Refused(f"{path}: {where} links this concept inside other text, which this script never rewrites; a person takes that link out, and the delete can then run")
             line = new
         return line
 
@@ -1055,9 +848,7 @@ class Bundle:
         found, fenced = [], False
         body = 0
         if lines and lines[0] == "---":
-            body = next(
-                (k + 1 for k in range(1, len(lines)) if lines[k] == "---"), len(lines)
-            )
+            body = next((k + 1 for k in range(1, len(lines)) if lines[k] == "---"), len(lines))
         for k, line in enumerate(lines):
             if k < body:
                 continue
@@ -1075,16 +866,10 @@ class Bundle:
         heads = Bundle.headings(lines)
         spans = []
         for i, (k, level, text) in enumerate(heads):
-            end = next(
-                (k2 for k2, level2, _ in heads[i + 1 :] if level2 <= level), len(lines)
-            )
+            end = next((k2 for k2, level2, _ in heads[i + 1 :] if level2 <= level), len(lines))
             spans.append((i, k, end, text))
         named = {(k, end) for i, k, end, text in spans if text.lower() == name.lower()}
-        linked = {
-            (k, end)
-            for i, k, end, _ in spans
-            if i > 0 and any(folder_link in line for line in lines[k:end])
-        }
+        linked = {(k, end) for i, k, end, _ in spans if i > 0 and any(folder_link in line for line in lines[k:end])}
         for matches in (named & linked, named, linked):
             if matches:
                 return min(matches, key=lambda span: span[1] - span[0])
@@ -1096,13 +881,7 @@ class Bundle:
         levels = [level for _, level, _ in Bundle.headings(lines)[1:]]
         return min(levels) if levels else 1
 
-    def log(
-        self,
-        op: dict,
-        default: str | None,
-        c: Concept | None = None,
-        label: str = "Changed",
-    ) -> None:
+    def log(self, op: dict, default: str | None, c: Concept | None = None, label: str = "Changed") -> None:
         text = op.get("log")
         shared = text is None and self.patch_log is not None
         if text is not None:
@@ -1110,48 +889,30 @@ class Bundle:
         elif shared:
             text = self.patch_log
         elif default is None:
-            raise Refused(
-                f"{op['path']}: {op['op']} needs a log line naming what changed and why, its own or the patch's"
-            )
+            raise Refused(f"{op['path']}: {op['op']} needs a log line naming what changed and why, its own or the patch's")
         else:
             text = default
-        if (
-            c is not None
-            and c.confirmed_by_person()
-            and "edited since" not in text.lower()
-        ):
+        if c is not None and c.confirmed_by_person() and "edited since" not in text.lower():
             # The patch's line speaks for many concepts, so the note names the
             # one a person had confirmed.
-            text += (
-                f" `{c.path}` was edited since a person confirmed it; the label says so until the curator looks again."
-                if shared
-                else " Edited since a person confirmed it; the label says so until the curator looks again."
-            )
+            text += f" `{c.path}` was edited since a person confirmed it; the label says so until the curator looks again." if shared else " Edited since a person confirmed it; the label says so until the curator looks again."
         fb = op.get("from_feedback")
         asked = op.get("asked")
         if asked is not None and fb is None:
-            raise Refused(
-                f"{op['path']}: asked goes with from_feedback; it is the reader's question from that entry"
-            )
+            raise Refused(f"{op['path']}: asked goes with from_feedback; it is the reader's question from that entry")
         if fb is not None:
             if not isinstance(fb, str):
-                raise Refused(
-                    f"{op['path']}: from_feedback is the exact one-line entry as feedback.md holds it"
-                )
+                raise Refused(f"{op['path']}: from_feedback is the exact one-line entry as feedback.md holds it")
             fb = fb.rstrip("\n")
             if "\n" in fb or not fb.startswith("- **"):
-                raise Refused(
-                    f"{op['path']}: from_feedback is the exact one-line entry as feedback.md holds it"
-                )
+                raise Refused(f"{op['path']}: from_feedback is the exact one-line entry as feedback.md holds it")
             self.feedback_handled.append(fb)
             text = "**From reader feedback**: " + re.sub(r"^\*\*[^*]+\*\*: ?", "", text)
             # The entry leaves feedback.md for the ledger: the day, its kind and
             # the concept that now answers it, with the reader's question in a
             # code span so that none of it renders or reads as Markdown.
             kind = FEEDBACK_KIND_RE.match(fb)
-            line = (
-                f"- {self.today} {kind.group(1) if kind else 'Feedback'} {op['path']}"
-            )
+            line = f"- {self.today} {kind.group(1) if kind else 'Feedback'} {op['path']}"
             if asked is not None:
                 line += ": `" + clean_question(asked, f"{op['path']}: asked") + "`"
             self.ledger_lines.append(line)
@@ -1164,14 +925,8 @@ class Bundle:
         # in each, is written once, where it first appears.
         self.log_lines = list(dict.fromkeys(self.log_lines))
         file = self.knowledge / "log.md"
-        lines = (
-            file.read_text(encoding="utf-8").split("\n")
-            if file.is_file()
-            else ["# Change Log", ""]
-        )
-        first = next(
-            (k for k, line in enumerate(lines) if line.startswith("## ")), None
-        )
+        lines = file.read_text(encoding="utf-8").split("\n") if file.is_file() else ["# Change Log", ""]
+        first = next((k for k, line in enumerate(lines) if line.startswith("## ")), None)
         if first is not None and lines[first] == f"## {self.today}":
             at = first + 1
             while at < len(lines) and lines[at] == "":
@@ -1186,13 +941,9 @@ class Bundle:
         if not self.feedback_handled:
             return None
         if len(self.feedback_handled) > FEEDBACK_ENTRIES:
-            raise Refused(
-                f"feedback.md: this patch handles {len(self.feedback_handled)} reader entries, and one run handles at most {FEEDBACK_ENTRIES}; leave the newer ones for the next run and say in the hand-off how many remain"
-            )
+            raise Refused(f"feedback.md: this patch handles {len(self.feedback_handled)} reader entries, and one run handles at most {FEEDBACK_ENTRIES}; leave the newer ones for the next run and say in the hand-off how many remain")
         if not self.feedback.is_file():
-            raise Refused(
-                "feedback.md: an operation handles a feedback entry, but there is no .lokf/feedback.md"
-            )
+            raise Refused("feedback.md: an operation handles a feedback entry, but there is no .lokf/feedback.md")
         lines = self.feedback.read_text(encoding="utf-8").split("\n")
         for entry in self.feedback_handled:
             if entry not in lines:
@@ -1216,32 +967,17 @@ class Bundle:
         """The ledger with this run's lines appended. It only ever grows: no line already in it is read, moved or rewritten."""
         if not self.ledger_lines:
             return None
-        text = (
-            self.ledger.read_text(encoding="utf-8").rstrip("\n") + "\n"
-            if self.ledger.is_file()
-            else LEDGER_HEAD
-        )
-        if not text.endswith("\n\n") and not text.rstrip("\n").split("\n")[
-            -1
-        ].startswith("- "):
+        text = self.ledger.read_text(encoding="utf-8").rstrip("\n") + "\n" if self.ledger.is_file() else LEDGER_HEAD
+        if not text.endswith("\n\n") and not text.rstrip("\n").split("\n")[-1].startswith("- "):
             text += "\n"  # a file that holds only its heading and paragraph
         return text + "\n".join(self.ledger_lines) + "\n"
 
 
 def check_path(path) -> str:
-    if (
-        not isinstance(path, str)
-        or not PATH_RE.match(path)
-        or ".." in path
-        or path.rsplit("/", 1)[-1] in RESERVED
-    ):
-        raise Refused(
-            f"path {path!r} is not a concept path: lowercase a-z, 0-9 and hyphens, at least one folder, .md, and not a reserved name"
-        )
+    if not isinstance(path, str) or not PATH_RE.match(path) or ".." in path or path.rsplit("/", 1)[-1] in RESERVED:
+        raise Refused(f"path {path!r} is not a concept path: lowercase a-z, 0-9 and hyphens, at least one folder, .md, and not a reserved name")
     if path.startswith("knowledge/"):
-        raise Refused(
-            f"path {path!r} starts with knowledge/; paths are relative to .lokf/knowledge/"
-        )
+        raise Refused(f"path {path!r} starts with knowledge/; paths are relative to .lokf/knowledge/")
     return path
 
 
@@ -1258,9 +994,7 @@ def check_keys(op: dict) -> None:
     known = ("op", "path", *KEYS[op["op"]])
     unknown = sorted(str(k) for k in op if k not in known)
     if unknown:
-        raise Refused(
-            f"{op['path']}: {op['op']} does not take {', '.join(unknown)}; it takes {', '.join(known)}"
-        )
+        raise Refused(f"{op['path']}: {op['op']} does not take {', '.join(unknown)}; it takes {', '.join(known)}")
 
 
 # The justfile line that names a domain schema, as the sidecar's template
@@ -1293,31 +1027,15 @@ def schema_findings(root: Path, files: dict) -> tuple:
 
     """
     lokf_dir = root / ".lokf"
-    exe = next(
-        (
-            p
-            for p in (
-                lokf_dir / ".venv" / "bin" / "lokf",
-                lokf_dir / ".venv" / "Scripts" / "lokf.exe",
-            )
-            if p.is_file()
-        ),
-        None,
-    )
+    exe = next((p for p in (lokf_dir / ".venv" / "bin" / "lokf", lokf_dir / ".venv" / "Scripts" / "lokf.exe") if p.is_file()), None)
     if exe is None:
-        return (
-            [],
-            "schema not checked: the lokf toolkit is not installed in .lokf/.venv; run uv sync in .lokf/",
-        )
+        return [], "schema not checked: the lokf toolkit is not installed in .lokf/.venv; run uv sync in .lokf/"
     cmd, cwd = [str(exe), "validate"], lokf_dir
     justfile = lokf_dir / "justfile"
     recipes = justfile.read_text(encoding="utf-8") if justfile.is_file() else ""
     named = SCHEMA_LINE.search(recipes)
     if named is None and ANY_SCHEMA_LINE.search(recipes):
-        return (
-            [],
-            'schema not checked: the justfile\'s schema line is not in the form schema := "<file>"',
-        )
+        return [], 'schema not checked: the justfile\'s schema line is not in the form schema := "<file>"'
     if named and named.group(1):
         schema = (lokf_dir / named.group(1)).resolve()
         cmd, cwd = cmd + ["--schema", schema.name], schema.parent
@@ -1327,58 +1045,33 @@ def schema_findings(root: Path, files: dict) -> tuple:
         for rel, text in files.items():
             file = staged / rel
             file.parent.mkdir(parents=True, exist_ok=True)
-            with open(
-                file, "w", encoding="utf-8", newline="\n"
-            ) as f:  # Path.write_text takes newline= only from Python 3.10
+            with open(file, "w", encoding="utf-8", newline="\n") as f:  # Path.write_text takes newline= only from Python 3.10
                 f.write(text)
-        done = subprocess.run(
-            cmd + [str(staged)],
-            cwd=str(cwd),
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=600,
-        )
+        done = subprocess.run(cmd + [str(staged)], cwd=str(cwd), capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=600)
     except (OSError, subprocess.TimeoutExpired) as exc:
         return [], f"schema not checked: lokf validate could not run ({exc})"
     finally:
         shutil.rmtree(stage, ignore_errors=True)
     if done.returncode == 0:
-        return (
-            [],
-            "schema checked: lokf validate accepts every concept this patch writes",
-        )
+        return [], "schema checked: lokf validate accepts every concept this patch writes"
     out = (done.stdout + done.stderr).replace(str(staged), ".lokf/knowledge")
     lines = [shown(line) for line in out.splitlines() if line.strip()]
     if not any(line.startswith(FAILING) for line in lines):
-        return (
-            [],
-            f"schema not checked: lokf validate could not run ({lines[0][:200] if lines else f'exit {done.returncode}'})",
-        )
+        return [], f"schema not checked: lokf validate could not run ({lines[0][:200] if lines else f'exit {done.returncode}'})"
     # The validator echoes a rejected concept whole on one line, and gives the
     # reason and a hint on the lines after, so each line is cut at 240
     # characters and all of them are kept.
-    return [
-        f"schema: {line[:240]}{' ...' if len(line) > 240 else ''}" for line in lines
-    ], ""
+    return [f"schema: {line[:240]}{' ...' if len(line) > 240 else ''}" for line in lines], ""
 
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(prog="knowledge-apply.py", add_help=True)
     ap.add_argument("--root")
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument(
-        "--keep", action="store_true", help="keep the patch file after applying it"
-    )
-    ap.add_argument(
-        "--format", action="store_true", help="print the patch file's shape and exit"
-    )
-    ap.add_argument(
-        "--handoff",
-        metavar="FILE",
-        help="after applying, write the patch's hand-off lines to FILE, or empty it",
-    )
+    ap.add_argument("--keep", action="store_true", help="keep the patch file after applying it")
+    ap.add_argument("--format", action="store_true", help="print the patch file's shape and exit")
+    ap.add_argument("--handoff", metavar="FILE", help="after applying, write the patch's hand-off lines to FILE, or empty it")
     ap.add_argument("patch", nargs="?")
     a = ap.parse_args(argv[1:])
     if a.format:
@@ -1393,12 +1086,9 @@ def main(argv: list[str]) -> int:
     # checks, and says so.
     deferred = os.environ.get("KNOWLEDGE_PEN_DRY_RUN_ONLY") == "1"
     if deferred and not a.dry_run:
-        print(
-            "refused: this is the agent's step of a scheduled run, where the pen only checks the patch file (--dry-run). "
-            "Leave .lokf/patch.yaml in place: the wrapper applies it after the agent finishes, and the workflow then validates the bundle. "
-            "Nothing was written.",
-            file=sys.stderr,
-        )
+        print("refused: this is the agent's step of a scheduled run, where the pen only checks the patch file (--dry-run). "
+              "Leave .lokf/patch.yaml in place: the wrapper applies it after the agent finishes, and the workflow then validates the bundle. "
+              "Nothing was written.", file=sys.stderr)
         return 2
     root = Path(a.root).resolve()
     patch_file = Path(a.patch).resolve() if a.patch else root / ".lokf" / "patch.yaml"
@@ -1411,26 +1101,15 @@ def main(argv: list[str]) -> int:
     raw = patch_file.read_text(encoding="utf-8")
     for n, line in enumerate(raw.split("\n"), start=1):
         if EVENT_RE.match(line) or NOTE_RE.match(line):
-            print(
-                f"refused: line {n} of the patch file names a human: actor as an event or a note; only ktl-curator writes one, in a live session"
-            )
+            print(f"refused: line {n} of the patch file names a human: actor as an event or a note; only ktl-curator writes one, in a live session")
             return 1
     try:
         doc = read_yaml(raw)
     except yaml.YAMLError as exc:
-        print(
-            f"the patch file is not valid YAML: {' '.join(str(exc).split())[:120]}",
-            file=sys.stderr,
-        )
+        print(f"the patch file is not valid YAML: {' '.join(str(exc).split())[:120]}", file=sys.stderr)
         return 2
-    if (
-        not isinstance(doc, dict)
-        or not isinstance(doc.get("ops"), list)
-        or not doc["ops"]
-    ):
-        print(
-            "the patch file is a mapping with a non-empty `ops` list", file=sys.stderr
-        )
+    if not isinstance(doc, dict) or not isinstance(doc.get("ops"), list) or not doc["ops"]:
+        print("the patch file is a mapping with a non-empty `ops` list", file=sys.stderr)
         return 2
     by = doc.get("by", "process:ktl-librarian")
     now = dt.datetime.now(dt.timezone.utc)
@@ -1451,22 +1130,14 @@ def main(argv: list[str]) -> int:
     bundle = None
     if not findings:
         try:
-            bundle = Bundle(
-                root,
-                by,
-                now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                now.strftime("%Y-%m-%d"),
-                patch_log,
-            )
+            bundle = Bundle(root, by, now.strftime("%Y-%m-%dT%H:%M:%SZ"), now.strftime("%Y-%m-%d"), patch_log)
         except Refused as exc:
             findings.append(str(exc))
     if bundle is not None:
         for n, op in enumerate(doc["ops"], start=1):
             try:
                 if not isinstance(op, dict) or op.get("op") not in OPS:
-                    raise Refused(
-                        f"op {n}: each operation is a mapping whose op is one of {', '.join(sorted(OPS))}"
-                    )
+                    raise Refused(f"op {n}: each operation is a mapping whose op is one of {', '.join(sorted(OPS))}")
                 check_path(op.get("path"))
                 check_keys(op)
                 getattr(bundle, op["op"])(op)
@@ -1483,15 +1154,7 @@ def main(argv: list[str]) -> int:
         if not findings:
             for path, c in bundle.concepts.items():
                 if c.touched:
-                    findings.extend(
-                        record_findings(
-                            path,
-                            c.record,
-                            Counter()
-                            if c.deleted
-                            else person_record(dump(c.fm, c.body)),
-                        )
-                    )
+                    findings.extend(record_findings(path, c.record, Counter() if c.deleted else person_record(dump(c.fm, c.body))))
     for line in findings:
         print(line)
     if findings:
@@ -1501,9 +1164,7 @@ def main(argv: list[str]) -> int:
     for path, c in bundle.concepts.items():
         if not c.touched:
             continue
-        writes.append(
-            (bundle.knowledge / path, None if c.deleted else dump(c.fm, c.body))
-        )
+        writes.append((bundle.knowledge / path, None if c.deleted else dump(c.fm, c.body)))
     for file, text in bundle.indexes.items():
         writes.append((file, text))
     log_text = bundle.log_text()
@@ -1520,24 +1181,16 @@ def main(argv: list[str]) -> int:
     ledger_text = bundle.ledger_text()
     if ledger_text is not None:
         writes.append((bundle.ledger, ledger_text))
-    concepts = {
-        path: dump(c.fm, c.body)
-        for path, c in bundle.concepts.items()
-        if c.touched and not c.deleted
-    }
+    concepts = {path: dump(c.fm, c.body) for path, c in bundle.concepts.items() if c.touched and not c.deleted}
     schema_note = ""
     if concepts:
         top = bundle.knowledge / "index.md"
-        concepts["index.md"] = bundle.indexes.get(top) or top.read_text(
-            encoding="utf-8"
-        )
+        concepts["index.md"] = bundle.indexes.get(top) or top.read_text(encoding="utf-8")
         found, schema_note = schema_findings(root, concepts)
         if found:
             for line in found:
                 print(line)
-            print(
-                f"refused: lokf validate rejects what this patch would write ({len(found)} line(s)); nothing was written"
-            )
+            print(f"refused: lokf validate rejects what this patch would write ({len(found)} line(s)); nothing was written")
             return 1
     # The hand-off goes first, outside the bundle, so a file that cannot be
     # written stops the run before the bundle is touched.
@@ -1550,9 +1203,7 @@ def main(argv: list[str]) -> int:
             return 2
     if a.dry_run:
         for file, text in writes:
-            print(
-                f"{'would delete' if text is None else 'would write'} {file.relative_to(root)}"
-            )
+            print(f"{'would delete' if text is None else 'would write'} {file.relative_to(root)}")
     else:
         # Write every changed file to a temporary file beside it first. Only
         # once all of them are written does the run put them in place, so a
@@ -1564,9 +1215,7 @@ def main(argv: list[str]) -> int:
                 if text is None:
                     continue
                 file.parent.mkdir(parents=True, exist_ok=True)
-                fd, tmp = tempfile.mkstemp(
-                    dir=str(file.parent), prefix="." + file.name + ".", suffix=".tmp"
-                )
+                fd, tmp = tempfile.mkstemp(dir=str(file.parent), prefix="." + file.name + ".", suffix=".tmp")
                 with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as f:
                     f.write(text)
                 staged[file] = tmp
@@ -1593,9 +1242,7 @@ def main(argv: list[str]) -> int:
         for line in handoff:
             print(f"  {line}")
     if bundle.demoted:
-        print(
-            f"confirmed by a person, and edited {'by this patch' if a.dry_run else 'here'}: {', '.join(bundle.demoted)}; each reads as edited since that confirmation until the curator looks again"
-        )
+        print(f"confirmed by a person, and edited {'by this patch' if a.dry_run else 'here'}: {', '.join(bundle.demoted)}; each reads as edited since that confirmation until the curator looks again")
     if not a.dry_run:
         after = "now run lokf validate --check-refs and knowledge-conventions.sh"
     elif deferred:
@@ -1604,9 +1251,7 @@ def main(argv: list[str]) -> int:
         after = "nothing was written: apply it without --dry-run, then run lokf validate --check-refs and knowledge-conventions.sh"
     if schema_note:
         print(schema_note)
-    print(
-        f"{'OK (dry run)' if a.dry_run else 'OK'} - {len(doc['ops'])} operation(s) by {by} at {bundle.now}; {after}"
-    )
+    print(f"{'OK (dry run)' if a.dry_run else 'OK'} - {len(doc['ops'])} operation(s) by {by} at {bundle.now}; {after}")
     return 0
 
 
