@@ -1663,7 +1663,7 @@ wheels = [
 ]
 
 [[package]]
-name = "nist-sp-800-218"
+name = "nist-sp-800-218-linkml"
 source = { editable = "." }
 dependencies = [
     { name = "linkml-runtime" },
