@@ -15,9 +15,9 @@ fix-python-keywords:
                 {{pymodel}}/{{schema_name}}.py
 
 # Validate a representative catalog document with the catalog schema.
-# https://github.com/usnistgov/oscal-content/tree/main/nist.gov/SP800-218
+# https://github.com/usnistgov/oscal-content/tree/v1.6.0/nist.gov/SP800-218
 validate-oscal:
         uv run linkml validate \
                 -s src/nist_sp_800_218/schema/nist_sp_800_218.yaml \
-                tests/data/nist/NIST_SP800-218_ver1_catalog.yaml
+                src/nist_sp_800_218/schema/oscal-content/NIST_SP800-218_ver1_catalog.json
 
