@@ -1,0 +1,8 @@
+# The PO group as a knowledge bundle might record it, with no practices
+# inlined: a bundle relates a practice to its group with isPartOf.
+group_id: PO
+title: Prepare the Organization
+description: >-
+  The organization makes sure its people, processes and technology are ready
+  for secure software development, across the organization or for one team
+  or project.

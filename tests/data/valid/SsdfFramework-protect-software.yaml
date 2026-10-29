@@ -1,0 +1,33 @@
+# A framework document cut down to one group, one practice and one task. The
+# descriptions paraphrase SP 800-218. tests/test_upstream.py derives the
+# whole of version 1.1 from NIST's catalog and validates it as one of these.
+ssdf_version: "1.1"
+practice_groups:
+  - group_id: PS
+    title: Protect Software
+    description: >-
+      The organization protects every component of its software from
+      tampering and unauthorized access.
+    group_practices:
+      - practice_id: PS.3
+        title: Archive and Protect Each Software Release
+        description: >-
+          Each release is preserved, so that vulnerabilities found after it
+          ships can be identified, analyzed and removed.
+        practice_tasks:
+          - task_id: PS.3.2
+            description: >-
+              Collect, safeguard, maintain and share provenance data for
+              every component of each release, such as in a software bill of
+              materials.
+            implementation_examples:
+              - example_id: PS.3.2.1
+                description: >-
+                  Make the provenance data available to software acquirers
+                  under the organization's policies, preferably in a
+                  standards-based format.
+            task_references:
+              - reference_document: NTIASBOM
+                mapped_items: All
+              - reference_document: SP80053
+                mapped_items: SA-8, SR-3, SR-4

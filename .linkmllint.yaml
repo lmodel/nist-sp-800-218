@@ -1,0 +1,12 @@
+# linkml-lint reads this file from the directory `just lint` runs in.
+# The recommended rules apply, with one setting changed: standard_naming
+# expects permissible values in upper case rather than snake case. The only
+# enum's values are the labels SP 800-218 gives its reference documents, such
+# as BSAFSS and SP80053, written as NIST writes them, so that a reference
+# compares with NIST's catalog without translating. Class, slot and type
+# names keep the rule's usual forms.
+extends: recommended
+rules:
+  standard_naming:
+    level: error
+    permissible_values_upper_case: true

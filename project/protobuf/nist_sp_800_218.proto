@@ -2,151 +2,46 @@
  package
 // metamodel_version: 1.7.0
 // version: 1.1.0
-// Postal address
-message Address
+// One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.
+message SsdfFramework
  {
- repeated  string addr-lines = 0
-  string city = 0
-  string state = 0
-  string postal-code = 0
+  string ssdfVersion = 0
+ repeated  ssdfPracticeGroup practiceGroups = 0
  }
-// OSCAL back-matter section
-message BackMatter
+// A notional implementation example: one type of tool, process or other method that could help implement a task.
+message SsdfImplementationExample
  {
- repeated  resource resources = 0
+  string description = 0
+  ssdfExampleIdentifier exampleId = 0
  }
-// Main SSDF catalog object
-message CatalogBody
- {
-  string uuid = 0
-  metadata metadata = 0
- repeated  controlGroup groups = 0
-  backMatter back-matter = 0
- }
-// Citation wrapper
-message Citation
- {
-  string text = 0
- }
-// An SSDF practice containing tasks
-message Control
- {
-  string id = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  part parts = 0
-  string title = 0
-  catalogElementClassValue class = 0
- repeated  task controls = 0
- }
-// An SSDF practice group (e.g. PO, PS, PW, RV)
-message ControlGroup
- {
-  string id = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  part parts = 0
-  string title = 0
-  catalogElementClassValue class = 0
- repeated  control controls = 0
- }
-// A catalog element with a title and class classification
-message IdentifiedElement
- {
-  string id = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  part parts = 0
-  string title = 0
-  catalogElementClassValue class = 0
- }
-// Relationship link with optional annotation text
-message Link
- {
-  string href = 0
-  string rel = 0
-  string text = 0
- }
-// OSCAL metadata section for the SSDF catalog
-message Metadata
+// A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it.
+message SsdfPractice
  {
   string title = 0
-  string published = 0
-  string last-modified = 0
-  string version = 0
-  string oscal-version = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  role roles = 0
- repeated  party parties = 0
- repeated  responsibleParty responsible-parties = 0
+  string description = 0
+  ssdfPracticeIdentifier practiceId = 0
+ repeated  ssdfTask practiceTasks = 0
  }
-// Structured narrative part containing prose content
-message Part
+// One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities.
+message SsdfPracticeGroup
  {
-  string id = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  part parts = 0
   string title = 0
-  catalogElementClassValue class = 0
-  string name = 0
-  string prose = 0
+  string description = 0
+  ssdfGroupIdentifier groupId = 0
+ repeated  ssdfPractice groupPractices = 0
  }
-// Party definition
-message Party
+// A pointer from a task to an established secure development document, and to the parts of that document the task maps to.
+message SsdfReference
  {
-  string uuid = 0
-  string type = 0
-  string name = 0
-  string short-name = 0
- repeated  string email-addresses = 0
- repeated  address addresses = 0
+  ssdfReferenceDocument referenceDocument = 0
+  string mappedItems = 0
  }
-// A name-value property with optional namespace
-message Property
+// An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to.
+message SsdfTask
  {
-  string name = 0
-  string value = 0
-  string ns = 0
- }
-// Referenced resource in back-matter
-message Resource
- {
-  string uuid = 0
-  string title = 0
-  citation citation = 0
- repeated  resourceLink rlinks = 0
- }
-// Reference link for a resource
-message ResourceLink
- {
-  string href = 0
- }
-// Assignment of parties to a role
-message ResponsibleParty
- {
-  string role-id = 0
- repeated  string party-uuids = 0
- }
-// Role definition
-message Role
- {
-  string id = 0
-  string title = 0
- }
-// Root wrapper for SSDF catalog content
-message SSFDDocument
- {
-  catalogBody catalog = 0
- }
-// An SSDF task within a practice
-message Task
- {
-  string id = 0
- repeated  property props = 0
- repeated  link links = 0
- repeated  part parts = 0
-  string title = 0
-  catalogElementClassValue class = 0
+  string description = 0
+  ssdfTaskIdentifier taskId = 0
+ repeated  ssdfTaskIdentifier formerTaskIds = 0
+ repeated  ssdfImplementationExample implementationExamples = 0
+ repeated  ssdfReference taskReferences = 0
  }

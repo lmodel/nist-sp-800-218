@@ -1,0 +1,3 @@
+# Invalid: the mapped items are more than white space.
+reference_document: NISTCSF
+mapped_items: " "

@@ -1,0 +1,6 @@
+# Invalid: an implementation example carries its identifier.
+task_id: PO.1.3
+implementation_examples:
+  - description: >-
+      Put a core set of security requirements for components into
+      acquisition documents, contracts and other agreements.

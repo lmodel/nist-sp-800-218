@@ -1,0 +1,4 @@
+# Explanations
+
+* [Scope, influences and mappings](scope-and-influences.md) - What the schema renders and what it leaves out: the SSDF version 1.1 of SP 800-218 and nothing beyond it, with lmodel/slsa as its one influence on layout. It maps its classes to lmodel/oscal's, as NIST's catalog renders them, and names the 29 documents SP 800-218 references; it models neither the retired identifiers, SP 800-218A nor the draft of version 1.2.
+* [Element names and the shared namespace](element-names.md) - How the schema names its elements so that its adapt copy can sit beside LOKF's schema and the slsa, github-actions and oscal copies: classes with the `Ssdf` prefix, NIST's identifiers and reference labels kept as written, `title` and `description` carrying LOKF's IRIs, and no other key shared, which `tests/test_schema_rules.py` checks.

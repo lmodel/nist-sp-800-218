@@ -1,9 +1,9 @@
 # Auto generated from nist_sp_800_218.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-20T23:43:39
-# Schema: nist-sp-800-218
+# Generation date: 2026-10-29T18:43:24
+# Schema: nist_sp_800_218
 #
 # id: https://w3id.org/lmodel/nist-sp-800-218
-# description: 'Electronic (LinkML) Version of Secure Software Development Framework (SSDF): Recommendations for Mitigating the Risk of Software Vulnerabilities'
+# description: A LinkML model of the Secure Software Development Framework (SSDF) version 1.1, which NIST Special Publication 800-218 recommends: its practice groups, practices and tasks, the notional implementation examples of each task, and the references that map each task to other secure software development documents.
 # license: Apache-2.0
 
 import dataclasses
@@ -64,403 +64,423 @@ version = "1.1.0"
 # Namespaces
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
 NIST_SP_800_218 = CurieNamespace('nist_sp_800_218', 'https://w3id.org/lmodel/nist-sp-800-218/')
+OSCAL = CurieNamespace('oscal', 'https://w3id.org/lmodel/oscal/')
+SCHEMA = CurieNamespace('schema', 'http://schema.org/')
+XSD = CurieNamespace('xsd', 'http://www.w3.org/2001/XMLSchema#')
 DEFAULT_ = NIST_SP_800_218
 
 
 # Types
+class SsdfGroupIdentifier(String):
+    """ The two letters that name one of the four practice groups. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "ssdf_group_identifier"
+    type_model_uri = NIST_SP_800_218.SsdfGroupIdentifier
+
+
+class SsdfPracticeIdentifier(String):
+    """ A practice's identifier: its group's letters, a dot and the practice's number within the group, such as PO.1. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "ssdf_practice_identifier"
+    type_model_uri = NIST_SP_800_218.SsdfPracticeIdentifier
+
+
+class SsdfTaskIdentifier(String):
+    """ A task's identifier: its practice's identifier, a dot and the task's number within the practice, such as PO.1.1. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "ssdf_task_identifier"
+    type_model_uri = NIST_SP_800_218.SsdfTaskIdentifier
+
+
+class SsdfExampleIdentifier(String):
+    """ The identifier NIST's reference data gives a notional implementation example: its task's identifier, a dot and the example's number, such as PO.1.1.1. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "ssdf_example_identifier"
+    type_model_uri = NIST_SP_800_218.SsdfExampleIdentifier
+
 
 # Class references
 
 
 
-SSFDDocument = Any
-
-CatalogBody = Any
-
-Metadata = Any
-
 @dataclass(repr=False)
-class Role(YAMLRoot):
+class SsdfFramework(YAMLRoot):
     """
-    Role definition
+    One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Role"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:Role"
-    class_name: ClassVar[str] = "Role"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Role
+    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Framework"]
+    class_class_curie: ClassVar[str] = "nist_sp_800_218:Framework"
+    class_name: ClassVar[str] = "SsdfFramework"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfFramework
 
-    id: Optional[str] = None
-    title: Optional[str] = None
+    ssdf_version: str = None
+    practice_groups: Union[Union[dict, "SsdfPracticeGroup"], list[Union[dict, "SsdfPracticeGroup"]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self._is_empty(self.ssdf_version):
+            self.MissingRequiredField("ssdf_version")
+        if not isinstance(self.ssdf_version, str):
+            self.ssdf_version = str(self.ssdf_version)
+
+        if self._is_empty(self.practice_groups):
+            self.MissingRequiredField("practice_groups")
+        self._normalize_inlined_as_list(slot_name="practice_groups", slot_type=SsdfPracticeGroup, key_name="group_id", keyed=False)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class SsdfPracticeGroup(YAMLRoot):
+    """
+    One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software,
+    producing well-secured software, and responding to vulnerabilities.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["PracticeGroup"]
+    class_class_curie: ClassVar[str] = "nist_sp_800_218:PracticeGroup"
+    class_name: ClassVar[str] = "SsdfPracticeGroup"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfPracticeGroup
+
+    group_id: Union[str, SsdfGroupIdentifier] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    group_practices: Optional[Union[Union[dict, "SsdfPractice"], list[Union[dict, "SsdfPractice"]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.group_id):
+            self.MissingRequiredField("group_id")
+        if not isinstance(self.group_id, SsdfGroupIdentifier):
+            self.group_id = SsdfGroupIdentifier(self.group_id)
 
         if self.title is not None and not isinstance(self.title, str):
             self.title = str(self.title)
 
-        super().__post_init__(**kwargs)
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
 
-
-Party = Any
-
-Address = Any
-
-ResponsibleParty = Any
-
-BackMatter = Any
-
-Resource = Any
-
-Citation = Any
-
-ResourceLink = Any
-
-@dataclass(repr=False)
-class CatalogElement(YAMLRoot):
-    """
-    Base class for identifiable catalog elements
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["CatalogElement"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:CatalogElement"
-    class_name: ClassVar[str] = "CatalogElement"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.CatalogElement
-
-    id: Optional[str] = None
-    props: Optional[Union[Union[dict, "Property"], list[Union[dict, "Property"]]]] = empty_list()
-    links: Optional[Union[Union[dict, "Link"], list[Union[dict, "Link"]]]] = empty_list()
-    parts: Optional[Union[Union[dict, "Part"], list[Union[dict, "Part"]]]] = empty_list()
-
-    def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
-
-        if not isinstance(self.props, list):
-            self.props = [self.props] if self.props is not None else []
-        self.props = [v if isinstance(v, Property) else Property(**as_dict(v)) for v in self.props]
-
-        if not isinstance(self.links, list):
-            self.links = [self.links] if self.links is not None else []
-        self.links = [v if isinstance(v, Link) else Link(**as_dict(v)) for v in self.links]
-
-        if not isinstance(self.parts, list):
-            self.parts = [self.parts] if self.parts is not None else []
-        self.parts = [v if isinstance(v, Part) else Part(**as_dict(v)) for v in self.parts]
+        self._normalize_inlined_as_list(slot_name="group_practices", slot_type=SsdfPractice, key_name="practice_id", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class IdentifiedElement(CatalogElement):
+class SsdfPractice(YAMLRoot):
     """
-    A catalog element with a title and class classification
+    A secure software development practice: a named outcome with an identifier, a short explanation of what it is and
+    why it helps, and the tasks that may be needed to achieve it.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["IdentifiedElement"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:IdentifiedElement"
-    class_name: ClassVar[str] = "IdentifiedElement"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.IdentifiedElement
+    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Practice"]
+    class_class_curie: ClassVar[str] = "nist_sp_800_218:Practice"
+    class_name: ClassVar[str] = "SsdfPractice"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfPractice
 
+    practice_id: Union[str, SsdfPracticeIdentifier] = None
     title: Optional[str] = None
-    _class: Optional[Union[str, "CatalogElementClassValue"]] = None
+    description: Optional[str] = None
+    practice_tasks: Optional[Union[Union[dict, "SsdfTask"], list[Union[dict, "SsdfTask"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.practice_id):
+            self.MissingRequiredField("practice_id")
+        if not isinstance(self.practice_id, SsdfPracticeIdentifier):
+            self.practice_id = SsdfPracticeIdentifier(self.practice_id)
+
         if self.title is not None and not isinstance(self.title, str):
             self.title = str(self.title)
 
-        if self._class is not None and not isinstance(self._class, CatalogElementClassValue):
-            self._class = CatalogElementClassValue(self._class)
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        self._normalize_inlined_as_list(slot_name="practice_tasks", slot_type=SsdfTask, key_name="task_id", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ControlGroup(IdentifiedElement):
+class SsdfTask(YAMLRoot):
     """
-    An SSDF practice group (e.g. PO, PS, PW, RV)
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["ControlGroup"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:ControlGroup"
-    class_name: ClassVar[str] = "ControlGroup"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.ControlGroup
-
-    controls: Optional[Union[Union[dict, "Control"], list[Union[dict, "Control"]]]] = empty_list()
-
-    def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.controls, list):
-            self.controls = [self.controls] if self.controls is not None else []
-        self.controls = [v if isinstance(v, Control) else Control(**as_dict(v)) for v in self.controls]
-
-        super().__post_init__(**kwargs)
-
-
-@dataclass(repr=False)
-class Control(IdentifiedElement):
-    """
-    An SSDF practice containing tasks
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Control"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:Control"
-    class_name: ClassVar[str] = "Control"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Control
-
-    controls: Optional[Union[Union[dict, "Task"], list[Union[dict, "Task"]]]] = empty_list()
-
-    def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.controls, list):
-            self.controls = [self.controls] if self.controls is not None else []
-        self.controls = [v if isinstance(v, Task) else Task(**as_dict(v)) for v in self.controls]
-
-        super().__post_init__(**kwargs)
-
-
-class Task(IdentifiedElement):
-    """
-    An SSDF task within a practice
+    An action that may be needed to perform a practice, with notional examples of how it could be implemented and
+    references to the documents whose practices it maps to.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Task"]
     class_class_curie: ClassVar[str] = "nist_sp_800_218:Task"
-    class_name: ClassVar[str] = "Task"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Task
+    class_name: ClassVar[str] = "SsdfTask"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfTask
 
-
-@dataclass(repr=False)
-class Property(YAMLRoot):
-    """
-    A name-value property with optional namespace
-    """
-    _inherited_slots: ClassVar[list[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Property"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:Property"
-    class_name: ClassVar[str] = "Property"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Property
-
-    name: Optional[str] = None
-    value: Optional[str] = None
-    ns: Optional[str] = None
+    task_id: Union[str, SsdfTaskIdentifier] = None
+    description: Optional[str] = None
+    former_task_ids: Optional[Union[Union[str, SsdfTaskIdentifier], list[Union[str, SsdfTaskIdentifier]]]] = empty_list()
+    implementation_examples: Optional[Union[Union[dict, "SsdfImplementationExample"], list[Union[dict, "SsdfImplementationExample"]]]] = empty_list()
+    task_references: Optional[Union[Union[dict, "SsdfReference"], list[Union[dict, "SsdfReference"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.name is not None and not isinstance(self.name, str):
-            self.name = str(self.name)
+        if self._is_empty(self.task_id):
+            self.MissingRequiredField("task_id")
+        if not isinstance(self.task_id, SsdfTaskIdentifier):
+            self.task_id = SsdfTaskIdentifier(self.task_id)
 
-        if self.value is not None and not isinstance(self.value, str):
-            self.value = str(self.value)
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
 
-        if self.ns is not None and not isinstance(self.ns, str):
-            self.ns = str(self.ns)
+        if not isinstance(self.former_task_ids, list):
+            self.former_task_ids = [self.former_task_ids] if self.former_task_ids is not None else []
+        self.former_task_ids = [v if isinstance(v, SsdfTaskIdentifier) else SsdfTaskIdentifier(v) for v in self.former_task_ids]
+
+        self._normalize_inlined_as_list(slot_name="implementation_examples", slot_type=SsdfImplementationExample, key_name="description", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="task_references", slot_type=SsdfReference, key_name="reference_document", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Link(YAMLRoot):
+class SsdfImplementationExample(YAMLRoot):
     """
-    Relationship link with optional annotation text
+    A notional implementation example: one type of tool, process or other method that could help implement a task.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Link"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:Link"
-    class_name: ClassVar[str] = "Link"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Link
+    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["ImplementationExample"]
+    class_class_curie: ClassVar[str] = "nist_sp_800_218:ImplementationExample"
+    class_name: ClassVar[str] = "SsdfImplementationExample"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfImplementationExample
 
-    href: Optional[str] = None
-    rel: Optional[str] = None
-    text: Optional[str] = None
+    description: str = None
+    example_id: Union[str, SsdfExampleIdentifier] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.href is not None and not isinstance(self.href, str):
-            self.href = str(self.href)
+        if self._is_empty(self.description):
+            self.MissingRequiredField("description")
+        if not isinstance(self.description, str):
+            self.description = str(self.description)
 
-        if self.rel is not None and not isinstance(self.rel, str):
-            self.rel = str(self.rel)
-
-        if self.text is not None and not isinstance(self.text, str):
-            self.text = str(self.text)
+        if self._is_empty(self.example_id):
+            self.MissingRequiredField("example_id")
+        if not isinstance(self.example_id, SsdfExampleIdentifier):
+            self.example_id = SsdfExampleIdentifier(self.example_id)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Part(IdentifiedElement):
+class SsdfReference(YAMLRoot):
     """
-    Structured narrative part containing prose content
+    A pointer from a task to an established secure development document, and to the parts of that document the task
+    maps to.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Part"]
-    class_class_curie: ClassVar[str] = "nist_sp_800_218:Part"
-    class_name: ClassVar[str] = "Part"
-    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.Part
+    class_class_uri: ClassVar[URIRef] = NIST_SP_800_218["Reference"]
+    class_class_curie: ClassVar[str] = "nist_sp_800_218:Reference"
+    class_name: ClassVar[str] = "SsdfReference"
+    class_model_uri: ClassVar[URIRef] = NIST_SP_800_218.SsdfReference
 
-    name: Optional[str] = None
-    prose: Optional[str] = None
+    reference_document: Union[str, "SsdfReferenceDocument"] = None
+    mapped_items: str = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.name is not None and not isinstance(self.name, str):
-            self.name = str(self.name)
+        if self._is_empty(self.reference_document):
+            self.MissingRequiredField("reference_document")
+        if not isinstance(self.reference_document, SsdfReferenceDocument):
+            self.reference_document = SsdfReferenceDocument(self.reference_document)
 
-        if self.prose is not None and not isinstance(self.prose, str):
-            self.prose = str(self.prose)
+        if self._is_empty(self.mapped_items):
+            self.MissingRequiredField("mapped_items")
+        if not isinstance(self.mapped_items, str):
+            self.mapped_items = str(self.mapped_items)
 
         super().__post_init__(**kwargs)
 
 
 # Enumerations
-class CatalogElementClassValue(EnumDefinitionImpl):
+class SsdfReferenceDocument(EnumDefinitionImpl):
     """
-    Allowed class values for SSDF catalog elements
+    The established secure development documents that SP 800-218 maps its tasks to, by the labels its References list
+    gives them. SP 800-218 cites each at the edition shown in its title.
     """
-    group = PermissibleValue(
-        text="group",
-        description="A top-level practice group")
-    practice = PermissibleValue(
-        text="practice",
-        description="An SSDF practice within a group")
-    task = PermissibleValue(
-        text="task",
-        description="A task within an SSDF practice")
+    BSAFSS = PermissibleValue(
+        text="BSAFSS",
+        title="The BSA Framework for Secure Software, version 1.1 (2020)",
+        description="BSA's framework for securing the software lifecycle.")
+    BSIMM = PermissibleValue(
+        text="BSIMM",
+        title="BSIMM12 2021 Foundations Report",
+        description="The Building Security In Maturity Model, twelfth edition.")
+    CNCFSSCP = PermissibleValue(
+        text="CNCFSSCP",
+        title="Software Supply Chain Best Practices (2021)",
+        description="The Cloud Native Computing Foundation's software supply chain paper.")
+    EO14028 = PermissibleValue(
+        text="EO14028",
+        title="Executive Order 14028, Improving the Nation's Cybersecurity (2021)",
+        description="The executive order whose Section 4e clauses SP 800-218 maps in its Appendix A.")
+    IDASOAR = PermissibleValue(
+        text="IDASOAR",
+        title="State-of-the-Art Resources (SOAR) for Software Vulnerability Detection, Test, and Evaluation 2016",
+        description="The Institute for Defense Analyses report on software vulnerability tools and techniques.")
+    IEC62443 = PermissibleValue(
+        text="IEC62443",
+        title="IEC 62443-4-1:2018, Secure product development lifecycle requirements",
+        description="""The International Electrotechnical Commission's standard for secure development of industrial automation and control products.""")
+    IR8397 = PermissibleValue(
+        text="IR8397",
+        title="NIST IR 8397, Guidelines on Minimum Standards for Developer Verification of Software (2021)",
+        description="NIST's guidelines for the verification a software developer performs.")
+    ISO27034 = PermissibleValue(
+        text="ISO27034",
+        title="ISO/IEC 27034-1:2011, Application security, Part 1",
+        description="The international standard's overview and concepts of application security.")
+    ISO29147 = PermissibleValue(
+        text="ISO29147",
+        title="ISO/IEC 29147:2018, Vulnerability disclosure",
+        description="The international standard for disclosing vulnerabilities in products and services.")
+    ISO30111 = PermissibleValue(
+        text="ISO30111",
+        title="ISO/IEC 30111:2019, Vulnerability handling processes",
+        description="The international standard for the processes that handle a reported vulnerability.")
+    MSSDL = PermissibleValue(
+        text="MSSDL",
+        title="Microsoft Security Development Lifecycle (2021)",
+        description="Microsoft's practices for building security into software development.")
+    NISTCSF = PermissibleValue(
+        text="NISTCSF",
+        title="Framework for Improving Critical Infrastructure Cybersecurity, version 1.1 (2018)",
+        description="The NIST Cybersecurity Framework at version 1.1, which SP 800-218 maps to by subcategory.")
+    NISTLABEL = PermissibleValue(
+        text="NISTLABEL",
+        title="Recommended Criteria for Cybersecurity Labeling of Consumer Software (2022)",
+        description="NIST's criteria for a cybersecurity label on consumer software.")
+    NTIASBOM = PermissibleValue(
+        text="NTIASBOM",
+        title="The Minimum Elements For a Software Bill of Materials (2021)",
+        description="""The National Telecommunications and Information Administration's minimum elements of a software bill of materials.""")
+    OWASPASVS = PermissibleValue(
+        text="OWASPASVS",
+        title="OWASP Application Security Verification Standard 4.0.3 (2021)",
+        description="The Open Web Application Security Project's verification standard for applications.")
+    OWASPMASVS = PermissibleValue(
+        text="OWASPMASVS",
+        title="OWASP Mobile Application Security Verification Standard, version 1.4.2 (2021)",
+        description="The Open Web Application Security Project's verification standard for mobile applications.")
+    OWASPSAMM = PermissibleValue(
+        text="OWASPSAMM",
+        title="Software Assurance Maturity Model, version 1.5 (2017)",
+        description="The Open Web Application Security Project's software assurance maturity model.")
+    OWASPSCVS = PermissibleValue(
+        text="OWASPSCVS",
+        title="OWASP Software Component Verification Standard, version 1.0 (2020)",
+        description="The Open Web Application Security Project's verification standard for software components.")
+    PCISSLC = PermissibleValue(
+        text="PCISSLC",
+        title="Secure Software Lifecycle (Secure SLC) Requirements and Assessment Procedures, version 1.1 (2021)",
+        description="""The Payment Card Industry Security Standards Council's requirements for a secure software lifecycle.""")
+    SCAGILE = PermissibleValue(
+        text="SCAGILE",
+        title="Practical Security Stories and Security Tasks for Agile Development Environments (2012)",
+        description="SAFECode's security stories and tasks for agile teams.")
+    SCFPSSD = PermissibleValue(
+        text="SCFPSSD",
+        title="Fundamental Practices for Secure Software Development, third edition (2018)",
+        description="SAFECode's essential elements of a secure development lifecycle program.")
+    SCSIC = PermissibleValue(
+        text="SCSIC",
+        title="Software Integrity Controls: An Assurance-Based Approach to Minimizing Risks in the Software Supply Chain (2010)",
+        description="SAFECode's controls for software integrity in the supply chain.")
+    SCTPC = PermissibleValue(
+        text="SCTPC",
+        title="Managing Security Risks Inherent in the Use of Third-Party Components (2017)",
+        description="SAFECode's guidance on the security risks of third-party components.")
+    SCTTM = PermissibleValue(
+        text="SCTTM",
+        title="Tactical Threat Modeling (2017)",
+        description="SAFECode's guidance on threat modeling during development.")
+    SP800160 = PermissibleValue(
+        text="SP800160",
+        title="NIST SP 800-160 Volume 1, Systems Security Engineering (2016, updated 2018)",
+        description="NIST's considerations for engineering trustworthy secure systems.")
+    SP800161 = PermissibleValue(
+        text="SP800161",
+        title="NIST SP 800-161 Rev. 1 second draft, Cybersecurity Supply Chain Risk Management Practices (2021)",
+        description="NIST's supply chain risk management practices, at the draft SP 800-218 cites.")
+    SP800181 = PermissibleValue(
+        text="SP800181",
+        title="NIST SP 800-181, NICE Cybersecurity Workforce Framework (2017)",
+        description="The workforce framework whose tasks, knowledge, skills and abilities SP 800-218 maps to.")
+    SP800216 = PermissibleValue(
+        text="SP800216",
+        title="NIST SP 800-216 draft, Recommendations for Federal Vulnerability Disclosure Guidelines (2021)",
+        description="NIST's recommendations for federal vulnerability disclosure, at the draft SP 800-218 cites.")
+    SP80053 = PermissibleValue(
+        text="SP80053",
+        title="NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations (2020)",
+        description="NIST's catalog of security and privacy controls, which SP 800-218 maps to by control.")
 
     _defn = EnumDefinition(
-        name="CatalogElementClassValue",
-        description="Allowed class values for SSDF catalog elements",
+        name="SsdfReferenceDocument",
+        description="""The established secure development documents that SP 800-218 maps its tasks to, by the labels its References list gives them. SP 800-218 cites each at the edition shown in its title.""",
     )
 
 # Slots
 class slots:
     pass
 
-slots.catalog = Slot(uri=NIST_SP_800_218.catalog, name="catalog", curie=NIST_SP_800_218.curie('catalog'),
-                   model_uri=NIST_SP_800_218.catalog, domain=None, range=Optional[Union[dict, CatalogBody]])
-
-slots.metadata = Slot(uri=NIST_SP_800_218.metadata, name="metadata", curie=NIST_SP_800_218.curie('metadata'),
-                   model_uri=NIST_SP_800_218.metadata, domain=None, range=Optional[Union[dict, Metadata]])
-
-slots.groups = Slot(uri=NIST_SP_800_218.groups, name="groups", curie=NIST_SP_800_218.curie('groups'),
-                   model_uri=NIST_SP_800_218.groups, domain=None, range=Optional[Union[Union[dict, ControlGroup], list[Union[dict, ControlGroup]]]])
-
-slots.controls = Slot(uri=NIST_SP_800_218.controls, name="controls", curie=NIST_SP_800_218.curie('controls'),
-                   model_uri=NIST_SP_800_218.controls, domain=None, range=Optional[Union[Union[dict, Control], list[Union[dict, Control]]]])
-
-slots.props = Slot(uri=NIST_SP_800_218.props, name="props", curie=NIST_SP_800_218.curie('props'),
-                   model_uri=NIST_SP_800_218.props, domain=None, range=Optional[Union[Union[dict, Property], list[Union[dict, Property]]]])
-
-slots.links = Slot(uri=NIST_SP_800_218.links, name="links", curie=NIST_SP_800_218.curie('links'),
-                   model_uri=NIST_SP_800_218.links, domain=None, range=Optional[Union[Union[dict, Link], list[Union[dict, Link]]]])
-
-slots.parts = Slot(uri=NIST_SP_800_218.parts, name="parts", curie=NIST_SP_800_218.curie('parts'),
-                   model_uri=NIST_SP_800_218.parts, domain=None, range=Optional[Union[Union[dict, Part], list[Union[dict, Part]]]])
-
-slots.id = Slot(uri=NIST_SP_800_218.id, name="id", curie=NIST_SP_800_218.curie('id'),
-                   model_uri=NIST_SP_800_218.id, domain=None, range=Optional[str])
-
-slots.uuid = Slot(uri=NIST_SP_800_218.uuid, name="uuid", curie=NIST_SP_800_218.curie('uuid'),
-                   model_uri=NIST_SP_800_218.uuid, domain=None, range=Optional[str])
-
-slots.title = Slot(uri=NIST_SP_800_218.title, name="title", curie=NIST_SP_800_218.curie('title'),
+slots.title = Slot(uri=SCHEMA.name, name="title", curie=SCHEMA.curie('name'),
                    model_uri=NIST_SP_800_218.title, domain=None, range=Optional[str])
 
-slots.version = Slot(uri=NIST_SP_800_218.version, name="version", curie=NIST_SP_800_218.curie('version'),
-                   model_uri=NIST_SP_800_218.version, domain=None, range=Optional[str])
+slots.description = Slot(uri=SCHEMA.description, name="description", curie=SCHEMA.curie('description'),
+                   model_uri=NIST_SP_800_218.description, domain=None, range=Optional[str])
 
-slots.published = Slot(uri=NIST_SP_800_218.published, name="published", curie=NIST_SP_800_218.curie('published'),
-                   model_uri=NIST_SP_800_218.published, domain=None, range=Optional[str])
+slots.ssdfFramework__ssdf_version = Slot(uri=NIST_SP_800_218.ssdf_version, name="ssdfFramework__ssdf_version", curie=NIST_SP_800_218.curie('ssdf_version'),
+                   model_uri=NIST_SP_800_218.ssdfFramework__ssdf_version, domain=None, range=str,
+                   pattern=re.compile(r'^[0-9]+\.[0-9]+$'))
 
-slots.last_modified = Slot(uri=NIST_SP_800_218.last_modified, name="last-modified", curie=NIST_SP_800_218.curie('last_modified'),
-                   model_uri=NIST_SP_800_218.last_modified, domain=None, range=Optional[str])
+slots.ssdfFramework__practice_groups = Slot(uri=NIST_SP_800_218.practice_groups, name="ssdfFramework__practice_groups", curie=NIST_SP_800_218.curie('practice_groups'),
+                   model_uri=NIST_SP_800_218.ssdfFramework__practice_groups, domain=None, range=Union[Union[dict, SsdfPracticeGroup], list[Union[dict, SsdfPracticeGroup]]])
 
-slots.oscal_version = Slot(uri=NIST_SP_800_218.oscal_version, name="oscal-version", curie=NIST_SP_800_218.curie('oscal_version'),
-                   model_uri=NIST_SP_800_218.oscal_version, domain=None, range=Optional[str])
+slots.ssdfPracticeGroup__group_id = Slot(uri=NIST_SP_800_218.group_id, name="ssdfPracticeGroup__group_id", curie=NIST_SP_800_218.curie('group_id'),
+                   model_uri=NIST_SP_800_218.ssdfPracticeGroup__group_id, domain=None, range=Union[str, SsdfGroupIdentifier])
 
-slots._class = Slot(uri=NIST_SP_800_218["class"], name="_class", curie=NIST_SP_800_218.curie('class'),
-                   model_uri=NIST_SP_800_218._class, domain=None, range=Optional[str])
+slots.ssdfPracticeGroup__group_practices = Slot(uri=NIST_SP_800_218.group_practices, name="ssdfPracticeGroup__group_practices", curie=NIST_SP_800_218.curie('group_practices'),
+                   model_uri=NIST_SP_800_218.ssdfPracticeGroup__group_practices, domain=None, range=Optional[Union[Union[dict, SsdfPractice], list[Union[dict, SsdfPractice]]]])
 
-slots.name = Slot(uri=NIST_SP_800_218.name, name="name", curie=NIST_SP_800_218.curie('name'),
-                   model_uri=NIST_SP_800_218.name, domain=None, range=Optional[str])
+slots.ssdfPractice__practice_id = Slot(uri=NIST_SP_800_218.practice_id, name="ssdfPractice__practice_id", curie=NIST_SP_800_218.curie('practice_id'),
+                   model_uri=NIST_SP_800_218.ssdfPractice__practice_id, domain=None, range=Union[str, SsdfPracticeIdentifier])
 
-slots.value = Slot(uri=NIST_SP_800_218.value, name="value", curie=NIST_SP_800_218.curie('value'),
-                   model_uri=NIST_SP_800_218.value, domain=None, range=Optional[str])
+slots.ssdfPractice__practice_tasks = Slot(uri=NIST_SP_800_218.practice_tasks, name="ssdfPractice__practice_tasks", curie=NIST_SP_800_218.curie('practice_tasks'),
+                   model_uri=NIST_SP_800_218.ssdfPractice__practice_tasks, domain=None, range=Optional[Union[Union[dict, SsdfTask], list[Union[dict, SsdfTask]]]])
 
-slots.ns = Slot(uri=NIST_SP_800_218.ns, name="ns", curie=NIST_SP_800_218.curie('ns'),
-                   model_uri=NIST_SP_800_218.ns, domain=None, range=Optional[str])
+slots.ssdfTask__task_id = Slot(uri=NIST_SP_800_218.task_id, name="ssdfTask__task_id", curie=NIST_SP_800_218.curie('task_id'),
+                   model_uri=NIST_SP_800_218.ssdfTask__task_id, domain=None, range=Union[str, SsdfTaskIdentifier])
 
-slots.prose = Slot(uri=NIST_SP_800_218.prose, name="prose", curie=NIST_SP_800_218.curie('prose'),
-                   model_uri=NIST_SP_800_218.prose, domain=None, range=Optional[str])
+slots.ssdfTask__former_task_ids = Slot(uri=NIST_SP_800_218.former_task_ids, name="ssdfTask__former_task_ids", curie=NIST_SP_800_218.curie('former_task_ids'),
+                   model_uri=NIST_SP_800_218.ssdfTask__former_task_ids, domain=None, range=Optional[Union[Union[str, SsdfTaskIdentifier], list[Union[str, SsdfTaskIdentifier]]]])
 
-slots.roles = Slot(uri=NIST_SP_800_218.roles, name="roles", curie=NIST_SP_800_218.curie('roles'),
-                   model_uri=NIST_SP_800_218.roles, domain=None, range=Optional[Union[Union[dict, Role], list[Union[dict, Role]]]])
+slots.ssdfTask__implementation_examples = Slot(uri=NIST_SP_800_218.implementation_examples, name="ssdfTask__implementation_examples", curie=NIST_SP_800_218.curie('implementation_examples'),
+                   model_uri=NIST_SP_800_218.ssdfTask__implementation_examples, domain=None, range=Optional[Union[Union[dict, SsdfImplementationExample], list[Union[dict, SsdfImplementationExample]]]])
 
-slots.parties = Slot(uri=NIST_SP_800_218.parties, name="parties", curie=NIST_SP_800_218.curie('parties'),
-                   model_uri=NIST_SP_800_218.parties, domain=None, range=Optional[Union[Union[dict, Party], list[Union[dict, Party]]]])
+slots.ssdfTask__task_references = Slot(uri=NIST_SP_800_218.task_references, name="ssdfTask__task_references", curie=NIST_SP_800_218.curie('task_references'),
+                   model_uri=NIST_SP_800_218.ssdfTask__task_references, domain=None, range=Optional[Union[Union[dict, SsdfReference], list[Union[dict, SsdfReference]]]])
 
-slots.responsible_parties = Slot(uri=NIST_SP_800_218.responsible_parties, name="responsible-parties", curie=NIST_SP_800_218.curie('responsible_parties'),
-                   model_uri=NIST_SP_800_218.responsible_parties, domain=None, range=Optional[Union[Union[dict, ResponsibleParty], list[Union[dict, ResponsibleParty]]]])
+slots.ssdfImplementationExample__example_id = Slot(uri=NIST_SP_800_218.example_id, name="ssdfImplementationExample__example_id", curie=NIST_SP_800_218.curie('example_id'),
+                   model_uri=NIST_SP_800_218.ssdfImplementationExample__example_id, domain=None, range=Union[str, SsdfExampleIdentifier])
 
-slots.role_id = Slot(uri=NIST_SP_800_218.role_id, name="role-id", curie=NIST_SP_800_218.curie('role_id'),
-                   model_uri=NIST_SP_800_218.role_id, domain=None, range=Optional[str])
+slots.ssdfReference__reference_document = Slot(uri=NIST_SP_800_218.reference_document, name="ssdfReference__reference_document", curie=NIST_SP_800_218.curie('reference_document'),
+                   model_uri=NIST_SP_800_218.ssdfReference__reference_document, domain=None, range=Union[str, "SsdfReferenceDocument"])
 
-slots.party_uuids = Slot(uri=NIST_SP_800_218.party_uuids, name="party-uuids", curie=NIST_SP_800_218.curie('party_uuids'),
-                   model_uri=NIST_SP_800_218.party_uuids, domain=None, range=Optional[Union[str, list[str]]])
+slots.ssdfReference__mapped_items = Slot(uri=NIST_SP_800_218.mapped_items, name="ssdfReference__mapped_items", curie=NIST_SP_800_218.curie('mapped_items'),
+                   model_uri=NIST_SP_800_218.ssdfReference__mapped_items, domain=None, range=str,
+                   pattern=re.compile(r'\S'))
 
-slots.type = Slot(uri=NIST_SP_800_218.type, name="type", curie=NIST_SP_800_218.curie('type'),
-                   model_uri=NIST_SP_800_218.type, domain=None, range=Optional[str])
-
-slots.short_name = Slot(uri=NIST_SP_800_218.short_name, name="short-name", curie=NIST_SP_800_218.curie('short_name'),
-                   model_uri=NIST_SP_800_218.short_name, domain=None, range=Optional[str])
-
-slots.email_addresses = Slot(uri=NIST_SP_800_218.email_addresses, name="email-addresses", curie=NIST_SP_800_218.curie('email_addresses'),
-                   model_uri=NIST_SP_800_218.email_addresses, domain=None, range=Optional[Union[str, list[str]]])
-
-slots.addresses = Slot(uri=NIST_SP_800_218.addresses, name="addresses", curie=NIST_SP_800_218.curie('addresses'),
-                   model_uri=NIST_SP_800_218.addresses, domain=None, range=Optional[Union[Union[dict, Address], list[Union[dict, Address]]]])
-
-slots.addr_lines = Slot(uri=NIST_SP_800_218.addr_lines, name="addr-lines", curie=NIST_SP_800_218.curie('addr_lines'),
-                   model_uri=NIST_SP_800_218.addr_lines, domain=None, range=Optional[Union[str, list[str]]])
-
-slots.city = Slot(uri=NIST_SP_800_218.city, name="city", curie=NIST_SP_800_218.curie('city'),
-                   model_uri=NIST_SP_800_218.city, domain=None, range=Optional[str])
-
-slots.state = Slot(uri=NIST_SP_800_218.state, name="state", curie=NIST_SP_800_218.curie('state'),
-                   model_uri=NIST_SP_800_218.state, domain=None, range=Optional[str])
-
-slots.postal_code = Slot(uri=NIST_SP_800_218.postal_code, name="postal-code", curie=NIST_SP_800_218.curie('postal_code'),
-                   model_uri=NIST_SP_800_218.postal_code, domain=None, range=Optional[str])
-
-slots.back_matter = Slot(uri=NIST_SP_800_218.back_matter, name="back-matter", curie=NIST_SP_800_218.curie('back_matter'),
-                   model_uri=NIST_SP_800_218.back_matter, domain=None, range=Optional[Union[dict, BackMatter]])
-
-slots.resources = Slot(uri=NIST_SP_800_218.resources, name="resources", curie=NIST_SP_800_218.curie('resources'),
-                   model_uri=NIST_SP_800_218.resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
-
-slots.citation = Slot(uri=NIST_SP_800_218.citation, name="citation", curie=NIST_SP_800_218.curie('citation'),
-                   model_uri=NIST_SP_800_218.citation, domain=None, range=Optional[Union[dict, Citation]])
-
-slots.text = Slot(uri=NIST_SP_800_218.text, name="text", curie=NIST_SP_800_218.curie('text'),
-                   model_uri=NIST_SP_800_218.text, domain=None, range=Optional[str])
-
-slots.rlinks = Slot(uri=NIST_SP_800_218.rlinks, name="rlinks", curie=NIST_SP_800_218.curie('rlinks'),
-                   model_uri=NIST_SP_800_218.rlinks, domain=None, range=Optional[Union[Union[dict, ResourceLink], list[Union[dict, ResourceLink]]]])
-
-slots.href = Slot(uri=NIST_SP_800_218.href, name="href", curie=NIST_SP_800_218.curie('href'),
-                   model_uri=NIST_SP_800_218.href, domain=None, range=Optional[str])
-
-slots.rel = Slot(uri=NIST_SP_800_218.rel, name="rel", curie=NIST_SP_800_218.curie('rel'),
-                   model_uri=NIST_SP_800_218.rel, domain=None, range=Optional[str])
-
-slots.IdentifiedElement__class = Slot(uri=NIST_SP_800_218["class"], name="IdentifiedElement__class", curie=NIST_SP_800_218.curie('class'),
-                   model_uri=NIST_SP_800_218.IdentifiedElement__class, domain=IdentifiedElement, range=Optional[Union[str, "CatalogElementClassValue"]])
-
-slots.Control_controls = Slot(uri=NIST_SP_800_218.controls, name="Control_controls", curie=NIST_SP_800_218.curie('controls'),
-                   model_uri=NIST_SP_800_218.Control_controls, domain=Control, range=Optional[Union[Union[dict, "Task"], list[Union[dict, "Task"]]]])
+slots.SsdfImplementationExample_description = Slot(uri=SCHEMA.description, name="SsdfImplementationExample_description", curie=SCHEMA.curie('description'),
+                   model_uri=NIST_SP_800_218.SsdfImplementationExample_description, domain=SsdfImplementationExample, range=str)
