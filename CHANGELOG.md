@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-30
+
 ### Added
 
 - **The upstream watch reports more, and always writes its report.** It names a release that changes or drops a pinned file, the licence included, or the catalog's folder, a moved tag and a file NIST adds; a check that cannot reach doi.org or GitHub becomes a line of the report.
