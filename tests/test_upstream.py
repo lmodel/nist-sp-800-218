@@ -8,11 +8,10 @@ schema describes, and hold that framework to the validator and to the counts
 of the publication's table.
 """
 
-import hashlib
 import importlib.util
 import json
 import re
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 
 import yaml
@@ -41,6 +40,7 @@ COUNTS = {
 MOVED = {"PO.1.3": ["PW.3.1"], "PW.1.3": ["PW.4.3"]}
 
 
+@cache
 def _watch():
     spec = importlib.util.spec_from_file_location(
         "watch", ROOT / "scripts" / "check_upstream_release.py"
@@ -48,11 +48,6 @@ def _watch():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
-
-
-def _blob_sha(path):
-    data = path.read_bytes()
-    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
 
 
 @lru_cache(maxsize=1)
@@ -151,10 +146,11 @@ def test_copy_matches_the_pinned_blobs():
     """Every copied file has the git object hash the watch pins, so the copy
     is the file NIST published at the pinned commit, and nothing else is in
     the folder."""
-    pinned = _watch().PINNED_BLOBS
+    watch = _watch()
+    pinned = watch.PINNED_BLOBS
     assert {p.name for p in COPY.iterdir()} == set(pinned)
     for name, (_source, sha) in pinned.items():
-        assert _blob_sha(COPY / name) == sha, name
+        assert watch._blob_sha(COPY / name) == sha, name
 
 
 def test_header_pins_match_the_watch():

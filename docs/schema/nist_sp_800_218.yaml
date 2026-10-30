@@ -786,7 +786,7 @@ slots:
     - SsdfReference
     range: string
     required: true
-    pattern: \S
+    pattern: ^\s*\S
   SsdfImplementationExample_description:
     name: SsdfImplementationExample_description
     definition_uri: https://w3id.org/lmodel/nist-sp-800-218/description
@@ -1009,10 +1009,10 @@ classes:
         description: The parts of the document the task maps to, as SP 800-218 lists
           them, such as the clause, control or activity identifiers SM.3, DE.1.
         required: true
-        pattern: \S
+        pattern: ^\s*\S
     class_uri: nist_sp_800_218:Reference
 metamodel_version: 1.12.0
 source_file: nist_sp_800_218.yaml
-source_file_date: '2026-10-30T08:33:38'
-source_file_size: 18356
+source_file_date: '2026-10-30T09:06:46'
+source_file_size: 18361
 

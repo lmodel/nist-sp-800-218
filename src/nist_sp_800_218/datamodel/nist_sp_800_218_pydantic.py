@@ -426,7 +426,7 @@ class SsdfReference(ConfiguredBaseModel):
 
     @field_validator('mapped_items')
     def pattern_mapped_items(cls, v):
-        pattern=re.compile(r"\S")
+        pattern=re.compile(r"^\s*\S")
         if isinstance(v, list):
             for element in v:
                 if isinstance(element, str) and not pattern.search(element):

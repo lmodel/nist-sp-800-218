@@ -9,14 +9,21 @@ sources:
   - id: semantic-release.yml
     resource: .github/workflows/semantic-release.yml
     title: the header comment, the on key and the jobs
+  - id: release-tools
+    resource: .github/release
+    title: the release tools' package.json and package-lock.json
 generated:
   by: process:ktl-librarian
-  at: "2026-10-29T19:21:05Z"
+  at: "2026-10-30T09:20:58Z"
 status: draft
+verified:
+  - by: process:ktl-librarian
+    at: "2026-10-30T09:17:17Z"
 ---
 
 # Semantic release (semantic-release.yml)
 
-`.github/workflows/semantic-release.yml` is the workflow named "Semantic release".[^semantic-release.yml] On a pull request into `main`, its `plan` job reads whether the commits would release. When they would, it refuses to go on without a `v*` tag, an empty `## [Unreleased]` section or a title without a releasing type, and then previews the release with `--dry-run`. On a push to `main`, its `release` job runs in the `release` Environment with `contents: write` and `actions: write`, installs semantic-release 25.0.9 and its plugins at pinned versions with `--ignore-scripts`, and releases. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, it dispatches Knowledge Release for the new tag. [Cut a release](../playbooks/release.md) gives the steps.
+`.github/workflows/semantic-release.yml` is the workflow named "Semantic release".[^semantic-release.yml] On a pull request into `main`, its `plan` job reads whether the commits would release. When they would, it refuses to go on without a `v*` tag, an empty `## [Unreleased]` section or a title without a releasing type, and then previews the release with `--dry-run`. On a push to `main`, its `release` job runs in the `release` Environment with `contents: write` and `actions: write`, installs semantic-release 25.0.9 and its plugins from `.github/release/package-lock.json` with `npm ci --ignore-scripts`, and releases.[^release-tools] Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, it dispatches Knowledge Release for the new tag. [Cut a release](../playbooks/release.md) gives the steps.
 
 [^semantic-release.yml]: .github/workflows/semantic-release.yml, the header comment, the on key and the jobs
+[^release-tools]: .github/release, package.json and package-lock.json

@@ -1,5 +1,18 @@
 # Change Log
 
+## 2026-10-30
+
+* **Changed**: Semantic release says that the release job installs its tools from `.github/release/package-lock.json`.
+* **Changed**: Security policy counts the release tools' npm lock among what Dependabot keeps current.
+* **Changed**: License and attribution names the knowledge bundle's CC BY 4.0 licence, as the README now does.
+* **Changed**: Knowledge sources maps `.github/release/` to the Semantic release concept.
+* **Changed**: Test data and tests now says each counter-example names where it fails, and covers the stubbed watch tests and the oscal mapping check.
+* **Changed**: Update the upstream pins now covers the watch's new findings: a dropped folder or file, a moved tag, a file NIST adds, and a check that could not finish.
+* **Changed**: Upstream watch now says the job stops after ten minutes and reports a check that could not finish.
+* **Changed**: Security policy now says that a ruleset on `main` blocks deletion and force-pushes, as `SECURITY.md` does, and counts four Dependabot entries.
+* **Changed**: Documentation site now says the old class pages redirect to their successors' pages.
+* **Changed**: Element names and the shared namespace now says the schema rules test checks the oscal mappings.
+
 ## 2026-10-29
 
 * **Changed**: the generators' settings moved from `config.yaml` to `.linkml/generators.yaml`.

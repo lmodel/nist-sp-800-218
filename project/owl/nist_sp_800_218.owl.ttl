@@ -26,14 +26,14 @@ xsd:string a rdfs:Datatype ;
 nist_sp_800_218:SsdfFramework a owl:Class ;
 	rdfs:label "SsdfFramework" ;
 	rdfs:seeAlso <https://csrc.nist.gov/pubs/sp/800/218/final> ;
-	rdfs:subClassOf _:c14n35 , _:c14n42 , _:c14n63 , _:c14n81 , _:c14n82 ;
+	rdfs:subClassOf _:c14n34 , _:c14n41 , _:c14n63 , _:c14n81 , _:c14n82 ;
 	skos:definition "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks." ;
 	skos:exactMatch nist_sp_800_218:Framework ;
 	skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> .
 nist_sp_800_218:SsdfImplementationExample a owl:Class ;
 	rdfs:label "SsdfImplementationExample" ;
 	rdfs:seeAlso <https://csrc.nist.gov/projects/ssdf> ;
-	rdfs:subClassOf _:c14n25 , _:c14n30 , _:c14n33 , _:c14n39 , _:c14n48 , _:c14n60 ;
+	rdfs:subClassOf _:c14n24 , _:c14n29 , _:c14n32 , _:c14n38 , _:c14n47 , _:c14n59 ;
 	skos:broadMatch oscal:Part ;
 	skos:definition "A notional implementation example: one type of tool, process or other method that could help implement a task." ;
 	skos:exactMatch nist_sp_800_218:ImplementationExample ;
@@ -41,7 +41,7 @@ nist_sp_800_218:SsdfImplementationExample a owl:Class ;
 nist_sp_800_218:SsdfPractice a owl:Class ;
 	rdfs:label "SsdfPractice" ;
 	rdfs:seeAlso <https://csrc.nist.gov/projects/ssdf> ;
-	rdfs:subClassOf _:c14n29 , _:c14n51 , _:c14n55 , _:c14n57 , _:c14n61 , _:c14n66 , _:c14n67 , _:c14n70 , _:c14n74 , _:c14n80 , _:c14n84 ;
+	rdfs:subClassOf _:c14n28 , _:c14n50 , _:c14n54 , _:c14n56 , _:c14n60 , _:c14n66 , _:c14n67 , _:c14n70 , _:c14n74 , _:c14n80 , _:c14n84 ;
 	skos:broadMatch oscal:Control ;
 	skos:definition "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it." ;
 	skos:exactMatch nist_sp_800_218:Practice ;
@@ -49,7 +49,7 @@ nist_sp_800_218:SsdfPractice a owl:Class ;
 nist_sp_800_218:SsdfPracticeGroup a owl:Class ;
 	rdfs:label "SsdfPracticeGroup" ;
 	rdfs:seeAlso <https://csrc.nist.gov/projects/ssdf> ;
-	rdfs:subClassOf _:c14n1 , _:c14n12 , _:c14n3 , _:c14n32 , _:c14n34 , _:c14n37 , _:c14n38 , _:c14n41 , _:c14n47 , _:c14n65 , _:c14n73 ;
+	rdfs:subClassOf _:c14n1 , _:c14n12 , _:c14n3 , _:c14n31 , _:c14n33 , _:c14n36 , _:c14n37 , _:c14n40 , _:c14n46 , _:c14n65 , _:c14n73 ;
 	skos:broadMatch oscal:Group ;
 	skos:definition "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities." ;
 	skos:exactMatch nist_sp_800_218:PracticeGroup ;
@@ -57,7 +57,7 @@ nist_sp_800_218:SsdfPracticeGroup a owl:Class ;
 nist_sp_800_218:SsdfReference a owl:Class ;
 	rdfs:label "SsdfReference" ;
 	rdfs:seeAlso <https://csrc.nist.gov/projects/ssdf> ;
-	rdfs:subClassOf _:c14n15 , _:c14n17 , _:c14n21 , _:c14n43 , _:c14n75 , _:c14n9 ;
+	rdfs:subClassOf _:c14n15 , _:c14n17 , _:c14n21 , _:c14n42 , _:c14n75 , _:c14n9 ;
 	skos:broadMatch oscal:Link ;
 	skos:definition "A pointer from a task to an established secure development document, and to the parts of that document the task maps to." ;
 	skos:exactMatch nist_sp_800_218:Reference ;
@@ -246,7 +246,7 @@ nist_sp_800_218:SsdfReferenceDocument a owl:Class ;
 nist_sp_800_218:SsdfTask a owl:Class ;
 	rdfs:label "SsdfTask" ;
 	rdfs:seeAlso <https://csrc.nist.gov/projects/ssdf> ;
-	rdfs:subClassOf _:c14n11 , _:c14n27 , _:c14n4 , _:c14n45 , _:c14n50 , _:c14n52 , _:c14n53 , _:c14n54 , _:c14n56 , _:c14n59 , _:c14n76 , _:c14n79 ;
+	rdfs:subClassOf _:c14n11 , _:c14n26 , _:c14n4 , _:c14n44 , _:c14n49 , _:c14n51 , _:c14n52 , _:c14n53 , _:c14n55 , _:c14n58 , _:c14n76 , _:c14n79 ;
 	skos:broadMatch oscal:Control ;
 	skos:definition "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to." ;
 	skos:exactMatch nist_sp_800_218:Task ;
@@ -314,7 +314,7 @@ nist_sp_800_218:title a owl:DatatypeProperty ;
 	skos:inScheme <https://w3id.org/lmodel/nist-sp-800-218> ;
 	skos:note "It means what LOKF's title means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one title key." .
 _:c14n0 rdf:first nist_sp_800_218:SsdfReferenceDocument\#BSIMM ;
-	rdf:rest _:c14n44 .
+	rdf:rest _:c14n43 .
 _:c14n1 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:description .
@@ -328,9 +328,9 @@ _:c14n12 a owl:Restriction ;
 _:c14n13 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SCTTM ;
 	rdf:rest _:c14n5 .
 _:c14n14 rdf:first nist_sp_800_218:SsdfReferenceDocument\#IEC62443 ;
-	rdf:rest _:c14n23 .
+	rdf:rest _:c14n22 .
 _:c14n15 a owl:Restriction ;
-	owl:allValuesFrom _:c14n88 ;
+	owl:allValuesFrom _:c14n86 ;
 	owl:onProperty nist_sp_800_218:mapped_items .
 _:c14n16 rdf:first nist_sp_800_218:SsdfReferenceDocument\#NTIASBOM ;
 	rdf:rest _:c14n19 .
@@ -339,130 +339,130 @@ _:c14n17 a owl:Restriction ;
 	owl:onProperty nist_sp_800_218:reference_document .
 _:c14n18 xsd:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" .
 _:c14n19 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPASVS ;
-	rdf:rest _:c14n36 .
+	rdf:rest _:c14n35 .
 _:c14n2 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SP800216 ;
 	rdf:rest _:c14n64 .
 _:c14n20 rdf:first nist_sp_800_218:SsdfReferenceDocument\#EO14028 ;
-	rdf:rest _:c14n58 .
+	rdf:rest _:c14n57 .
 _:c14n21 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:mapped_items .
-_:c14n22 xsd:pattern "\\S" .
-_:c14n23 rdf:first nist_sp_800_218:SsdfReferenceDocument\#IR8397 ;
+_:c14n22 rdf:first nist_sp_800_218:SsdfReferenceDocument\#IR8397 ;
 	rdf:rest _:c14n85 .
-_:c14n24 rdf:first nist_sp_800_218:SsdfReferenceDocument\#NISTCSF ;
+_:c14n23 rdf:first nist_sp_800_218:SsdfReferenceDocument\#NISTCSF ;
 	rdf:rest _:c14n8 .
-_:c14n25 a owl:Restriction ;
+_:c14n24 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n26 rdf:first nist_sp_800_218:SsdfReferenceDocument\#PCISSLC ;
-	rdf:rest _:c14n40 .
-_:c14n27 a owl:Restriction ;
+_:c14n25 rdf:first nist_sp_800_218:SsdfReferenceDocument\#PCISSLC ;
+	rdf:rest _:c14n39 .
+_:c14n26 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n28 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SCFPSSD ;
+_:c14n27 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SCFPSSD ;
 	rdf:rest _:c14n72 .
-_:c14n29 a owl:Restriction ;
+_:c14n28 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:description .
+_:c14n29 a owl:Restriction ;
+	owl:minCardinality 1 ;
+	owl:onProperty nist_sp_800_218:example_id .
 _:c14n3 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:title .
-_:c14n30 a owl:Restriction ;
-	owl:minCardinality 1 ;
-	owl:onProperty nist_sp_800_218:example_id .
-_:c14n31 rdf:first nist_sp_800_218:SsdfReferenceDocument\#MSSDL ;
-	rdf:rest _:c14n24 .
-_:c14n32 a owl:Restriction ;
+_:c14n30 rdf:first nist_sp_800_218:SsdfReferenceDocument\#MSSDL ;
+	rdf:rest _:c14n23 .
+_:c14n31 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:title .
-_:c14n33 a owl:Restriction ;
+_:c14n32 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:example_id .
-_:c14n34 a owl:Restriction ;
+_:c14n33 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n35 a owl:Restriction ;
-	owl:allValuesFrom _:c14n86 ;
+_:c14n34 a owl:Restriction ;
+	owl:allValuesFrom _:c14n88 ;
 	owl:onProperty nist_sp_800_218:ssdf_version .
-_:c14n36 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPMASVS ;
+_:c14n35 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPMASVS ;
 	rdf:rest _:c14n68 .
-_:c14n37 a owl:Restriction ;
+_:c14n36 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:group_practices .
-_:c14n38 a owl:Restriction ;
+_:c14n37 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n39 a owl:Restriction ;
+_:c14n38 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:description .
+_:c14n39 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SCAGILE ;
+	rdf:rest _:c14n27 .
 _:c14n4 a owl:Restriction ;
 	owl:allValuesFrom nist_sp_800_218:SsdfReference ;
 	owl:onProperty nist_sp_800_218:task_references .
-_:c14n40 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SCAGILE ;
-	rdf:rest _:c14n28 .
-_:c14n41 a owl:Restriction ;
+_:c14n40 a owl:Restriction ;
 	owl:allValuesFrom nist_sp_800_218:SsdfPractice ;
 	owl:onProperty nist_sp_800_218:group_practices .
-_:c14n42 a owl:Restriction ;
+_:c14n41 a owl:Restriction ;
 	owl:minCardinality 1 ;
 	owl:onProperty nist_sp_800_218:ssdf_version .
-_:c14n43 a owl:Restriction ;
+_:c14n42 a owl:Restriction ;
 	owl:allValuesFrom nist_sp_800_218:SsdfReferenceDocument ;
 	owl:onProperty nist_sp_800_218:reference_document .
-_:c14n44 rdf:first nist_sp_800_218:SsdfReferenceDocument\#CNCFSSCP ;
+_:c14n43 rdf:first nist_sp_800_218:SsdfReferenceDocument\#CNCFSSCP ;
 	rdf:rest _:c14n20 .
-_:c14n45 a owl:Restriction ;
+_:c14n44 a owl:Restriction ;
 	owl:minCardinality 1 ;
 	owl:onProperty nist_sp_800_218:task_id .
-_:c14n46 rdf:first nist_sp_800_218:SsdfReferenceDocument\#ISO29147 ;
+_:c14n45 rdf:first nist_sp_800_218:SsdfReferenceDocument\#ISO29147 ;
 	rdf:rest _:c14n7 .
-_:c14n47 a owl:Restriction ;
+_:c14n46 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:group_id .
-_:c14n48 a owl:Restriction ;
+_:c14n47 a owl:Restriction ;
 	owl:minCardinality 1 ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n49 xsd:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$" .
+_:c14n48 xsd:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$" .
+_:c14n49 a owl:Restriction ;
+	owl:minCardinality 0 ;
+	owl:onProperty nist_sp_800_218:implementation_examples .
 _:c14n5 rdf:first nist_sp_800_218:SsdfReferenceDocument\#SP800160 ;
 	rdf:rest _:c14n77 .
 _:c14n50 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty nist_sp_800_218:implementation_examples .
-_:c14n51 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:practice_id .
-_:c14n52 a owl:Restriction ;
+_:c14n51 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:former_task_ids .
-_:c14n53 a owl:Restriction ;
+_:c14n52 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:task_id .
-_:c14n54 a owl:Restriction ;
+_:c14n53 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:former_task_ids .
-_:c14n55 a owl:Restriction ;
+_:c14n54 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:title .
-_:c14n56 a owl:Restriction ;
+_:c14n55 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:task_references .
-_:c14n57 a owl:Restriction ;
+_:c14n56 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:practice_tasks .
-_:c14n58 rdf:first nist_sp_800_218:SsdfReferenceDocument\#IDASOAR ;
+_:c14n57 rdf:first nist_sp_800_218:SsdfReferenceDocument\#IDASOAR ;
 	rdf:rest _:c14n14 .
-_:c14n59 a owl:Restriction ;
+_:c14n58 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:description .
-_:c14n6 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPSCVS ;
-	rdf:rest _:c14n26 .
-_:c14n60 a owl:Restriction ;
+_:c14n59 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty nist_sp_800_218:example_id .
-_:c14n61 a owl:Restriction ;
+_:c14n6 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPSCVS ;
+	rdf:rest _:c14n25 .
+_:c14n60 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty nist_sp_800_218:title .
+_:c14n61 xsd:pattern "^\\s*\\S" .
 _:c14n62 rdf:first nist_sp_800_218:SsdfReferenceDocument\#BSAFSS ;
 	rdf:rest _:c14n0 .
 _:c14n63 a owl:Restriction ;
@@ -483,7 +483,7 @@ _:c14n68 rdf:first nist_sp_800_218:SsdfReferenceDocument\#OWASPSAMM ;
 	rdf:rest _:c14n6 .
 _:c14n69 xsd:pattern "^[0-9]+\\.[0-9]+$" .
 _:c14n7 rdf:first nist_sp_800_218:SsdfReferenceDocument\#ISO30111 ;
-	rdf:rest _:c14n31 .
+	rdf:rest _:c14n30 .
 _:c14n70 a owl:Restriction ;
 	owl:minCardinality 1 ;
 	owl:onProperty nist_sp_800_218:practice_id .
@@ -526,16 +526,16 @@ _:c14n84 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty nist_sp_800_218:description .
 _:c14n85 rdf:first nist_sp_800_218:SsdfReferenceDocument\#ISO27034 ;
-	rdf:rest _:c14n46 .
+	rdf:rest _:c14n45 .
 _:c14n86 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n87 .
-_:c14n87 rdf:first _:c14n69 ;
+_:c14n87 rdf:first _:c14n61 ;
 	rdf:rest rdf:nil .
 _:c14n88 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n89 .
-_:c14n89 rdf:first _:c14n22 ;
+_:c14n89 rdf:first _:c14n69 ;
 	rdf:rest rdf:nil .
 _:c14n9 a owl:Restriction ;
 	owl:minCardinality 1 ;
@@ -543,21 +543,21 @@ _:c14n9 a owl:Restriction ;
 _:c14n90 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n91 .
-_:c14n91 rdf:first _:c14n10 ;
+_:c14n91 rdf:first _:c14n48 ;
 	rdf:rest rdf:nil .
 _:c14n92 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n93 .
-_:c14n93 rdf:first _:c14n78 ;
+_:c14n93 rdf:first _:c14n10 ;
 	rdf:rest rdf:nil .
 _:c14n94 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n95 .
-_:c14n95 rdf:first _:c14n18 ;
+_:c14n95 rdf:first _:c14n78 ;
 	rdf:rest rdf:nil .
 _:c14n96 a rdfs:Datatype ;
 	owl:onDatatype xsd:string ;
 	owl:withRestrictions _:c14n97 .
-_:c14n97 rdf:first _:c14n49 ;
+_:c14n97 rdf:first _:c14n18 ;
 	rdf:rest rdf:nil .
 

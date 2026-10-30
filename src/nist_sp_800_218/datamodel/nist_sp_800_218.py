@@ -479,7 +479,7 @@ slots.ssdfReference__reference_document = Slot(uri=NIST_SP_800_218.reference_doc
 
 slots.ssdfReference__mapped_items = Slot(uri=NIST_SP_800_218.mapped_items, name="ssdfReference__mapped_items", curie=NIST_SP_800_218.curie('mapped_items'),
                    model_uri=NIST_SP_800_218.ssdfReference__mapped_items, domain=None, range=str,
-                   pattern=re.compile(r'\S'))
+                   pattern=re.compile(r'^\s*\S'))
 
 slots.SsdfImplementationExample_description = Slot(uri=SCHEMA.description, name="SsdfImplementationExample_description", curie=SCHEMA.curie('description'),
                    model_uri=NIST_SP_800_218.SsdfImplementationExample_description, domain=SsdfImplementationExample, range=str)

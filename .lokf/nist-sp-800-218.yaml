@@ -223,7 +223,7 @@ classes:
         description: The parts of the document the task maps to, as SP 800-218 lists them, such as the
           clause, control or activity identifiers SM.3, DE.1.
         required: true
-        pattern: \S
+        pattern: ^\s*\S
 enums:
   SsdfReferenceDocument:
     description: The established secure development documents that SP 800-218 maps its tasks to, by the

@@ -6,9 +6,21 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+### Added
+
+- **The upstream watch reports more, and always writes its report.** It names a release that changes or drops a pinned file, the licence included, or the catalog's folder, a moved tag and a file NIST adds; a check that cannot reach doi.org or GitHub becomes a line of the report.
+- **Dependabot watches the website's npm packages**, beside the actions and the two Python locks.
+- **`.github/release/package-lock.json`, which pins semantic-release and every package it pulls in.** The release job installs from it with `npm ci`, and Dependabot keeps it current.
+
 ### Changed
 
 - **The generated artefacts, the Python models and `docs/schema/nist_sp_800_218.yaml` are regenerated with linkml 1.12.1.** Pull request #18 locked 1.12.1 without regenerating them, so they still carried metamodel 1.7.0.
+- **The upstream watch sends its GitHub token to the API alone, never on to a redirect.**
+- **Every job of `main.yaml`, `lint-and-docs.yaml`, `semantic-release.yml` and `upstream-watch.yaml` has a timeout, and `main.yaml` installs `just` 1.59.0, the version `.lokf/` pins.** The release title check names rebase and merge, since `main` refuses merge commits.
+- **Six packages in `uv.lock` move past published advisories**: idna, pygments, pytest, requests, urllib3 and the certificate bundle.
+- **A blank mapped item fails alike under the validator and the Pydantic models**, and each counter-example names where it must fail.
+- **The old mkdocs class pages redirect to their successors' pages** on the knowledge website.
+- **SECURITY.md says that a ruleset on `main` blocks deletion and force-pushes and keeps the history linear.** Required reviewers on `release` and secret scanning are still not in force.
 
 ## [0.1.0] - 2026-10-29
 
