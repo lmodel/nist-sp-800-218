@@ -22,6 +22,9 @@ generated:
   by: process:ktl-librarian
   at: "2026-10-29T19:21:05Z"
 status: draft
+verified:
+  - by: process:ktl-librarian
+    at: "2026-10-30T09:17:17Z"
 ---
 
 # Cut a release

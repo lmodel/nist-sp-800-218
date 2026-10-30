@@ -22,7 +22,7 @@ sources:
     title: the standard_naming setting and its comment
 generated:
   by: process:ktl-librarian
-  at: "2026-10-29T19:21:05Z"
+  at: "2026-10-30T09:17:17Z"
 status: draft
 ---
 
@@ -36,7 +36,7 @@ The values of `SsdfReferenceDocument` keep the labels SP 800-218 gives its refer
 
 A host imports the adapt copy beside LOKF's `lokf.yaml` and other adapt copies, and LinkML merges them into one namespace, where the last definition of a name wins silently. The README says that no class, enum or type therefore shares a name with LOKF's or with the copies of slsa, github-actions and oscal. A slot shares a name only where it carries LOKF's meaning and IRI, as `title` and `description` do, so `lokf adapt` folds the two into LOKF's and renames nothing.[^readme.md]
 
-`tests/test_schema_rules.py` checks the copy against `lokf.yaml` and the schema assets of slsa v0.7.0, github-actions v0.2.1 and oscal v0.1.0. Its list of keys shared with each neighbour is empty, so a new shared key fails the test.[^test_schema_rules.py]
+`tests/test_schema_rules.py` checks the copy against `lokf.yaml` and the schema assets of slsa v0.7.0, github-actions v0.2.1 and oscal v0.1.0. Its list of keys shared with each neighbour is empty, so a new shared key fails the test, and it checks that every `oscal:` mapping names a class of the oscal copy, by the IRI a renamed class keeps.[^test_schema_rules.py]
 
 [^about.md]: docs/about.md, the paragraph on element names
 [^linkmllint.yaml]: .linkmllint.yaml, the comment and the standard_naming rule
