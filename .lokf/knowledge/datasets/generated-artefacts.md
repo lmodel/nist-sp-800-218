@@ -30,7 +30,7 @@ generated:
 status: draft
 verified:
   - by: process:ktl-librarian
-    at: "2026-10-30T09:17:17Z"
+    at: "2026-10-30T09:20:58Z"
 ---
 
 # Generated artefacts
