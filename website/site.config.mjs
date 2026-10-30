@@ -57,7 +57,34 @@ export const DOCS = { dir: "docs", exclude: ["templates-linkml"] };
 // names. An entry whose key and value both end in /[...slug] stands for one
 // redirect per schema page.
 //   export const REDIRECTS = { "/elements": "/schema/", "/elements/[...slug]": "/schema/[...slug]", "/about": "/docs/about/" };
-export const REDIRECTS = { "/elements": "/schema/", "/elements/[...slug]": "/schema/[...slug]", "/about": "/docs/about/" };
+export const REDIRECTS = {
+  // The mkdocs site's pages for the classes and enums of the OSCAL-shaped
+  // schema this one replaced, each sent to the page of the element that
+  // succeeds it, or to the schema's index where none does.
+  "/elements/SSFDDocument": "/schema/SsdfFramework/",
+  "/elements/CatalogBody": "/schema/SsdfFramework/",
+  "/elements/ControlGroup": "/schema/SsdfPracticeGroup/",
+  "/elements/Control": "/schema/SsdfPractice/",
+  "/elements/Task": "/schema/SsdfTask/",
+  "/elements/Resource": "/schema/SsdfReference/",
+  "/elements/Citation": "/schema/SsdfReference/",
+  "/elements/ResourceLink": "/schema/SsdfReference/",
+  "/elements/Metadata": "/schema/",
+  "/elements/Role": "/schema/",
+  "/elements/Party": "/schema/",
+  "/elements/Address": "/schema/",
+  "/elements/ResponsibleParty": "/schema/",
+  "/elements/BackMatter": "/schema/",
+  "/elements/CatalogElement": "/schema/",
+  "/elements/IdentifiedElement": "/schema/",
+  "/elements/Property": "/schema/",
+  "/elements/Link": "/schema/",
+  "/elements/Part": "/schema/",
+  "/elements/CatalogElementClassValue": "/schema/",
+  "/elements": "/schema/",
+  "/elements/[...slug]": "/schema/[...slug]",
+  "/about": "/docs/about/",
+};
 
 // A Keep a Changelog file, read as a page per release. "auto" takes
 // CHANGELOG.md when it holds a released version.
