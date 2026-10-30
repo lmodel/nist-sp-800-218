@@ -896,7 +896,7 @@
       ],
       "range": "string",
       "required": true,
-      "pattern": "\\S",
+      "pattern": "^\\s*\\S",
       "@type": "SlotDefinition"
     },
     {
@@ -1170,7 +1170,7 @@
           "name": "mapped_items",
           "description": "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.",
           "required": true,
-          "pattern": "\\S",
+          "pattern": "^\\s*\\S",
           "@type": "SlotDefinition"
         }
       ],
@@ -1180,8 +1180,8 @@
   ],
   "metamodel_version": "1.12.0",
   "source_file": "nist_sp_800_218.yaml",
-  "source_file_date": "2026-10-30T08:33:38",
-  "source_file_size": 18356,
+  "source_file_date": "2026-10-30T09:06:46",
+  "source_file_size": 18361,
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/nist_sp_800_218.context.jsonld",
