@@ -10,6 +10,7 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 - **The upstream watch reports more, and always writes its report.** It names a release that changes or drops a pinned file, the licence included, or the catalog's folder, a moved tag and a file NIST adds; a check that cannot reach doi.org or GitHub becomes a line of the report.
 - **Dependabot watches the website's npm packages**, beside the actions and the two Python locks.
+- **`.github/release/package-lock.json`, which pins semantic-release and every package it pulls in.** The release job installs from it with `npm ci`, and Dependabot keeps it current.
 
 ### Changed
 
