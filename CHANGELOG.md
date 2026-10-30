@@ -6,6 +6,10 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+### Changed
+
+- **The generated artefacts, the Python models and `docs/schema/nist_sp_800_218.yaml` are regenerated with linkml 1.12.1.** Pull request #18 locked 1.12.1 without regenerating them, so they still carried metamodel 1.7.0.
+
 ## [0.1.0] - 2026-10-29
 
 ### Added

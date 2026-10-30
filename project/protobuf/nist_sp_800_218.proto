@@ -1,47 +1,94 @@
- syntax="proto3";
- package
-// metamodel_version: 1.7.0
+syntax = "proto3";
+package nist_sp_n800_n218;
+// metamodel_version: 1.12.0
 // version: 1.1.0
 // One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.
-message SsdfFramework
- {
-  string ssdfVersion = 0
- repeated  ssdfPracticeGroup practiceGroups = 0
- }
+message SsdfFramework {
+  // The SSDF version, as NIST numbers it in the publication's title, such as 1.1.
+  string ssdf_version = 1;
+  // The practice groups, in the order SP 800-218 gives them.
+  repeated SsdfPracticeGroup practice_groups = 2;
+}
 // A notional implementation example: one type of tool, process or other method that could help implement a task.
-message SsdfImplementationExample
- {
-  string description = 0
-  ssdfExampleIdentifier exampleId = 0
- }
+message SsdfImplementationExample {
+  // What the practice group, practice, task or example says, in the words of whoever records it.
+  string description = 1;
+  // The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1.
+  string example_id = 2;
+}
 // A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it.
-message SsdfPractice
- {
-  string title = 0
-  string description = 0
-  ssdfPracticeIdentifier practiceId = 0
- repeated  ssdfTask practiceTasks = 0
- }
+message SsdfPractice {
+  // The name SP 800-218 gives the practice group or practice.
+  string title = 1;
+  // What the practice group, practice, task or example says, in the words of whoever records it.
+  string description = 2;
+  // The practice's identifier, such as PO.1.
+  string practice_id = 3;
+  // The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead.
+  repeated SsdfTask practice_tasks = 4;
+}
 // One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities.
-message SsdfPracticeGroup
- {
-  string title = 0
-  string description = 0
-  ssdfGroupIdentifier groupId = 0
- repeated  ssdfPractice groupPractices = 0
- }
+message SsdfPracticeGroup {
+  // The name SP 800-218 gives the practice group or practice.
+  string title = 1;
+  // What the practice group, practice, task or example says, in the words of whoever records it.
+  string description = 2;
+  // The group's two letters, such as PO for Prepare the Organization.
+  string group_id = 3;
+  // The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead.
+  repeated SsdfPractice group_practices = 4;
+}
 // A pointer from a task to an established secure development document, and to the parts of that document the task maps to.
-message SsdfReference
- {
-  ssdfReferenceDocument referenceDocument = 0
-  string mappedItems = 0
- }
+message SsdfReference {
+  // The document the task maps to, by the label SP 800-218 gives it.
+  SsdfReferenceDocument reference_document = 1;
+  // The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.
+  string mapped_items = 2;
+}
 // An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to.
-message SsdfTask
- {
-  string description = 0
-  ssdfTaskIdentifier taskId = 0
- repeated  ssdfTaskIdentifier formerTaskIds = 0
- repeated  ssdfImplementationExample implementationExamples = 0
- repeated  ssdfReference taskReferences = 0
- }
+message SsdfTask {
+  // What the practice group, practice, task or example says, in the words of whoever records it.
+  string description = 1;
+  // The task's identifier, such as PO.1.1.
+  string task_id = 2;
+  // The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3.
+  repeated string former_task_ids = 3;
+  // Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways.
+  repeated SsdfImplementationExample implementation_examples = 4;
+  // The established secure development documents the task maps to, each with the parts of the document it maps to.
+  repeated SsdfReference task_references = 5;
+}
+
+// The established secure development documents that SP 800-218 maps its tasks to, by the labels its References list gives them. SP 800-218 cites each at the edition shown in its title.
+enum SsdfReferenceDocument {
+  SSDF_REFERENCE_DOCUMENT_UNSPECIFIED = 0;
+  SSDF_REFERENCE_DOCUMENT_BSAFSS = 1;
+  SSDF_REFERENCE_DOCUMENT_BSIMM = 2;
+  SSDF_REFERENCE_DOCUMENT_CNCFSSCP = 3;
+  SSDF_REFERENCE_DOCUMENT_EO14028 = 4;
+  SSDF_REFERENCE_DOCUMENT_IDASOAR = 5;
+  SSDF_REFERENCE_DOCUMENT_IEC62443 = 6;
+  SSDF_REFERENCE_DOCUMENT_IR8397 = 7;
+  SSDF_REFERENCE_DOCUMENT_ISO27034 = 8;
+  SSDF_REFERENCE_DOCUMENT_ISO29147 = 9;
+  SSDF_REFERENCE_DOCUMENT_ISO30111 = 10;
+  SSDF_REFERENCE_DOCUMENT_MSSDL = 11;
+  SSDF_REFERENCE_DOCUMENT_NISTCSF = 12;
+  SSDF_REFERENCE_DOCUMENT_NISTLABEL = 13;
+  SSDF_REFERENCE_DOCUMENT_NTIASBOM = 14;
+  SSDF_REFERENCE_DOCUMENT_OWASPASVS = 15;
+  SSDF_REFERENCE_DOCUMENT_OWASPMASVS = 16;
+  SSDF_REFERENCE_DOCUMENT_OWASPSAMM = 17;
+  SSDF_REFERENCE_DOCUMENT_OWASPSCVS = 18;
+  SSDF_REFERENCE_DOCUMENT_PCISSLC = 19;
+  SSDF_REFERENCE_DOCUMENT_SCAGILE = 20;
+  SSDF_REFERENCE_DOCUMENT_SCFPSSD = 21;
+  SSDF_REFERENCE_DOCUMENT_SCSIC = 22;
+  SSDF_REFERENCE_DOCUMENT_SCTPC = 23;
+  SSDF_REFERENCE_DOCUMENT_SCTTM = 24;
+  SSDF_REFERENCE_DOCUMENT_SP800160 = 25;
+  SSDF_REFERENCE_DOCUMENT_SP800161 = 26;
+  SSDF_REFERENCE_DOCUMENT_SP800181 = 27;
+  SSDF_REFERENCE_DOCUMENT_SP800216 = 28;
+  SSDF_REFERENCE_DOCUMENT_SP80053 = 29;
+}
