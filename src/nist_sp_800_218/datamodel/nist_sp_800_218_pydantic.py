@@ -29,7 +29,7 @@ from pydantic import (
 )
 
 
-metamodel_version = "1.7.0"
+metamodel_version = "1.12.0"
 version = "1.1.0"
 
 
@@ -307,10 +307,10 @@ class SsdfFramework(ConfiguredBaseModel):
         pattern=re.compile(r"^[0-9]+\.[0-9]+$")
         if isinstance(v, list):
             for element in v:
-                if isinstance(element, str) and not pattern.match(element):
+                if isinstance(element, str) and not pattern.search(element):
                     err_msg = f"Invalid ssdf_version format: {element}"
                     raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
+        elif isinstance(v, str) and not pattern.search(v):
             err_msg = f"Invalid ssdf_version format: {v}"
             raise ValueError(err_msg)
         return v
@@ -429,10 +429,10 @@ class SsdfReference(ConfiguredBaseModel):
         pattern=re.compile(r"\S")
         if isinstance(v, list):
             for element in v:
-                if isinstance(element, str) and not pattern.match(element):
+                if isinstance(element, str) and not pattern.search(element):
                     err_msg = f"Invalid mapped_items format: {element}"
                     raise ValueError(err_msg)
-        elif isinstance(v, str) and not pattern.match(v):
+        elif isinstance(v, str) and not pattern.search(v):
             err_msg = f"Invalid mapped_items format: {v}"
             raise ValueError(err_msg)
         return v

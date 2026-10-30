@@ -112,7 +112,7 @@
       "definition_uri": "https://w3id.org/linkml/String",
       "description": "A character string",
       "notes": [
-        "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string.   If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"."
+        "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"."
       ],
       "from_schema": "https://w3id.org/linkml/types",
       "imported_from": "linkml:types",
@@ -934,7 +934,7 @@
       "see_also": [
         "https://csrc.nist.gov/pubs/sp/800/218/final"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:Framework"
       ],
       "slots": [
@@ -973,7 +973,7 @@
       "see_also": [
         "https://csrc.nist.gov/projects/ssdf"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:PracticeGroup"
       ],
       "broad_mappings": [
@@ -1015,7 +1015,7 @@
       "see_also": [
         "https://csrc.nist.gov/projects/ssdf"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:Practice"
       ],
       "broad_mappings": [
@@ -1057,7 +1057,7 @@
       "see_also": [
         "https://csrc.nist.gov/projects/ssdf"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:Task"
       ],
       "broad_mappings": [
@@ -1116,7 +1116,7 @@
       "see_also": [
         "https://csrc.nist.gov/projects/ssdf"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:ImplementationExample"
       ],
       "broad_mappings": [
@@ -1147,7 +1147,7 @@
       "see_also": [
         "https://csrc.nist.gov/projects/ssdf"
       ],
-      "mappings": [
+      "exact_mappings": [
         "nist_sp_800_218:Reference"
       ],
       "broad_mappings": [
@@ -1178,11 +1178,10 @@
       "@type": "ClassDefinition"
     }
   ],
-  "metamodel_version": "1.7.0",
+  "metamodel_version": "1.12.0",
   "source_file": "nist_sp_800_218.yaml",
-  "source_file_date": "2026-10-29T18:41:13",
+  "source_file_date": "2026-10-30T08:33:38",
   "source_file_size": 18356,
-  "generation_date": "2026-10-29T18:42:16",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/nist_sp_800_218.context.jsonld",

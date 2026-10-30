@@ -1,166 +1,235 @@
-@prefix nist_sp_800_218: <https://w3id.org/lmodel/nist-sp-800-218/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix nist_sp_800_218: <https://w3id.org/lmodel/nist-sp-800-218/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema1: <http://schema.org/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema1: <http://schema.org/> .
 nist_sp_800_218:Framework a sh:NodeShape ;
-    rdfs:comment "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class nist_sp_800_218:PracticeGroup ;
-            sh:description "The practice groups, in the order SP 800-218 gives them." ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:practice_groups ],
-        [ sh:datatype xsd:string ;
-            sh:description "The SSDF version, as NIST numbers it in the publication's title, such as 1.1." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:ssdf_version ;
-            sh:pattern "^[0-9]+\\.[0-9]+$" ] ;
-    sh:targetClass nist_sp_800_218:Framework .
-
+	rdfs:comment "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n49 ;
+	sh:property _:c14n16 , _:c14n34 ;
+	sh:targetClass nist_sp_800_218:Framework .
 nist_sp_800_218:ImplementationExample a sh:NodeShape ;
-    rdfs:comment "A notional implementation example: one type of tool, process or other method that could help implement a task." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:example_id ;
-            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:description ] ;
-    sh:targetClass nist_sp_800_218:ImplementationExample .
-
+	rdfs:comment "A notional implementation example: one type of tool, process or other method that could help implement a task." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n5 ;
+	sh:property _:c14n44 , _:c14n9 ;
+	sh:targetClass nist_sp_800_218:ImplementationExample .
 nist_sp_800_218:Practice a sh:NodeShape ;
-    rdfs:comment "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The practice's identifier, such as PO.1." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:practice_id ;
-            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*$" ],
-        [ sh:class nist_sp_800_218:Task ;
-            sh:description "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:practice_tasks ],
-        [ sh:datatype xsd:string ;
-            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "The name SP 800-218 gives the practice group or practice." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ] ;
-    sh:targetClass nist_sp_800_218:Practice .
-
+	rdfs:comment "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n26 ;
+	sh:property _:c14n13 , _:c14n28 , _:c14n38 , _:c14n41 ;
+	sh:targetClass nist_sp_800_218:Practice .
 nist_sp_800_218:PracticeGroup a sh:NodeShape ;
-    rdfs:comment "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The group's two letters, such as PO for Prepare the Organization." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:group_id ;
-            sh:pattern "^(PO|PS|PW|RV)$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "The name SP 800-218 gives the practice group or practice." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:description ],
-        [ sh:class nist_sp_800_218:Practice ;
-            sh:description "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:group_practices ] ;
-    sh:targetClass nist_sp_800_218:PracticeGroup .
-
+	rdfs:comment "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n11 ;
+	sh:property _:c14n12 , _:c14n15 , _:c14n32 , _:c14n43 ;
+	sh:targetClass nist_sp_800_218:PracticeGroup .
 nist_sp_800_218:Reference a sh:NodeShape ;
-    rdfs:comment "A pointer from a task to an established secure development document, and to the parts of that document the task maps to." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "The document the task maps to, by the label SP 800-218 gives it." ;
-            sh:in ( "BSAFSS" "BSIMM" "CNCFSSCP" "EO14028" "IDASOAR" "IEC62443" "IR8397" "ISO27034" "ISO29147" "ISO30111" "MSSDL" "NISTCSF" "NISTLABEL" "NTIASBOM" "OWASPASVS" "OWASPMASVS" "OWASPSAMM" "OWASPSCVS" "PCISSLC" "SCAGILE" "SCFPSSD" "SCSIC" "SCTPC" "SCTTM" "SP800160" "SP800161" "SP800181" "SP800216" "SP80053" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path nist_sp_800_218:reference_document ],
-        [ sh:datatype xsd:string ;
-            sh:description "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:mapped_items ;
-            sh:pattern "\\S" ] ;
-    sh:targetClass nist_sp_800_218:Reference .
-
+	rdfs:comment "A pointer from a task to an established secure development document, and to the parts of that document the task maps to." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n47 ;
+	sh:property _:c14n18 , _:c14n36 ;
+	sh:targetClass nist_sp_800_218:Reference .
 nist_sp_800_218:Task a sh:NodeShape ;
-    rdfs:comment "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to." ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path nist_sp_800_218:former_task_ids ;
-            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" ],
-        [ sh:class nist_sp_800_218:ImplementationExample ;
-            sh:description "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 3 ;
-            sh:path nist_sp_800_218:implementation_examples ],
-        [ sh:class nist_sp_800_218:Reference ;
-            sh:description "The established secure development documents the task maps to, each with the parts of the document it maps to." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path nist_sp_800_218:task_references ],
-        [ sh:datatype xsd:string ;
-            sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "The task's identifier, such as PO.1.1." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path nist_sp_800_218:task_id ;
-            sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" ] ;
-    sh:targetClass nist_sp_800_218:Task .
-
+	rdfs:comment "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n20 ;
+	sh:property _:c14n30 , _:c14n40 , _:c14n46 , _:c14n48 , _:c14n7 ;
+	sh:targetClass nist_sp_800_218:Task .
+_:c14n0 rdf:first "PCISSLC" ;
+	rdf:rest _:c14n52 .
+_:c14n1 rdf:first "OWASPASVS" ;
+	rdf:rest _:c14n21 .
+_:c14n10 rdf:first "NISTCSF" ;
+	rdf:rest _:c14n6 .
+_:c14n11 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n12 sh:datatype xsd:string ;
+	sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path schema1:description .
+_:c14n13 sh:datatype xsd:string ;
+	sh:description "The practice's identifier, such as PO.1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 2 ;
+	sh:path nist_sp_800_218:practice_id ;
+	sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*$" .
+_:c14n14 rdf:first "SP80053" ;
+	rdf:rest rdf:nil .
+_:c14n15 sh:class nist_sp_800_218:Practice ;
+	sh:description "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 3 ;
+	sh:path nist_sp_800_218:group_practices .
+_:c14n16 sh:datatype xsd:string ;
+	sh:description "The SSDF version, as NIST numbers it in the publication's title, such as 1.1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path nist_sp_800_218:ssdf_version ;
+	sh:pattern "^[0-9]+\\.[0-9]+$" .
+_:c14n17 rdf:first "IDASOAR" ;
+	rdf:rest _:c14n4 .
+_:c14n18 sh:description "The document the task maps to, by the label SP 800-218 gives it." ;
+	sh:in _:c14n42 ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:order 0 ;
+	sh:path nist_sp_800_218:reference_document .
+_:c14n19 rdf:first "OWASPSCVS" ;
+	rdf:rest _:c14n0 .
+_:c14n2 rdf:first "NTIASBOM" ;
+	rdf:rest _:c14n1 .
+_:c14n20 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n21 rdf:first "OWASPMASVS" ;
+	rdf:rest _:c14n45 .
+_:c14n22 rdf:first "ISO29147" ;
+	rdf:rest _:c14n25 .
+_:c14n23 rdf:first "SCTTM" ;
+	rdf:rest _:c14n31 .
+_:c14n24 rdf:first "SP800216" ;
+	rdf:rest _:c14n14 .
+_:c14n25 rdf:first "ISO30111" ;
+	rdf:rest _:c14n53 .
+_:c14n26 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n27 rdf:first "SCSIC" ;
+	rdf:rest _:c14n50 .
+_:c14n28 sh:class nist_sp_800_218:Task ;
+	sh:description "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 3 ;
+	sh:path nist_sp_800_218:practice_tasks .
+_:c14n29 rdf:first "CNCFSSCP" ;
+	rdf:rest _:c14n37 .
+_:c14n3 rdf:first "BSIMM" ;
+	rdf:rest _:c14n29 .
+_:c14n30 sh:class nist_sp_800_218:Reference ;
+	sh:description "The established secure development documents the task maps to, each with the parts of the document it maps to." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 4 ;
+	sh:path nist_sp_800_218:task_references .
+_:c14n31 rdf:first "SP800160" ;
+	rdf:rest _:c14n39 .
+_:c14n32 sh:datatype xsd:string ;
+	sh:description "The name SP 800-218 gives the practice group or practice." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path schema1:name .
+_:c14n33 rdf:first "SCFPSSD" ;
+	rdf:rest _:c14n27 .
+_:c14n34 sh:class nist_sp_800_218:PracticeGroup ;
+	sh:description "The practice groups, in the order SP 800-218 gives them." ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 1 ;
+	sh:path nist_sp_800_218:practice_groups .
+_:c14n35 rdf:first "ISO27034" ;
+	rdf:rest _:c14n22 .
+_:c14n36 sh:datatype xsd:string ;
+	sh:description "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path nist_sp_800_218:mapped_items ;
+	sh:pattern "\\S" .
+_:c14n37 rdf:first "EO14028" ;
+	rdf:rest _:c14n17 .
+_:c14n38 sh:datatype xsd:string ;
+	sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path schema1:description .
+_:c14n39 rdf:first "SP800161" ;
+	rdf:rest _:c14n51 .
+_:c14n4 rdf:first "IEC62443" ;
+	rdf:rest _:c14n8 .
+_:c14n40 sh:datatype xsd:string ;
+	sh:description "The task's identifier, such as PO.1.1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path nist_sp_800_218:task_id ;
+	sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" .
+_:c14n41 sh:datatype xsd:string ;
+	sh:description "The name SP 800-218 gives the practice group or practice." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path schema1:name .
+_:c14n42 rdf:first "BSAFSS" ;
+	rdf:rest _:c14n3 .
+_:c14n43 sh:datatype xsd:string ;
+	sh:description "The group's two letters, such as PO for Prepare the Organization." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 2 ;
+	sh:path nist_sp_800_218:group_id ;
+	sh:pattern "^(PO|PS|PW|RV)$" .
+_:c14n44 sh:datatype xsd:string ;
+	sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path schema1:description .
+_:c14n45 rdf:first "OWASPSAMM" ;
+	rdf:rest _:c14n19 .
+_:c14n46 sh:class nist_sp_800_218:ImplementationExample ;
+	sh:description "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 3 ;
+	sh:path nist_sp_800_218:implementation_examples .
+_:c14n47 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n48 sh:datatype xsd:string ;
+	sh:description "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3." ;
+	sh:nodeKind sh:Literal ;
+	sh:order 2 ;
+	sh:path nist_sp_800_218:former_task_ids ;
+	sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$" .
+_:c14n49 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n5 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n50 rdf:first "SCTPC" ;
+	rdf:rest _:c14n23 .
+_:c14n51 rdf:first "SP800181" ;
+	rdf:rest _:c14n24 .
+_:c14n52 rdf:first "SCAGILE" ;
+	rdf:rest _:c14n33 .
+_:c14n53 rdf:first "MSSDL" ;
+	rdf:rest _:c14n10 .
+_:c14n6 rdf:first "NISTLABEL" ;
+	rdf:rest _:c14n2 .
+_:c14n7 sh:datatype xsd:string ;
+	sh:description "What the practice group, practice, task or example says, in the words of whoever records it." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path schema1:description .
+_:c14n8 rdf:first "IR8397" ;
+	rdf:rest _:c14n35 .
+_:c14n9 sh:datatype xsd:string ;
+	sh:description "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path nist_sp_800_218:example_id ;
+	sh:pattern "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$" .

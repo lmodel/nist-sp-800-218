@@ -239,9 +239,9 @@
     },
     "$id": "https://w3id.org/lmodel/nist-sp-800-218",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "additionalProperties": true,
+    "additionalProperties": false,
     "description": "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.",
-    "metamodel_version": "1.7.0",
+    "metamodel_version": "1.12.0",
     "properties": {
         "practice_groups": {
             "description": "The practice groups, in the order SP 800-218 gives them.",
