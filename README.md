@@ -14,29 +14,14 @@ NIST SP 800-218 Secure Software Development Framework (SSDF) version 1.1 (LinkML
 
 ## What it models
 
-The Secure Software Development Framework (SSDF) version 1.1, which the National Institute of Standards and Technology (NIST) defines in [Special Publication (SP) 800-218](https://doi.org/10.6028/NIST.SP.800-218) of February 2022:
+The schema models the Secure Software Development Framework (SSDF) version 1.1, which the National Institute of Standards and Technology (NIST) defines in [Special Publication (SP) 800-218](https://doi.org/10.6028/NIST.SP.800-218) of February 2022. The schema holds the four practice groups (`SsdfPracticeGroup`), nineteen practices (`SsdfPractice`) and forty-two tasks (`SsdfTask`), with the implementation examples and the references to secure development documents that each task carries.
 
-* **Practice groups** (`SsdfPracticeGroup`): the four groups that hold the practices, Prepare the Organization (PO), Protect Software (PS), Produce Well-Secured Software (PW) and Respond to Vulnerabilities (RV).
-* **Practices** (`SsdfPractice`): the nineteen practices, each an outcome with an identifier such as `PO.1`.
-* **Tasks** (`SsdfTask`): the forty-two actions that may be needed to perform a practice, each with an identifier such as `PO.1.1`. A task that version 1.1 moved keeps its former identifier.
-* **Notional implementation examples** (`SsdfImplementationExample`): the 198 examples of tools, processes or methods that could help implement a task.
-* **References** (`SsdfReference`): the 528 pointers from a task to the parts of an established secure development document. The enum `SsdfReferenceDocument` names the 29 documents.
-* **The framework** (`SsdfFramework`): one SSDF version as a single document that holds all of these.
-
-The schema header's `version` is the SSDF version, 1.1.0, as NIST's Cybersecurity and Privacy Reference Tool numbers it (`SP_800_218_1_1_0`). Its `source` is the publication's digital object identifier (DOI). NIST also publishes the framework as a catalog in the Open Security Controls Assessment Language (OSCAL). [src/nist_sp_800_218/schema/oscal-content/](src/nist_sp_800_218/schema/oscal-content) holds that catalog as usnistgov/oscal-content released it in v1.6.0, matched to the release by git object hash. `tests/test_upstream.py` derives the whole framework from the copy, validates it, and holds it to the counts above. A weekly workflow opens an issue when NIST registers the next final edition, changes the catalog, or the copy drifts.
-
-NIST published SP 800-218 Revision 1, which defines SSDF version 1.2, as an initial public draft in December 2025. The schema follows final editions, so it does not model the draft. Release tags number the schema's versions.
-
-## Influences
-
-None beyond SP 800-218 itself: the schema renders one publication, and its release asset and governance files follow [lmodel/slsa](https://github.com/lmodel/slsa).
+[src/nist_sp_800_218/schema/oscal-content/](src/nist_sp_800_218/schema/oscal-content) holds NIST's catalog of the framework in the Open Security Controls Assessment Language (OSCAL), from usnistgov/oscal-content v1.6.0, and `tests/test_upstream.py` derives the whole framework from it. A weekly workflow opens an issue when NIST registers the next final edition, changes the catalog, or the copy drifts. The schema follows final editions, so it does not model the December 2025 draft of SP 800-218 Revision 1.
 
 ## Mappings
 
-The schema crosses to two kinds of vocabulary and borrows from neither.
-
-* **OSCAL**: NIST's catalog renders a practice group as an OSCAL group, a practice and a task as controls, an example as a part and a reference as a link. Each class names its counterpart in [lmodel/oscal](https://github.com/lmodel/oscal) in `broad_mappings`, because the OSCAL class is the more general one.
-* **The documents SP 800-218 references**: `SsdfReferenceDocument` names the 29 documents that the SSDF maps its tasks to, at the editions it cites, with each document's address. They include NIST SP 800-53 Revision 5, the NIST Cybersecurity Framework 1.1 and Executive Order 14028. A reference's `mapped_items` holds the identifiers within the document, such as the control `SA-4` of SP 800-53.
+* **OSCAL**: each class names its counterpart in [lmodel/oscal](https://github.com/lmodel/oscal) in `broad_mappings`: a practice group is a group, a practice and a task are controls, and an example is a part.
+* **Referenced documents**: `SsdfReferenceDocument` names the 29 documents the SSDF maps its tasks to, and a reference's `mapped_items` holds the identifiers within one, such as the control `SA-4` of SP 800-53.
 
 ## Not modelled here
 
@@ -62,27 +47,23 @@ Run `just` to list the project's [just](https://github.com/casey/just/) recipes.
 
 ## Knowledge Trust Ladder (KTL)
 
-`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) knowledge bundle, in the Linked Open Knowledge Format (LOKF). Its domain schema is `.lokf/nist-sp-800-218.yaml`, which `lokf adapt` writes from `src/nist_sp_800_218/schema/nist_sp_800_218.yaml`. Edit the source, never the copy. A release carries the copy as `schema-<tag>-nist-sp-800-218.yaml`, on the terms [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers) gives.
+`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) knowledge bundle. Its domain schema, `.lokf/nist-sp-800-218.yaml`, is the copy `just lokf-adapt` writes from `src/nist_sp_800_218/schema/nist_sp_800_218.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. A release carries the copy as `schema-<tag>-nist-sp-800-218.yaml`, on the terms [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers) gives.
 
-`just lokf-adapt` rewrites the copy, and `just lokf-adapt-check` says when it is stale. `project.justfile` names the classes the copy roots on `Concept`, and a concept may name any of them as its `type`. In Obsidian, add these classes to the KTL Registrar and KTL Curator plugins' *Known LOKF types* setting:
+The copy roots these classes on `Concept`, so a concept may name any of them as its `type`. In Obsidian, add them to the *Known LOKF types* setting of the KTL Registrar and KTL Curator plugins:
 
 ```text
 SsdfPracticeGroup, SsdfPractice, SsdfTask
 ```
 
-A concept writes the SSDF identifier in `group_id`, `practice_id` or `task_id`. A task's concept names its practice's concept in `isPartOf`, and a practice's concept names its group's. A name and a description are the concept's own `title` and `description`.
+A concept writes the SSDF identifier in `group_id`, `practice_id` or `task_id`. A task's concept names its practice's concept in `isPartOf`, and a practice's concept names its group's.
 
-A host imports the copy beside LOKF's schema, `lokf.yaml`, and beside other adapt copies. LinkML merges them into one namespace, where the last definition of a name wins silently. So no class, enum or type shares a name with LOKF's or with the copies of slsa, github-actions and oscal. A slot shares a name only where it carries LOKF's meaning and Internationalized Resource Identifier (IRI), as `title` and `description` do, so `lokf adapt` folds the two into LOKF's and renames nothing. The copy shares no other key with the three neighbours, and `tests/test_schema_rules.py` fails on a new shared name.
+No class, enum or type of the copy shares a name with LOKF's schema or with another lmodel copy, and `tests/test_schema_rules.py` fails on a new shared name.
 
 ## License
 
-The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)).
+The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)), and the knowledge bundle in `.lokf/knowledge/` is under CC BY 4.0.
 
-The knowledge bundle in `.lokf/knowledge/` is under the Creative Commons Attribution 4.0 International licence (CC BY 4.0), as its `index.md` declares.
-
-SP 800-218 is a work of the United States Government and is not subject to copyright in the United States. The schema's descriptions are this project's own words. NIST's catalog in [src/nist_sp_800_218/schema/oscal-content/](src/nist_sp_800_218/schema/oscal-content) keeps NIST's licence beside it: see [NOTICE](NOTICE).
-
-This is not an official NIST project, and its use implies no endorsement by NIST.
+SP 800-218 is a work of the United States Government and is not subject to copyright in the United States. The schema's descriptions are this project's own words, and NIST's catalog keeps NIST's licence beside it: see [NOTICE](NOTICE). This is not an official NIST project, and its use implies no endorsement by NIST.
 
 ## Contributing and security
 
