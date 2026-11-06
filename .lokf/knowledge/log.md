@@ -1,5 +1,9 @@
 # Change Log
 
+## 2026-11-06
+
+* **Changed**: `lokf.yaml` and `nist-sp-800-218.yaml` moved into `.lokf/schema/`, where KTL v0.62.0 keeps a sidecar's schema files, and the concepts that name them follow.
+
 ## 2026-10-30
 
 * **Changed**: Semantic release says that the release job installs its tools from `.github/release/package-lock.json`.

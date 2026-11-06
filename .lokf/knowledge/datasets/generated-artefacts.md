@@ -3,7 +3,7 @@ type: Dataset
 id: https://w3id.org/lmodel/nist-sp-800-218/knowledge/datasets/generated-artefacts
 genre: reference
 title: Generated artefacts
-description: "What the LinkML generators and `lokf adapt` write from the schema: `project/` (JSON Schema, OWL, SHACL, ShEx, JSON-LD, GraphQL, protobuf, SQL, TypeScript, Excel and Java), the Python dataclasses and Pydantic models in `src/nist_sp_800_218/datamodel/`, `docs/schema/` and `docs/elements/`, and `.lokf/nist-sp-800-218.yaml`. None is edited by hand."
+description: "What the LinkML generators and `lokf adapt` write from the schema: `project/` (JSON Schema, OWL, SHACL, ShEx, JSON-LD, GraphQL, protobuf, SQL, TypeScript, Excel and Java), the Python dataclasses and Pydantic models in `src/nist_sp_800_218/datamodel/`, `docs/schema/` and `docs/elements/`, and `.lokf/schema/nist-sp-800-218.yaml`. None is edited by hand."
 resource: project
 isPartOf:
   - https://w3id.org/lmodel/nist-sp-800-218/knowledge/datasets/nist-sp-800-218-linkml-schema
@@ -26,7 +26,7 @@ sources:
     title: the exclude pattern
 generated:
   by: process:ktl-librarian
-  at: "2026-10-29T20:52:53Z"
+  at: "2026-11-06T21:23:04Z"
 status: draft
 verified:
   - by: process:ktl-librarian
@@ -39,7 +39,7 @@ Every file here is generated from `src/nist_sp_800_218/schema/nist_sp_800_218.ya
 
 `just gen-project` runs `gen-project` with `.linkml/generators.yaml` into `project/`, moves the Python dataclasses into `src/nist_sp_800_218/datamodel/`, and writes the Pydantic models beside them. It then runs `gen-java`, `gen-typescript` and `gen-owl` on their own, because, as its comment says, some generators ignore the configuration or cannot create their folders.[^justfile] `.linkml/generators.yaml` leaves out the Markdown generator and merges imports for the others.[^generators.yaml] `project/` holds a folder each for Excel, GraphQL, Java, JSON-LD, JSON Schema, OWL, the prefix map, protobuf, SHACL, ShEx, SQL and TypeScript.[^project] The Java folder holds one class per schema class, six in all.
 
-`just gen-doc` writes `docs/schema/nist_sp_800_218.yaml` and the element pages under `docs/elements/`, which git ignores and the website builds. `just lokf-adapt` writes `.lokf/nist-sp-800-218.yaml`. `just test` regenerates the dataclasses too, and the only change it then leaves is the generation date in their header.
+`just gen-doc` writes `docs/schema/nist_sp_800_218.yaml` and the element pages under `docs/elements/`, which git ignores and the website builds. `just lokf-adapt` writes `.lokf/schema/nist-sp-800-218.yaml`. `just test` regenerates the dataclasses too, and the only change it then leaves is the generation date in their header.
 
 The pre-commit hooks leave these folders alone, with NIST's catalog copy, the neighbours' copies and the sidecar's scripts, because no hook may rewrite a file the repository does not write by hand.[^pre-commit-config.yaml]
 
