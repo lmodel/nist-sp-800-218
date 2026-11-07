@@ -1,0 +1,991 @@
+{
+  "name": "nist_sp_800_218",
+  "annotations": {
+    "cprt_framework_version": {
+      "tag": "cprt_framework_version",
+      "value": "SP_800_218_1_1_0"
+    },
+    "publication_date": {
+      "tag": "publication_date",
+      "value": "2022-02"
+    },
+    "oscal_content_tag": {
+      "tag": "oscal_content_tag",
+      "value": "v1.6.0"
+    },
+    "oscal_content_commit": {
+      "tag": "oscal_content_commit",
+      "value": "f0de6d8d8c059d374f15e0ae07508d82e370fc1d"
+    }
+  },
+  "description": "A LinkML model of the Secure Software Development Framework (SSDF) version 1.1, which NIST Special Publication 800-218 recommends: its practice groups, practices and tasks, the notional implementation examples of each task, and the references that map each task to other secure software development documents.",
+  "title": "Secure Software Development Framework (SSDF) version 1.1",
+  "comments": [
+    "The version is the SSDF version that SP 800-218 defines, and source is the publication's digital object identifier. NIST's Cybersecurity and Privacy Reference Tool names the same version SP_800_218_1_1_0, and the catalog NIST publishes for it in usnistgov/oscal-content is copied to src/nist_sp_800_218/schema/oscal-content/ at the tag and commit in the annotations. scripts/check_upstream_release.py reads the same pins and reports when NIST publishes a newer edition or changes the catalog. The release tags are the schema's own versions.",
+    "SP 800-218 is a work of the United States Government and is not subject to copyright in the United States. The descriptions here are this project's own words; NIST's text of each practice, task and example stays in the catalog copy.",
+    "NIST's catalog renders each practice group as an OSCAL group, each practice and task as an OSCAL control, each example as a part and each reference as a link. The broad_mappings name those lmodel/oscal classes."
+  ],
+  "source": "https://doi.org/10.6028/NIST.SP.800-218",
+  "see_also": [
+    "https://lmodel.github.io/nist-sp-800-218",
+    "https://csrc.nist.gov/pubs/sp/800/218/final",
+    "https://csrc.nist.gov/projects/ssdf",
+    "https://github.com/usnistgov/oscal-content/tree/v1.6.0/nist.gov/SP800-218/ver1"
+  ],
+  "id": "https://w3id.org/lmodel/nist-sp-800-218",
+  "version": "1.1.0",
+  "license": "Apache-2.0",
+  "prefixes": {
+    "linkml": {
+      "prefix_prefix": "linkml",
+      "prefix_reference": "https://w3id.org/linkml/"
+    },
+    "nist_sp_800_218": {
+      "prefix_prefix": "nist_sp_800_218",
+      "prefix_reference": "https://w3id.org/lmodel/nist-sp-800-218/"
+    },
+    "oscal": {
+      "prefix_prefix": "oscal",
+      "prefix_reference": "https://w3id.org/lmodel/oscal/"
+    },
+    "schema": {
+      "prefix_prefix": "schema",
+      "prefix_reference": "http://schema.org/"
+    },
+    "xsd": {
+      "prefix_prefix": "xsd",
+      "prefix_reference": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "shex": {
+      "prefix_prefix": "shex",
+      "prefix_reference": "http://www.w3.org/ns/shex#"
+    }
+  },
+  "default_prefix": "nist_sp_800_218",
+  "default_range": "string",
+  "types": {
+    "ssdf_group_identifier": {
+      "name": "ssdf_group_identifier",
+      "description": "The two letters that name one of the four practice groups.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "xsd:string",
+      "pattern": "^(PO|PS|PW|RV)$"
+    },
+    "ssdf_practice_identifier": {
+      "name": "ssdf_practice_identifier",
+      "description": "A practice's identifier: its group's letters, a dot and the practice's number within the group, such as PO.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "xsd:string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*$"
+    },
+    "ssdf_task_identifier": {
+      "name": "ssdf_task_identifier",
+      "description": "A task's identifier: its practice's identifier, a dot and the task's number within the practice, such as PO.1.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "xsd:string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*$"
+    },
+    "ssdf_example_identifier": {
+      "name": "ssdf_example_identifier",
+      "description": "The identifier NIST's reference data gives a notional implementation example: its task's identifier, a dot and the example's number, such as PO.1.1.1.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "typeof": "string",
+      "base": "str",
+      "uri": "xsd:string",
+      "pattern": "^(PO|PS|PW|RV)\\.[1-9][0-9]*\\.[1-9][0-9]*\\.[1-9][0-9]*$"
+    },
+    "string": {
+      "name": "string",
+      "description": "A character string",
+      "notes": [
+        "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Text"
+      ],
+      "base": "str",
+      "uri": "xsd:string"
+    },
+    "integer": {
+      "name": "integer",
+      "description": "An integer",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Integer"
+      ],
+      "base": "int",
+      "uri": "xsd:integer"
+    },
+    "boolean": {
+      "name": "boolean",
+      "description": "A binary (true or false) value",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"boolean\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Boolean"
+      ],
+      "base": "Bool",
+      "uri": "xsd:boolean",
+      "repr": "bool"
+    },
+    "float": {
+      "name": "float",
+      "description": "A real number that conforms to the xsd:float specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"float\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "xsd:float"
+    },
+    "double": {
+      "name": "double",
+      "description": "A real number that conforms to the xsd:double specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"double\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "close_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "xsd:double"
+    },
+    "decimal": {
+      "name": "decimal",
+      "description": "A real number with arbitrary precision that conforms to the xsd:decimal specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"decimal\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "broad_mappings": [
+        "schema:Number"
+      ],
+      "base": "Decimal",
+      "uri": "xsd:decimal"
+    },
+    "time": {
+      "name": "time",
+      "description": "A time object represents a (local) time of day, independent of any particular day",
+      "notes": [
+        "URI is dateTime because OWL reasoners do not work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"time\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Time"
+      ],
+      "base": "XSDTime",
+      "uri": "xsd:time",
+      "repr": "str"
+    },
+    "date": {
+      "name": "date",
+      "description": "a date (year, month and day) in an idealized calendar",
+      "notes": [
+        "URI is dateTime because OWL reasoners don't work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:Date"
+      ],
+      "base": "XSDDate",
+      "uri": "xsd:date",
+      "repr": "str"
+    },
+    "datetime": {
+      "name": "datetime",
+      "description": "The combination of a date and time",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"datetime\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "exact_mappings": [
+        "schema:DateTime"
+      ],
+      "base": "XSDDateTime",
+      "uri": "xsd:dateTime",
+      "repr": "str"
+    },
+    "date_or_datetime": {
+      "name": "date_or_datetime",
+      "description": "Either a date or a datetime",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date_or_datetime\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "str",
+      "uri": "linkml:DateOrDatetime",
+      "repr": "str"
+    },
+    "uriorcurie": {
+      "name": "uriorcurie",
+      "description": "a URI or a CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uriorcurie\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "URIorCURIE",
+      "uri": "xsd:anyURI",
+      "repr": "str"
+    },
+    "curie": {
+      "name": "curie",
+      "conforms_to": "https://www.w3.org/TR/curie/",
+      "description": "a compact URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"curie\"."
+      ],
+      "comments": [
+        "in RDF serializations this MUST be expanded to a URI",
+        "in non-RDF serializations MAY be serialized as the compact representation"
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "Curie",
+      "uri": "xsd:string",
+      "repr": "str"
+    },
+    "uri": {
+      "name": "uri",
+      "conforms_to": "https://www.ietf.org/rfc/rfc3987.txt",
+      "description": "a complete URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uri\"."
+      ],
+      "comments": [
+        "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node"
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "close_mappings": [
+        "schema:URL"
+      ],
+      "base": "URI",
+      "uri": "xsd:anyURI",
+      "repr": "str"
+    },
+    "ncname": {
+      "name": "ncname",
+      "description": "Prefix part of CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"ncname\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "NCName",
+      "uri": "xsd:string",
+      "repr": "str"
+    },
+    "objectidentifier": {
+      "name": "objectidentifier",
+      "description": "A URI or CURIE that represents an object in the model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"objectidentifier\"."
+      ],
+      "comments": [
+        "Used for inheritance and type checking"
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "ElementIdentifier",
+      "uri": "shex:iri",
+      "repr": "str"
+    },
+    "nodeidentifier": {
+      "name": "nodeidentifier",
+      "description": "A URI, CURIE or BNODE that represents a node in a model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"nodeidentifier\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "NodeIdentifier",
+      "uri": "shex:nonLiteral",
+      "repr": "str"
+    },
+    "jsonpointer": {
+      "name": "jsonpointer",
+      "conforms_to": "https://datatracker.ietf.org/doc/html/rfc6901",
+      "description": "A string encoding a JSON Pointer. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to a valid object within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpointer\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "str",
+      "uri": "xsd:string",
+      "repr": "str"
+    },
+    "jsonpath": {
+      "name": "jsonpath",
+      "conforms_to": "https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html",
+      "description": "A string encoding a JSON Path. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpath\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "str",
+      "uri": "xsd:string",
+      "repr": "str"
+    },
+    "sparqlpath": {
+      "name": "sparqlpath",
+      "conforms_to": "https://www.w3.org/TR/sparql11-query/#propertypaths",
+      "description": "A string encoding a SPARQL Property Path. The value of the string MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded as RDF.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"sparqlpath\"."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "base": "str",
+      "uri": "xsd:string",
+      "repr": "str"
+    }
+  },
+  "enums": {
+    "SsdfReferenceDocument": {
+      "name": "SsdfReferenceDocument",
+      "description": "The established secure development documents that SP 800-218 maps its tasks to, by the labels its References list gives them. SP 800-218 cites each at the edition shown in its title.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://doi.org/10.6028/NIST.SP.800-218"
+      ],
+      "permissible_values": {
+        "BSAFSS": {
+          "text": "BSAFSS",
+          "description": "BSA's framework for securing the software lifecycle.",
+          "title": "The BSA Framework for Secure Software, version 1.1 (2020)",
+          "see_also": [
+            "https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf"
+          ]
+        },
+        "BSIMM": {
+          "text": "BSIMM",
+          "description": "The Building Security In Maturity Model, twelfth edition.",
+          "title": "BSIMM12 2021 Foundations Report",
+          "see_also": [
+            "https://www.bsimm.com/content/dam/bsimm/reports/bsimm12-foundations.pdf"
+          ]
+        },
+        "CNCFSSCP": {
+          "text": "CNCFSSCP",
+          "description": "The Cloud Native Computing Foundation's software supply chain paper.",
+          "title": "Software Supply Chain Best Practices (2021)",
+          "see_also": [
+            "https://github.com/cncf/tag-security/tree/main/supply-chain-security/supply-chain-security-paper"
+          ]
+        },
+        "EO14028": {
+          "text": "EO14028",
+          "description": "The executive order whose Section 4e clauses SP 800-218 maps in its Appendix A.",
+          "title": "Executive Order 14028, Improving the Nation's Cybersecurity (2021)",
+          "see_also": [
+            "https://www.govinfo.gov/app/details/DCPD-202100401"
+          ]
+        },
+        "IDASOAR": {
+          "text": "IDASOAR",
+          "description": "The Institute for Defense Analyses report on software vulnerability tools and techniques.",
+          "title": "State-of-the-Art Resources (SOAR) for Software Vulnerability Detection, Test, and Evaluation 2016",
+          "see_also": [
+            "https://www.ida.org/research-and-publications/publications/all/s/st/stateoftheart-resources-soar-for-software-vulnerability-detection-test-and-evaluation-2016"
+          ]
+        },
+        "IEC62443": {
+          "text": "IEC62443",
+          "description": "The International Electrotechnical Commission's standard for secure development of industrial automation and control products.",
+          "title": "IEC 62443-4-1:2018, Secure product development lifecycle requirements",
+          "see_also": [
+            "https://webstore.iec.ch/publication/33615"
+          ]
+        },
+        "IR8397": {
+          "text": "IR8397",
+          "description": "NIST's guidelines for the verification a software developer performs.",
+          "title": "NIST IR 8397, Guidelines on Minimum Standards for Developer Verification of Software (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.IR.8397"
+          ]
+        },
+        "ISO27034": {
+          "text": "ISO27034",
+          "description": "The international standard's overview and concepts of application security.",
+          "title": "ISO/IEC 27034-1:2011, Application security, Part 1",
+          "see_also": [
+            "https://www.iso.org/standard/44378.html"
+          ]
+        },
+        "ISO29147": {
+          "text": "ISO29147",
+          "description": "The international standard for disclosing vulnerabilities in products and services.",
+          "title": "ISO/IEC 29147:2018, Vulnerability disclosure",
+          "see_also": [
+            "https://www.iso.org/standard/72311.html"
+          ]
+        },
+        "ISO30111": {
+          "text": "ISO30111",
+          "description": "The international standard for the processes that handle a reported vulnerability.",
+          "title": "ISO/IEC 30111:2019, Vulnerability handling processes",
+          "see_also": [
+            "https://www.iso.org/standard/69725.html"
+          ]
+        },
+        "MSSDL": {
+          "text": "MSSDL",
+          "description": "Microsoft's practices for building security into software development.",
+          "title": "Microsoft Security Development Lifecycle (2021)",
+          "see_also": [
+            "https://www.microsoft.com/en-us/securityengineering/sdl/"
+          ]
+        },
+        "NISTCSF": {
+          "text": "NISTCSF",
+          "description": "The NIST Cybersecurity Framework at version 1.1, which SP 800-218 maps to by subcategory.",
+          "title": "Framework for Improving Critical Infrastructure Cybersecurity, version 1.1 (2018)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.CSWP.04162018"
+          ]
+        },
+        "NISTLABEL": {
+          "text": "NISTLABEL",
+          "description": "NIST's criteria for a cybersecurity label on consumer software.",
+          "title": "Recommended Criteria for Cybersecurity Labeling of Consumer Software (2022)",
+          "see_also": [
+            "https://www.nist.gov/itl/executive-order-improving-nations-cybersecurity"
+          ]
+        },
+        "NTIASBOM": {
+          "text": "NTIASBOM",
+          "description": "The National Telecommunications and Information Administration's minimum elements of a software bill of materials.",
+          "title": "The Minimum Elements For a Software Bill of Materials (2021)",
+          "see_also": [
+            "https://www.ntia.doc.gov/report/2021/minimum-elements-software-bill-materials-sbom"
+          ]
+        },
+        "OWASPASVS": {
+          "text": "OWASPASVS",
+          "description": "The Open Web Application Security Project's verification standard for applications.",
+          "title": "OWASP Application Security Verification Standard 4.0.3 (2021)",
+          "see_also": [
+            "https://github.com/OWASP/ASVS"
+          ]
+        },
+        "OWASPMASVS": {
+          "text": "OWASPMASVS",
+          "description": "The Open Web Application Security Project's verification standard for mobile applications.",
+          "title": "OWASP Mobile Application Security Verification Standard, version 1.4.2 (2021)",
+          "see_also": [
+            "https://github.com/OWASP/owasp-masvs/releases"
+          ]
+        },
+        "OWASPSAMM": {
+          "text": "OWASPSAMM",
+          "description": "The Open Web Application Security Project's software assurance maturity model.",
+          "title": "Software Assurance Maturity Model, version 1.5 (2017)",
+          "see_also": [
+            "https://www.owasp.org/index.php/OWASP_SAMM_Project"
+          ]
+        },
+        "OWASPSCVS": {
+          "text": "OWASPSCVS",
+          "description": "The Open Web Application Security Project's verification standard for software components.",
+          "title": "OWASP Software Component Verification Standard, version 1.0 (2020)",
+          "see_also": [
+            "https://github.com/OWASP/Software-Component-Verification-Standard"
+          ]
+        },
+        "PCISSLC": {
+          "text": "PCISSLC",
+          "description": "The Payment Card Industry Security Standards Council's requirements for a secure software lifecycle.",
+          "title": "Secure Software Lifecycle (Secure SLC) Requirements and Assessment Procedures, version 1.1 (2021)",
+          "see_also": [
+            "https://www.pcisecuritystandards.org/document_library?category=sware_sec#results"
+          ]
+        },
+        "SCAGILE": {
+          "text": "SCAGILE",
+          "description": "SAFECode's security stories and tasks for agile teams.",
+          "title": "Practical Security Stories and Security Tasks for Agile Development Environments (2012)",
+          "see_also": [
+            "http://www.safecode.org/publication/SAFECode_Agile_Dev_Security0712.pdf"
+          ]
+        },
+        "SCFPSSD": {
+          "text": "SCFPSSD",
+          "description": "SAFECode's essential elements of a secure development lifecycle program.",
+          "title": "Fundamental Practices for Secure Software Development, third edition (2018)",
+          "see_also": [
+            "https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf"
+          ]
+        },
+        "SCSIC": {
+          "text": "SCSIC",
+          "description": "SAFECode's controls for software integrity in the supply chain.",
+          "title": "Software Integrity Controls: An Assurance-Based Approach to Minimizing Risks in the Software Supply Chain (2010)",
+          "see_also": [
+            "http://www.safecode.org/publication/SAFECode_Software_Integrity_Controls0610.pdf"
+          ]
+        },
+        "SCTPC": {
+          "text": "SCTPC",
+          "description": "SAFECode's guidance on the security risks of third-party components.",
+          "title": "Managing Security Risks Inherent in the Use of Third-Party Components (2017)",
+          "see_also": [
+            "https://www.safecode.org/wp-content/uploads/2017/05/SAFECode_TPC_Whitepaper.pdf"
+          ]
+        },
+        "SCTTM": {
+          "text": "SCTTM",
+          "description": "SAFECode's guidance on threat modeling during development.",
+          "title": "Tactical Threat Modeling (2017)",
+          "see_also": [
+            "https://www.safecode.org/wp-content/uploads/2017/05/SAFECode_TM_Whitepaper.pdf"
+          ]
+        },
+        "SP800160": {
+          "text": "SP800160",
+          "description": "NIST's considerations for engineering trustworthy secure systems.",
+          "title": "NIST SP 800-160 Volume 1, Systems Security Engineering (2016, updated 2018)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-160v1"
+          ]
+        },
+        "SP800161": {
+          "text": "SP800161",
+          "description": "NIST's supply chain risk management practices, at the draft SP 800-218 cites.",
+          "title": "NIST SP 800-161 Rev. 1 second draft, Cybersecurity Supply Chain Risk Management Practices (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-161r1-draft2"
+          ]
+        },
+        "SP800181": {
+          "text": "SP800181",
+          "description": "The workforce framework whose tasks, knowledge, skills and abilities SP 800-218 maps to.",
+          "title": "NIST SP 800-181, NICE Cybersecurity Workforce Framework (2017)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-181"
+          ]
+        },
+        "SP800216": {
+          "text": "SP800216",
+          "description": "NIST's recommendations for federal vulnerability disclosure, at the draft SP 800-218 cites.",
+          "title": "NIST SP 800-216 draft, Recommendations for Federal Vulnerability Disclosure Guidelines (2021)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-216-draft"
+          ]
+        },
+        "SP80053": {
+          "text": "SP80053",
+          "description": "NIST's catalog of security and privacy controls, which SP 800-218 maps to by control.",
+          "title": "NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations (2020)",
+          "see_also": [
+            "https://doi.org/10.6028/NIST.SP.800-53r5"
+          ]
+        }
+      }
+    }
+  },
+  "slots": {
+    "title": {
+      "name": "title",
+      "description": "The name SP 800-218 gives the practice group or practice.",
+      "comments": [
+        "It means what LOKF's title means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one title key."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "slot_uri": "schema:name",
+      "domain_of": [
+        "SsdfPracticeGroup",
+        "SsdfPractice"
+      ]
+    },
+    "description": {
+      "name": "description",
+      "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+      "comments": [
+        "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
+      ],
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "slot_uri": "schema:description",
+      "domain_of": [
+        "SsdfPracticeGroup",
+        "SsdfPractice",
+        "SsdfTask",
+        "SsdfImplementationExample"
+      ]
+    }
+  },
+  "classes": {
+    "SsdfFramework": {
+      "name": "SsdfFramework",
+      "description": "One version of the SSDF as a whole: its practice groups, each holding its practices and their tasks.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/pubs/sp/800/218/final"
+      ],
+      "attributes": {
+        "ssdf_version": {
+          "name": "ssdf_version",
+          "description": "The SSDF version, as NIST numbers it in the publication's title, such as 1.1.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfFramework",
+          "domain_of": [
+            "SsdfFramework"
+          ],
+          "range": "string",
+          "required": true,
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "practice_groups": {
+          "name": "practice_groups",
+          "description": "The practice groups, in the order SP 800-218 gives them.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfFramework",
+          "domain_of": [
+            "SsdfFramework"
+          ],
+          "range": "SsdfPracticeGroup",
+          "required": true,
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true
+        }
+      },
+      "class_uri": "nist_sp_800_218:Framework",
+      "tree_root": true
+    },
+    "SsdfPracticeGroup": {
+      "name": "SsdfPracticeGroup",
+      "description": "One of the four groups SP 800-218 sorts its practices into: preparing the organization, protecting the software, producing well-secured software, and responding to vulnerabilities.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "broad_mappings": [
+        "oscal:Group"
+      ],
+      "slots": [
+        "title",
+        "description"
+      ],
+      "attributes": {
+        "group_id": {
+          "name": "group_id",
+          "description": "The group's two letters, such as PO for Prepare the Organization.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfPracticeGroup",
+          "domain_of": [
+            "SsdfPracticeGroup"
+          ],
+          "range": "ssdf_group_identifier",
+          "required": true
+        },
+        "group_practices": {
+          "name": "group_practices",
+          "description": "The practices of the group. A knowledge bundle relates a practice to its group with isPartOf instead.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfPracticeGroup",
+          "domain_of": [
+            "SsdfPracticeGroup"
+          ],
+          "range": "SsdfPractice",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true
+        },
+        "title": {
+          "name": "title",
+          "description": "The name SP 800-218 gives the practice group or practice.",
+          "comments": [
+            "It means what LOKF's title means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one title key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:name",
+          "owner": "SsdfPracticeGroup",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice"
+          ],
+          "range": "string"
+        },
+        "description": {
+          "name": "description",
+          "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+          "comments": [
+            "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:description",
+          "owner": "SsdfPracticeGroup",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice",
+            "SsdfTask",
+            "SsdfImplementationExample"
+          ],
+          "range": "string"
+        }
+      },
+      "class_uri": "nist_sp_800_218:PracticeGroup"
+    },
+    "SsdfPractice": {
+      "name": "SsdfPractice",
+      "description": "A secure software development practice: a named outcome with an identifier, a short explanation of what it is and why it helps, and the tasks that may be needed to achieve it.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "broad_mappings": [
+        "oscal:Control"
+      ],
+      "slots": [
+        "title",
+        "description"
+      ],
+      "attributes": {
+        "practice_id": {
+          "name": "practice_id",
+          "description": "The practice's identifier, such as PO.1.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfPractice",
+          "domain_of": [
+            "SsdfPractice"
+          ],
+          "range": "ssdf_practice_identifier",
+          "required": true
+        },
+        "practice_tasks": {
+          "name": "practice_tasks",
+          "description": "The tasks of the practice. A knowledge bundle relates a task to its practice with isPartOf instead.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfPractice",
+          "domain_of": [
+            "SsdfPractice"
+          ],
+          "range": "SsdfTask",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true
+        },
+        "title": {
+          "name": "title",
+          "description": "The name SP 800-218 gives the practice group or practice.",
+          "comments": [
+            "It means what LOKF's title means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one title key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:name",
+          "owner": "SsdfPractice",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice"
+          ],
+          "range": "string"
+        },
+        "description": {
+          "name": "description",
+          "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+          "comments": [
+            "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:description",
+          "owner": "SsdfPractice",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice",
+            "SsdfTask",
+            "SsdfImplementationExample"
+          ],
+          "range": "string"
+        }
+      },
+      "class_uri": "nist_sp_800_218:Practice"
+    },
+    "SsdfTask": {
+      "name": "SsdfTask",
+      "description": "An action that may be needed to perform a practice, with notional examples of how it could be implemented and references to the documents whose practices it maps to.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "broad_mappings": [
+        "oscal:Control"
+      ],
+      "slots": [
+        "description"
+      ],
+      "attributes": {
+        "task_id": {
+          "name": "task_id",
+          "description": "The task's identifier, such as PO.1.1.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfTask",
+          "domain_of": [
+            "SsdfTask"
+          ],
+          "range": "ssdf_task_identifier",
+          "required": true
+        },
+        "former_task_ids": {
+          "name": "former_task_ids",
+          "description": "The identifiers the task had in an earlier SSDF version, which SP 800-218 notes beside the task after moving it, such as PW.3.1 for PO.1.3.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfTask",
+          "domain_of": [
+            "SsdfTask"
+          ],
+          "range": "ssdf_task_identifier",
+          "multivalued": true
+        },
+        "implementation_examples": {
+          "name": "implementation_examples",
+          "description": "Notional examples of tools, processes or other methods that could help implement the task. SP 800-218 requires none of them and does not claim they are the only ways.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfTask",
+          "domain_of": [
+            "SsdfTask"
+          ],
+          "range": "SsdfImplementationExample",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true
+        },
+        "task_references": {
+          "name": "task_references",
+          "description": "The established secure development documents the task maps to, each with the parts of the document it maps to.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfTask",
+          "domain_of": [
+            "SsdfTask"
+          ],
+          "range": "SsdfReference",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true
+        },
+        "description": {
+          "name": "description",
+          "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+          "comments": [
+            "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:description",
+          "owner": "SsdfTask",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice",
+            "SsdfTask",
+            "SsdfImplementationExample"
+          ],
+          "range": "string"
+        }
+      },
+      "class_uri": "nist_sp_800_218:Task"
+    },
+    "SsdfImplementationExample": {
+      "name": "SsdfImplementationExample",
+      "description": "A notional implementation example: one type of tool, process or other method that could help implement a task.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "broad_mappings": [
+        "oscal:Part"
+      ],
+      "slots": [
+        "description"
+      ],
+      "slot_usage": {
+        "description": {
+          "name": "description",
+          "required": true
+        }
+      },
+      "attributes": {
+        "example_id": {
+          "name": "example_id",
+          "description": "The example's identifier in NIST's reference data, such as PO.1.1.1 for the first example of task PO.1.1.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfImplementationExample",
+          "domain_of": [
+            "SsdfImplementationExample"
+          ],
+          "range": "ssdf_example_identifier",
+          "required": true
+        },
+        "description": {
+          "name": "description",
+          "description": "What the practice group, practice, task or example says, in the words of whoever records it.",
+          "comments": [
+            "It means what LOKF's description means and carries the same IRI, so lokf adapt folds it into LOKF's slot and a knowledge bundle reads one description key."
+          ],
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "slot_uri": "schema:description",
+          "owner": "SsdfImplementationExample",
+          "domain_of": [
+            "SsdfPracticeGroup",
+            "SsdfPractice",
+            "SsdfTask",
+            "SsdfImplementationExample"
+          ],
+          "range": "string",
+          "required": true
+        }
+      },
+      "class_uri": "nist_sp_800_218:ImplementationExample"
+    },
+    "SsdfReference": {
+      "name": "SsdfReference",
+      "description": "A pointer from a task to an established secure development document, and to the parts of that document the task maps to.",
+      "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+      "see_also": [
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      "broad_mappings": [
+        "oscal:Link"
+      ],
+      "attributes": {
+        "reference_document": {
+          "name": "reference_document",
+          "description": "The document the task maps to, by the label SP 800-218 gives it.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfReference",
+          "domain_of": [
+            "SsdfReference"
+          ],
+          "range": "SsdfReferenceDocument",
+          "required": true
+        },
+        "mapped_items": {
+          "name": "mapped_items",
+          "description": "The parts of the document the task maps to, as SP 800-218 lists them, such as the clause, control or activity identifiers SM.3, DE.1.",
+          "from_schema": "https://w3id.org/lmodel/nist-sp-800-218",
+          "owner": "SsdfReference",
+          "domain_of": [
+            "SsdfReference"
+          ],
+          "range": "string",
+          "required": true,
+          "pattern": "^\\s*\\S"
+        }
+      },
+      "class_uri": "nist_sp_800_218:Reference"
+    }
+  },
+  "metamodel_version": "1.12.0",
+  "source_file": "src/nist_sp_800_218/schema/nist_sp_800_218.yaml",
+  "@type": "SchemaDefinition"
+}
