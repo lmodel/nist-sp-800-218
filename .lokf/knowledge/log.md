@@ -2,6 +2,7 @@
 
 ## 2026-11-15
 
+* **Changed**: The documentation site describes the Hugo build that replaced the Astro one, and the values and redirects `website/site.toml` holds.
 * **Changed**: The concepts that cite the knowledge website describe the Hugo site that replaced the Astro one, set by `website/site.toml`.
 
 ## 2026-11-06
